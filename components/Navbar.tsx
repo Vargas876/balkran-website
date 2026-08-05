@@ -1,0 +1,249 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { motion, AnimatePresence } from 'framer-motion';
+
+
+
+export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+      setScrolled(window.scrollY > 20);
+      setShowScrollTop(window.scrollY > 250);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const navLinks = [
+    { name: t('nav.inicio'), href: '/' },
+    { name: t('nav.productos'), href: '/productos' },
+    { name: t('nav.nosotros'), href: '/nosotros' },
+    { name: t('nav.contacto'), href: '/contacto' },
+  ];
+
+  const isActive = (path: string) => {
+    if (path === '/' && pathname === '/') return true;
+    if (path !== '/' && pathname.startsWith(path)) return true;
+    return false;
+  };
+
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/95 backdrop-blur-xl shadow-md shadow-black/8 border-b border-gray-200/60'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex items-center justify-between h-20">
+
+            {/* Logo */}
+            <Link href="/" className="flex items-center group">
+              <div
+                className={`relative w-44 h-11 transition-all duration-300 group-hover:scale-105 rounded-lg ${
+                  scrolled ? '' : 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'
+                }`}
+              >
+                <Image
+                  src={scrolled ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
+                  alt="BALKRAN Electric Fences"
+                  fill
+                  className="object-contain object-left transition-opacity duration-300"
+                  priority
+                />
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center space-x-10">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-display text-xs font-bold tracking-widest uppercase transition-colors hover:text-[#ff5a00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] focus-visible:ring-offset-2 rounded-sm ${
+                    isActive(link.href)
+                      ? 'text-[#ff5a00] font-extrabold border-b-2 border-[#ff5a00] pb-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
+                      : scrolled ? 'text-[#1a2130]' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Desktop CTA */}
+            <div className="hidden md:flex items-center">
+              <a
+                href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#ff5a00] hover:bg-[#e04f00] text-white font-display text-xs font-bold tracking-wider uppercase px-6 py-3 rounded-full shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center gap-2.5 hover:-translate-y-0.5"
+              >
+                <span>{t('nav.cta')}</span>
+                <svg className="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+              </a>
+            </div>
+
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`p-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] focus-visible:ring-offset-2 transition-colors ${scrolled ? 'text-[#1a2130]' : 'text-white'} hover:text-[#ff5a00]`}
+                aria-label="Toggle menu"
+                aria-expanded={mobileMenuOpen}
+              >
+                {mobileMenuOpen
+                  ? <X className="w-7 h-7 text-[#ff5a00]" />
+                  : <Menu className="w-7 h-7" />
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-drawer"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="md:hidden bg-white/97 backdrop-blur-xl border-b border-gray-200 px-4 pt-4 pb-6 space-y-4"
+            >
+              <div className="flex flex-col space-y-3 pt-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`font-display text-sm font-bold px-3 py-2 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] ${
+                      isActive(link.href)
+                        ? 'bg-[#ff5a00]/10 text-[#ff5a00]'
+                        : 'text-[#1a2130] hover:bg-gray-100'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <div className="pt-2">
+                  <a
+                    href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2.5 bg-[#ff5a00] hover:bg-[#e04f00] active:scale-95 text-white font-display text-xs font-bold tracking-wider uppercase py-3 rounded-full shadow-md shadow-[#ff5a00]/20 text-center transition-all"
+                  >
+                    <span>{t('nav.cta')}</span>
+                    <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* ⚡ Scroll-to-top circular widget — Balkran charging energy lightning bolt */}
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Volver al inicio"
+        title="Volver al inicio"
+        style={{
+          opacity: showScrollTop ? 1 : 0,
+          pointerEvents: showScrollTop ? 'auto' : 'none',
+          transform: showScrollTop ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.85)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+        }}
+        className="fixed bottom-20 right-6 z-50 group hover:scale-105 active:scale-95 transition-transform duration-200 focus:outline-none drop-shadow-2xl"
+      >
+        <div className="relative w-[72px] h-[72px] rounded-full bg-white flex items-center justify-center p-1 border border-gray-100 shadow-xl overflow-hidden">
+          <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+            <defs>
+              {/* Dynamic vertical linear gradient for electric yellow energy fill */}
+              <linearGradient id="balkranEnergyGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset={`${scrollProgress}%`} stopColor="#ffc700" />
+                <stop offset={`${scrollProgress}%`} stopColor="#cbd5e1" />
+              </linearGradient>
+            </defs>
+
+            {/* Background progress ring track */}
+            <circle
+              cx="50"
+              cy="50"
+              r="43"
+              fill="none"
+              stroke="#f1f5f9"
+              strokeWidth="4"
+            />
+
+            {/* Active circular progress ring (0-100%) in Electric Lightning Yellow */}
+            <circle
+              cx="50"
+              cy="50"
+              r="43"
+              fill="none"
+              stroke="#ffc700"
+              strokeWidth="5"
+              strokeDasharray="270.18"
+              strokeDashoffset={270.18 - (scrollProgress / 100) * 270.18}
+              strokeLinecap="round"
+              transform="rotate(-90 50 50)"
+              className="transition-all duration-150 ease-out"
+            />
+
+            {/* Top Chevron ^ (With comfortable padding away from circle ring) */}
+            <path
+              d="M38 31 L50 21 L62 31"
+              fill="none"
+              stroke="#ffc700"
+              strokeWidth="5.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* 3D Offset Shadow for Lightning Bolt */}
+            <path
+              d="M52 37 L36 56 H48 L44 78 L64 54 H52 L56 37 Z"
+              fill="#1a2130"
+              opacity="0.85"
+              transform="translate(1.5, 1.5)"
+            />
+
+            {/* Energy Charged Lightning Bolt */}
+            <path
+              d="M52 37 L36 56 H48 L44 78 L64 54 H52 L56 37 Z"
+              fill="url(#balkranEnergyGradient)"
+              stroke="#ffb800"
+              strokeWidth="0.5"
+              className="transition-all duration-150"
+            />
+          </svg>
+        </div>
+      </button>
+    </>
+  );
+}
