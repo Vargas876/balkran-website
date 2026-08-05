@@ -1318,19 +1318,19 @@ export default function ProductDetailClient({
                   {product.recomendado_para.map((a) => (
                     <span
                       key={a}
-                      className="inline-flex items-center gap-2 bg-white border border-gray-200 text-[#111111] text-xs font-bold px-2.5 py-1.5 rounded-full shadow-sm"
+                      className="inline-flex items-center gap-3 bg-white border border-gray-200/90 text-[#1a2130] text-sm font-bold px-4 py-2 rounded-full shadow-xs hover:border-[#ff5a00]/50 hover:shadow-md transition-all"
                     >
                       {animalIcon[a] && (
-                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#111111] shrink-0">
+                        <span className="flex items-center justify-center w-10 h-10 rounded-full bg-[#ff5a00] text-white shrink-0 shadow-xs">
                           <img
                             src={animalIcon[a]}
-                            alt=""
-                            className="w-[18px] h-[18px] object-contain"
+                            alt={a}
+                            className="w-6 h-6 object-contain brightness-0 invert"
                             loading="lazy"
                           />
                         </span>
                       )}
-                      {a}
+                      <span className="pr-1">{a}</span>
                     </span>
                   ))}
                 </div>

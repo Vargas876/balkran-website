@@ -417,7 +417,7 @@ export default function HomePage() {
       titleKey: 'home.testTitle1',
       locKey: 'home.testLoc1',
       descKey: 'home.testDesc1',
-      img: '/assets/images/historias-ganaderia-ecuador.webp'
+      img: '/assets/images/historias-balkran-solar.webp'
     },
     {
       badgeKey: 'home.testBadge2',
