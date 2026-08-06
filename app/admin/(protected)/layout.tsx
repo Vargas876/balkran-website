@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { auth } from '@/auth';
-import AdminSidebar from '@/components/admin/AdminSidebar';
+import AdminShell from '@/components/admin/AdminShell';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -25,12 +25,11 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0c10] text-white flex">
-      <AdminSidebar
-        userEmail={session.user.email ?? ''}
-        userRole={session.user.role}
-      />
-      <main className="flex-1 ml-64 max-md:ml-0 p-8 lg:p-10">{children}</main>
-    </div>
+    <AdminShell
+      userEmail={session.user.email ?? ''}
+      userRole={session.user.role}
+    >
+      {children}
+    </AdminShell>
   );
 }
