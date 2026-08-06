@@ -21,105 +21,115 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-[#0a0d14] font-sans flex flex-col justify-between overflow-x-hidden selection:bg-[#ff5a00] selection:text-white">
-      
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/login-bg.png"
+          src="/assets/images/BGLogin.png"
           alt="Balkran Login Background"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-right lg:object-center"
         />
-        {/* Soft Vignette Overlay for edge depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40 pointer-events-none" />
+        {/* Subtle contrast overlay for mobile screens */}
+        <div className="absolute inset-0 bg-black/20 lg:bg-transparent pointer-events-none" />
       </div>
 
-      {/* Top Floating Back Link (Subtle) */}
-      <div className="relative z-20 w-full max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 pt-5 flex items-center justify-between">
+      {/* Top Navbar / Back Link */}
+      <header className="relative z-10 w-full max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 pt-6 pb-2 flex items-center justify-between">
+        <Link href="/" className="group flex items-center gap-2">
+          <div className="relative w-36 sm:w-44 h-10 transition-transform group-hover:scale-105">
+            <Image
+              src="/assets/images/LogoBlanco.webp"
+              alt="BALKRAN"
+              fill
+              className="object-contain object-left"
+              priority
+            />
+          </div>
+        </Link>
+
         <Link
           href="/"
-          className="text-[11px] font-bold uppercase tracking-wider text-white/70 hover:text-[#ff5a00] bg-black/40 hover:bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 transition-all flex items-center gap-1.5"
+          className="text-xs font-bold uppercase tracking-wider text-white/80 hover:text-[#ff5a00] bg-black/40 hover:bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 transition-all flex items-center gap-1.5"
         >
-          <span>← Volver al sitio</span>
+          <span>← Volver al inicio</span>
         </Link>
-      </div>
+      </header>
 
       {/* Main Content: Left Branding + Center Card */}
-      <main className="relative z-10 flex-1 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-6 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-16">
+      <main className="relative z-10 flex-1 max-w-[1500px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12">
         
         {/* Left Column (Brand info on desktop) */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="hidden lg:flex flex-col justify-center max-w-md space-y-10 text-white my-auto"
+          className="hidden lg:flex flex-col justify-between max-w-lg space-y-10 text-white"
         >
           {/* Logo & Headline */}
-          <div className="space-y-5">
-            <div className="relative w-64 h-16">
+          <div className="space-y-4 pt-4">
+            <div className="relative w-56 h-14">
               <Image
                 src="/assets/images/LogoBlanco.webp"
                 alt="BALKRAN Tecnología e Innovación"
                 fill
                 className="object-contain object-left"
-                priority
               />
             </div>
             
-            <div className="pt-2 space-y-1">
+            <div className="pt-4 space-y-1">
               <h1 className="text-3xl font-extrabold text-white tracking-tight">
                 <span className="text-[#ff5a00]">Energía</span> que protege,
               </h1>
-              <h1 className="text-3xl font-extrabold text-white tracking-tight">
-                tecnología <span className="text-[#48bb78]">que conecta.</span>
+              <h1 className="text-3xl font-extrabold text-[#22c55e] tracking-tight">
+                tecnología que conecta.
               </h1>
             </div>
           </div>
 
           {/* Features Row */}
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-            <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-black/50 border border-[#ff5a00]/40 flex items-center justify-center text-[#ff5a00]">
+          <div className="grid grid-cols-3 gap-6 pt-8">
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
                 <Shield className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
-                <p className="text-[11px] text-gray-400">Confiable</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
+                <p className="text-xs text-gray-400">Confiable</p>
               </div>
             </div>
 
-            <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-black/50 border border-[#ff5a00]/40 flex items-center justify-center text-[#ff5a00]">
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
                 <Cpu className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
-                <p className="text-[11px] text-gray-400">Avanzada</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
+                <p className="text-xs text-gray-400">Avanzada</p>
               </div>
             </div>
 
-            <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-black/50 border border-[#ff5a00]/40 flex items-center justify-center text-[#ff5a00]">
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
                 <Leaf className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
-                <p className="text-[11px] text-gray-400">Sostenible</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
+                <p className="text-xs text-gray-400">Sostenible</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Center Form Card */}
+        {/* Center / Right Login Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full max-w-[410px] bg-[#121620]/90 backdrop-blur-2xl border border-white/15 rounded-[24px] p-7 sm:p-9 shadow-2xl shadow-black/90 my-auto"
+          className="w-full max-w-[440px] bg-[#121620]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-7 sm:p-9 shadow-2xl shadow-black/80"
         >
           {/* Card Logo & Title */}
-          <div className="text-center space-y-2 mb-6">
+          <div className="text-center space-y-3 mb-7">
             <div className="relative w-44 h-11 mx-auto">
               <Image
                 src="/assets/images/LogoBlanco.webp"
@@ -128,11 +138,11 @@ export default function LoginPage() {
                 className="object-contain"
               />
             </div>
-            <div className="pt-1">
+            <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                 Bienvenido de nuevo
               </h2>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Inicia sesión para continuar
               </p>
             </div>
@@ -144,7 +154,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-4 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-medium text-center"
+              className="mb-5 p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-medium text-center"
             >
               ✓ Solicitud enviada correctamente. Verificando credenciales...
             </motion.div>
@@ -153,7 +163,7 @@ export default function LoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Field */}
-            <div className="space-y-1.5 text-left">
+            <div className="space-y-1.5">
               <label className="block text-xs font-medium text-gray-300">
                 Correo electrónico
               </label>
@@ -165,13 +175,13 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Ingresa tu correo electrónico"
-                  className="w-full bg-[#090b10]/95 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-4 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
+                  className="w-full bg-[#090b10]/90 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-4 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
                 />
               </div>
             </div>
 
             {/* Password Field */}
-            <div className="space-y-1.5 text-left">
+            <div className="space-y-1.5">
               <label className="block text-xs font-medium text-gray-300">
                 Contraseña
               </label>
@@ -183,7 +193,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Ingresa tu contraseña"
-                  className="w-full bg-[#090b10]/95 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-10 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
+                  className="w-full bg-[#090b10]/90 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-10 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
                 />
                 <button
                   type="button"
@@ -227,9 +237,9 @@ export default function LoginPage() {
           </form>
 
           {/* Social Divider */}
-          <div className="relative flex items-center justify-center my-5">
+          <div className="relative flex items-center justify-center my-6">
             <div className="border-t border-white/10 w-full" />
-            <span className="bg-[#121620] px-3 text-[10px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
+            <span className="bg-[#121620] px-3 text-[11px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
               o continúa con
             </span>
             <div className="border-t border-white/10 w-full" />
@@ -241,7 +251,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => alert('Iniciar sesión con Google')}
-              className="bg-[#090b10]/95 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -256,7 +266,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => alert('Iniciar sesión con Microsoft')}
-              className="bg-[#090b10]/95 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 23 23">
                 <path fill="#f25022" d="M1 1h10v10H1z" />
@@ -271,7 +281,7 @@ export default function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full py-3 px-6 text-center text-[11px] text-gray-400/90">
+      <footer className="relative z-10 w-full py-4 px-6 text-center text-xs text-gray-400/90">
         <p>© 2024 BALKRAN. Todos los derechos reservados.</p>
       </footer>
     </div>
