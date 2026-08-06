@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DeleteProductButton from '@/components/admin/DeleteProductButton';
+import DuplicateProductButton from '@/components/admin/DuplicateProductButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -133,6 +134,7 @@ export default async function AdminProductosPage({
                     >
                       <Pencil size={16} />
                     </Link>
+                    <DuplicateProductButton productId={p.id} slug={p.slug} />
                     <DeleteProductButton productId={p.id} slug={p.slug} />
                   </div>
                 </td>

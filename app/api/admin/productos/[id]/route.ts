@@ -1,27 +1,10 @@
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { deleteImageFromR2 } from '@/lib/r2';
+import { productSchema } from '@/lib/productSchema';
 
 export const dynamic = 'force-dynamic';
-
-const productSchema = z.object({
-  nombre: z.string().min(1).max(200),
-  slug: z.string().min(1).max(150).regex(/^[a-z0-9-]+$/, 'Slug inválido'),
-  categoria: z.enum(['ENERGIZADORES', 'KITS_SOLARES', 'ACCESORIOS']),
-  linea: z.string().max(100).optional().default(''),
-  precio: z.string().max(50).optional().default(''),
-  precioNumerico: z.number().finite().nonnegative().max(1e12).optional().default(0),
-  alcance: z.string().max(100).optional().nullable(),
-  joules: z.string().max(100).optional().nullable(),
-  voltaje: z.string().max(100).optional().nullable(),
-  descripcion: z.string().max(5000).optional().nullable(),
-  imagen_local: z.string().max(500).optional().nullable(),
-  esMasVendido: z.boolean().optional().default(false),
-  esNuevo: z.boolean().optional().default(false),
-  esPopular: z.boolean().optional().default(false),
-});
 
 function canWrite(role: string | undefined) {
   return role === 'SUPER_ADMIN' || role === 'ADMIN';
@@ -71,14 +54,38 @@ export async function PUT(
       linea: data.linea,
       precio: data.precio || 'Consultar',
       precioNumerico: data.precioNumerico,
+      subtitulo: data.subtitulo ?? null,
+      descripcion: data.descripcion ?? null,
+      imagen_local: data.imagen_local || '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+      imagen_url_original: data.imagen_url_original ?? null,
       alcance: data.alcance ?? null,
       joules: data.joules ?? null,
       voltaje: data.voltaje ?? null,
-      descripcion: data.descripcion ?? null,
-      imagen_local: data.imagen_local || '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+      ideal_para: data.ideal_para ?? null,
+      alimentacion: data.alimentacion ?? null,
+      consumo: data.consumo ?? null,
+      cobertura: data.cobertura ?? null,
+      energia_salida: data.energia_salida ?? null,
+      voltaje_salida: data.voltaje_salida ?? null,
+      pulsos_minuto: data.pulsos_minuto ?? null,
+      varillas_tierra: data.varillas_tierra ?? null,
+      autonomia: data.autonomia ?? null,
+      peso: data.peso ?? null,
+      dimensiones: data.dimensiones ?? null,
+      material: data.material ?? null,
+      color: data.color ?? null,
+      presentacion: data.presentacion ?? null,
+      capacidad: data.capacidad ?? null,
+      longitud: data.longitud ?? null,
       esMasVendido: data.esMasVendido,
       esNuevo: data.esNuevo,
       esPopular: data.esPopular,
+      rating: data.rating,
+      valoraciones: data.valoraciones,
+      url: data.url ?? null,
+      caracteristicas: data.caracteristicas,
+      recomendado_para: data.recomendado_para,
+      imagenes: data.imagenes,
     },
   });
 
@@ -102,13 +109,16 @@ export async function DELETE(
 
   await prisma.product.delete({ where: { id } });
 
-  // Limpia la imagen en R2 si el producto la apuntaba (evita huérfanos).
+  // Limpia imágenes en R2 si el producto las apuntaba (evita huérfanos).
   try {
-    if (existing.imagen_local?.includes('r2.dev')) {
-      await deleteImageFromR2(existing.imagen_local);
+    const r2Urls = [existing.imagen_local, ...(existing.imagenes ?? [])].filter(
+      (u): u is string => !!u && u.includes('r2.dev')
+    );
+    for (const u of r2Urls) {
+      await deleteImageFromR2(u);
     }
   } catch (e) {
-    console.error('Error eliminando imagen en R2:', e);
+    console.error('Error eliminando imágenes en R2:', e);
   }
 
   return NextResponse.json({ success: true });

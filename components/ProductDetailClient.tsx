@@ -192,13 +192,16 @@ export default function ProductDetailClient({
   if (product.peso) techRows.push({ label: t('detail.tableWeight'), value: product.peso });
   techRows.push({ label: t('detail.tableWarranty'), value: t('detail.warranty3') });
 
-  // Gallery image list (Main product image + alternative closeups/box images)
-  const galleryImages = [
-    product.imagen_local,
-    '/assets/images/09P0SGmGDpn291FCF2VooQ3BRLE.webp',
-    '/assets/images/1qGLo1NIVhFclbgu6nVpbs9coG4.webp',
-    '/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp',
-  ];
+  // Gallery image list (Main product image + optional gallery from DB, else fixed closeups)
+  const galleryImages = (product.imagenes && product.imagenes.length > 0
+    ? [product.imagen_local, ...product.imagenes]
+    : [
+        product.imagen_local,
+        '/assets/images/09P0SGmGDpn291FCF2VooQ3BRLE.webp',
+        '/assets/images/1qGLo1NIVhFclbgu6nVpbs9coG4.webp',
+        '/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp',
+      ]
+  ).filter((src): src is string => !!src);
 
   const handleAddToCart = () => {
     setAddedToCart(true);

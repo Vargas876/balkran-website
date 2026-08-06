@@ -30,6 +30,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { fadeInUp, fadeIn, staggerContainer, cardReveal, viewport, withDelay } from '@/lib/animations';
 import { useLanguage } from '@/context/LanguageContext';
+import BannerSlider from '@/components/BannerSlider';
 
 function KitSolarParallaxImage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -527,6 +528,9 @@ export default function HomePage() {
           }),
         }}
       />
+
+      {/* BANNERS ADMINISTRABLES (solo aparece si hay banners activos) */}
+      <BannerSlider />
 
       {/* SECTION 1: HERO PROTECCIÓN CON ENERGÍA (Proportional Replica of Framer Official Design) */}
       <section className="relative min-h-[460px] lg:min-h-[520px] flex items-center pt-24 pb-10 lg:pt-28 lg:pb-12 overflow-hidden">

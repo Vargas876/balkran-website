@@ -10,13 +10,19 @@ import {
   LogOut,
   Users,
   Home,
+  Image as ImageIcon,
+  Settings,
+  Bot,
 } from 'lucide-react';
 
 const links = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/productos', label: 'Productos', icon: Package },
+  { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
   { href: '/admin/consultas', label: 'Consultas', icon: Inbox },
   { href: '/admin/usuarios', label: 'Usuarios', icon: Users },
+  { href: '/admin/knowledge', label: 'Volt IA', icon: Bot },
+  { href: '/admin/configuracion', label: 'Configuración', icon: Settings },
 ];
 
 export default function AdminSidebar({
