@@ -34,81 +34,15 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-black/20 backdrop-brightness-[0.98] pointer-events-none" />
       </div>
 
-      {/* Main Container: Left Branding + Right Login Card */}
-      <main className="relative z-10 flex-1 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 pt-24 pb-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 my-auto">
+      {/* Main Container: Centered Login Card */}
+      <main className="relative z-10 flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex items-center justify-center my-auto">
         
-        {/* Left Column: Balkran Logo, Slogan & Feature Icons (Desktop) */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="hidden lg:flex flex-col justify-center max-w-xl space-y-12 text-white"
-        >
-          {/* Logo & Slogan */}
-          <div className="space-y-6">
-            <div className="relative w-72 h-16">
-              <Image
-                src="/assets/images/LogoBlanco.webp"
-                alt="BALKRAN Tecnología e Innovación"
-                fill
-                className="object-contain object-left"
-                priority
-              />
-            </div>
-
-            <div className="space-y-1 font-sans text-2xl xl:text-3xl font-normal leading-relaxed tracking-tight">
-              <p>
-                <span className="text-[#ff5a00] font-semibold">Energía</span> que protege,
-              </p>
-              <p>
-                tecnología que <span className="text-[#22c55e] font-semibold">conecta.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* 3 Icons Row */}
-          <div className="grid grid-cols-3 gap-8 pt-4">
-            {/* Seguridad */}
-            <div className="flex flex-col items-start space-y-3">
-              <div className="text-[#ff5a00]">
-                <Shield className="w-9 h-9 stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-xs font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
-                <p className="text-xs text-gray-400 font-medium">Confiable</p>
-              </div>
-            </div>
-
-            {/* Tecnología */}
-            <div className="flex flex-col items-start space-y-3">
-              <div className="text-[#ff5a00]">
-                <Cpu className="w-9 h-9 stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-xs font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
-                <p className="text-xs text-gray-400 font-medium">Avanzada</p>
-              </div>
-            </div>
-
-            {/* Innovación */}
-            <div className="flex flex-col items-start space-y-3">
-              <div className="text-[#ff5a00]">
-                <Leaf className="w-9 h-9 stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-xs font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
-                <p className="text-xs text-gray-400 font-medium">Sostenible</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Right Column: Centered Login Form Card */}
+        {/* Centered Login Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full max-w-[440px] bg-[#121620]/92 backdrop-blur-2xl border border-white/15 rounded-3xl p-7 sm:p-9 shadow-2xl shadow-black/80"
+          className="w-full max-w-[440px] bg-[#121620]/92 backdrop-blur-2xl border border-white/15 rounded-3xl p-7 sm:p-9 shadow-2xl shadow-black/80 my-auto"
         >
           {/* Card Logo & Title */}
           <div className="text-center space-y-3 mb-7">
@@ -219,13 +153,13 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Social Divider */}
-          <div className="relative flex items-center justify-center my-6">
-            <div className="border-t border-white/10 w-full" />
-            <span className="bg-[#121620] px-3 text-[11px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
+          {/* Social Divider: Seamless flex lines without blocky background rectangle */}
+          <div className="flex items-center gap-3 my-6">
+            <div className="border-t border-white/10 flex-1" />
+            <span className="text-[11px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
               o continúa con
             </span>
-            <div className="border-t border-white/10 w-full" />
+            <div className="border-t border-white/10 flex-1" />
           </div>
 
           {/* Social Login Buttons */}
