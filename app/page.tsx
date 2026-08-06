@@ -35,7 +35,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
   switch (sector) {
     case 'Ganadería':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 0 0 C 0 2.485 2.015 4.5 4.5 4.5 L 9 4.5 C 11.485 4.5 13.5 2.485 13.5 0" transform="translate(5.25 2.25)" />
           <path d="M 3 6 C 1.343 6 0 4.657 0 3 L 0 3 C 0 1.343 1.343 0 3 0 L 12 0 C 13.657 0 15 1.343 13.657 6 12 6 Z" transform="translate(4.5 15)" />
           <path d="M 0 0 L 1.5 0" transform="translate(7.5 18)" />
@@ -49,7 +49,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       );
     case 'Equinos':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 4.5 0 C 4.5 2.485 2.485 4.5 0 4.5" transform="translate(12 11.25)" />
           <circle cx="11.625" cy="9.375" r="1.125" fill="currentColor" />
           <path d="M 4.5 15.75 C 6.134 17.212 8.305 18.045 10.682 18 C 15.508 17.906 19.432 13.957 19.499 9.13 C 19.534 6.721 18.601 4.398 16.91 2.682 C 15.218 0.966 12.91 0 10.5 0 L 9.75 0 L 9.75 3 L 0 9 L 1.293 11.063 C 1.795 11.759 2.65 12.109 3.497 11.964 C 5.135 11.683 8.003 11.248 10.5 12.746 L 10.5 12.746 L 7.137 17.374" transform="translate(1.5 3)" />
@@ -57,7 +57,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       );
     case 'Agricultura':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 0.988 9.512 C -2.005 4.523 1.985 -0.464 10.465 0.035 C 10.969 8.514 5.976 12.504 0.988 9.512 Z" transform="translate(12 4.5)" />
           <path d="M 6.794 6.794 C 8.932 3.232 6.082 -0.331 0.025 0.025 C -0.332 6.082 3.232 8.932 6.794 6.794 Z" transform="translate(1.5 8.25)" />
           <path d="M 0 0 L 6 6" transform="translate(5.25 12)" />
@@ -66,7 +66,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       );
     case 'Piscicultura':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="14.625" cy="7.125" r="1.125" fill="currentColor" />
           <path d="M 0 13.484 L 5.257 14.99 L 6.757 20.246 L 9.007 14.99 C 23.485 14.646 19.875 0.623 19.781 0.465 C 19.619 0.371 5.602 -3.234 5.25 11.237 Z" transform="translate(0.75 3.004)" />
           <path d="M 9.171 9.132 C 7.924 9.299 6.669 8.887 5.763 8.014 C 4.857 7.14 4.399 5.902 4.519 4.649 C 3.267 4.769 2.029 4.312 1.156 3.406 C 0.283 2.501 -0.13 1.247 0.036 0" transform="translate(8.25 6.582)" />
@@ -74,7 +74,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       );
     case 'Caprinos':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 7 9 C 4.5 6 3 3 5 2 C 7 1 8.5 3 9.5 6" stroke="currentColor" />
           <path d="M 17 9 C 19.5 6 21 3 19 2 C 17 1 15.5 3 14.5 6" stroke="currentColor" />
           <path d="M 6 10 C 3 10.5 2 12 3 13 C 4.5 14 7 12.5 8 11" stroke="currentColor" />
@@ -87,14 +87,14 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       );
     case 'Avicultura':
       return (
-        <svg className="w-4.5 h-4.5 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="15.375" cy="6.375" r="1.125" fill="currentColor" />
           <path d="M 8.25 7.08 L 8.25 4.959 C 8.25 2.261 10.407 0.013 13.101 0 C 15.33 -0.011 17.282 1.49 17.844 3.646 L 20.25 5.25 L 18 6.75 L 18 9 C 18 13.971 13.971 18 9 18 L 0.75 18 C 0.462 18 0.199 17.835 0.074 17.575 C -0.051 17.315 -0.016 17.006 0.165 16.781 Z" transform="translate(1.5 2.25)" />
           <path d="M 6.875 0 L 0 8.25" transform="translate(5.125 12)" />
         </svg>
       );
     default:
-      return <Zap className="w-4.5 h-4.5 text-[#ff5a00] shrink-0 stroke-[2]" />;
+      return <Zap className="w-4 h-4 text-[#ff5a00] shrink-0 stroke-[2]" />;
   }
 }
 
