@@ -78,9 +78,7 @@ export default async function AdminDashboardPage() {
         Resumen general de la tienda Balkran.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        <StatCards stats={stats} />
-      </div>
+      <StatCards stats={stats} />
 
       <DashboardCharts
         categoryData={categoryData}

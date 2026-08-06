@@ -30,7 +30,7 @@ export default async function AdminLayout({
         userEmail={session.user.email ?? ''}
         userRole={session.user.role}
       />
-      <main className="flex-1 ml-64 max-md:ml-0 p-8">{children}</main>
+      <main className="flex-1 ml-64 max-md:ml-0 p-8 lg:p-10">{children}</main>
     </div>
   );
 }
