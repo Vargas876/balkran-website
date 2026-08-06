@@ -69,6 +69,7 @@ export default function ProductDetailClient({
   // Interactive Zoom & Lightbox state for mobile/desktop
   const [zoomPos, setZoomPos] = useState<{ x: number; y: number } | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxZoom, setLightboxZoom] = useState<boolean>(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
@@ -502,14 +503,14 @@ export default function ProductDetailClient({
           {/* RIGHT: PRODUCT GALLERY (7 columns) */}
           <div className="lg:col-span-7 space-y-6 flex flex-col items-center">
             
-            {/* Main Image Stage - Floating direct product image with Mercado Libre Interactive Zoom & Mobile Touch */}
+            {/* Main Image Stage - Floating direct product image with Desktop Hover Zoom & Mobile Tap-to-Fullscreen */}
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              onTouchStart={handleTouchMove}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              onClick={() => setIsLightboxOpen(true)}
+              onClick={() => {
+                setLightboxZoom(false);
+                setIsLightboxOpen(true);
+              }}
               className="relative w-full h-[360px] sm:h-[480px] lg:h-[520px] flex items-center justify-center overflow-hidden cursor-zoom-in group select-none rounded-2xl bg-gray-50/50"
             >
               <div
@@ -532,7 +533,8 @@ export default function ProductDetailClient({
               {!zoomPos && (
                 <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-xs border border-gray-200 text-gray-700 text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 opacity-90 group-hover:opacity-100 transition-opacity">
                   <Search className="w-3.5 h-3.5 text-[#ff5a00]" />
-                  <span>{t('detail.zoomHint')}</span>
+                  <span className="hidden sm:inline">{t('detail.zoomHint')}</span>
+                  <span className="inline sm:hidden">{t('detail.zoomHintMobile')}</span>
                 </div>
               )}
             </div>
@@ -566,17 +568,22 @@ export default function ProductDetailClient({
                     </button>
                   </div>
 
-                  {/* Center Stage Image Viewer */}
+                  {/* Center Stage Image Viewer (With Tap to Zoom in Lightbox) */}
                   <div
                     className="relative flex-1 w-full max-h-[75vh] my-auto flex items-center justify-center overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="relative w-full h-full max-w-4xl max-h-full flex items-center justify-center">
+                    <div
+                      className="relative w-full h-full max-w-4xl max-h-full flex items-center justify-center cursor-pointer select-none"
+                      onClick={() => setLightboxZoom((prev) => !prev)}
+                    >
                       <Image
                         src={galleryImages[selectedImageIndex]}
                         alt={product.nombre}
                         fill
-                        className="object-contain"
+                        className={`object-contain transition-transform duration-300 ${
+                          lightboxZoom ? 'scale-150 cursor-zoom-out' : 'scale-100 cursor-zoom-in'
+                        }`}
                         priority
                       />
                     </div>
