@@ -111,6 +111,7 @@ model Product {
   rating           Float    @default(0)
   valoraciones     Int      @default(0)
   url              String?
+  video            String?
   caracteristicas  String[]
   recomendado_para String[]
   imagenes         String[]

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { productSchema } from '@/lib/productSchema';
@@ -71,11 +72,15 @@ export async function POST(request: Request) {
       rating: data.rating,
       valoraciones: data.valoraciones,
       url: data.url ?? null,
+      video: data.video ?? null,
       caracteristicas: data.caracteristicas,
       recomendado_para: data.recomendado_para,
       imagenes: data.imagenes,
     },
   });
+
+  revalidatePath('/productos');
+  revalidatePath(`/productos/${product.slug}`);
 
   return NextResponse.json({ product }, { status: 201 });
 }

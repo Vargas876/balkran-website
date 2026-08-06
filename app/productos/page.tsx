@@ -3,7 +3,7 @@ import ProductosListClient from '@/components/ProductosListClient';
 import { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Catálogo de Energizadores y Cercas Eléctricas',

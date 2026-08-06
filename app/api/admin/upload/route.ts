@@ -11,7 +11,7 @@ import { uploadToR2, isR2Configured } from '@/lib/r2';
 
 const execFileAsync = promisify(execFile);
 
-const ALLOWED_FOLDERS = ['productos', 'banners', 'generales'];
+const ALLOWED_FOLDERS = ['productos', 'banners', 'generales', 'videos'];
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
 const MAX_VIDEO_SIZE = 100 * 1024 * 1024;
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg', 'gif', 'avif'];
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
   const folder = String(formData.get('folder') || 'productos').trim();
   if (!ALLOWED_FOLDERS.includes(folder)) {
     return NextResponse.json(
-      { error: 'Carpeta no permitida. Usa: productos, banners o generales.' },
+      { error: 'Carpeta no permitida. Usa: productos, banners, generales o videos.' },
       { status: 400 }
     );
   }

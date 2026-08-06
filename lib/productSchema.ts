@@ -35,6 +35,7 @@ export const productSchema = z.object({
   rating: z.number().finite().min(0).max(5).optional().default(0),
   valoraciones: z.number().int().nonnegative().max(1e9).optional().default(0),
   url: z.string().max(500).optional().nullable(),
+  video: z.string().max(500).optional().nullable(),
   caracteristicas: z.array(z.string().max(200)).max(30).optional().default([]),
   recomendado_para: z.array(z.string().max(100)).max(30).optional().default([]),
   imagenes: z.array(z.string().max(500)).max(12).optional().default([]),

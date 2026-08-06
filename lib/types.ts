@@ -13,6 +13,7 @@ export interface Product {
   voltaje?: string;
   subtitulo?: string;
   url?: string;
+  video?: string;
   title?: string;
   imagenes?: string[];
   descripcion?: string;

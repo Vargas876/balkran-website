@@ -60,6 +60,7 @@ export default async function EditarProductoPage({
           rating: product.rating,
           valoraciones: product.valoraciones,
           url: product.url ?? undefined,
+          video: product.video ?? undefined,
           caracteristicas: product.caracteristicas,
           recomendado_para: product.recomendado_para,
           imagenes: product.imagenes,

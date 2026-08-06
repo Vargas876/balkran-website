@@ -4,7 +4,7 @@ import ProductDetailClient from '@/components/ProductDetailClient';
 import { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 interface ProductPageProps {
   params: Promise<{

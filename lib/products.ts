@@ -45,6 +45,7 @@ function toProduct(p: PrismaProduct): Product {
     capacidad: p.capacidad ?? undefined,
     longitud: p.longitud ?? undefined,
     url: p.url ?? undefined,
+    video: p.video ?? undefined,
     esMasVendido: p.esMasVendido,
     esPopular: p.esPopular,
     esNuevo: p.esNuevo,

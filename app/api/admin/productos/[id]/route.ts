@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { deleteImageFromR2 } from '@/lib/r2';
@@ -82,11 +83,16 @@ export async function PUT(
       rating: data.rating,
       valoraciones: data.valoraciones,
       url: data.url ?? null,
+      video: data.video ?? null,
       caracteristicas: data.caracteristicas,
       recomendado_para: data.recomendado_para,
       imagenes: data.imagenes,
     },
   });
+
+  revalidatePath('/productos');
+  revalidatePath(`/productos/${product.slug}`);
+  revalidatePath('/');
 
   return NextResponse.json({ product });
 }
@@ -107,6 +113,10 @@ export async function DELETE(
   }
 
   await prisma.product.delete({ where: { id } });
+
+  revalidatePath('/productos');
+  revalidatePath(`/productos/${existing.slug}`);
+  revalidatePath('/');
 
   // Limpia imágenes en R2 si el producto las apuntaba (evita huérfanos).
   try {

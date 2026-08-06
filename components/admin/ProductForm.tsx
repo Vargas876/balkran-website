@@ -14,6 +14,7 @@ import {
   Zap,
   CloudSun,
   Cable,
+  Video as VideoIcon,
 } from 'lucide-react';
 import type { ProductFormData } from '@/lib/productSchema';
 import { PRODUCT_PRESETS } from '@/lib/presets';
@@ -61,6 +62,7 @@ const EMPTY_FORM: FormState = {
   rating: 0,
   valoraciones: 0,
   url: '',
+  video: '',
   caracteristicas: [],
   recomendado_para: [],
   imagenes: [],
@@ -109,8 +111,9 @@ export default function ProductForm({
   const [tab, setTab] = useState<Tab>('basicos');
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [uploadingGallery, setUploadingGallery] = useState(false);
+const [uploading, setUploading] = useState(false);
+const [uploadingGallery, setUploadingGallery] = useState(false);
+const [uploadingVideo, setUploadingVideo] = useState(false);
   const [newChip, setNewChip] = useState({ caracteristicas: '', recomendado_para: '' });
   const [generatingDesc, setGeneratingDesc] = useState(false);
 
@@ -222,6 +225,22 @@ export default function ProductForm({
       setError(err instanceof Error ? err.message : 'Error subiendo la galería.');
     } finally {
       setUploadingGallery(false);
+      e.target.value = '';
+    }
+  }
+
+  async function handleUploadVideo(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingVideo(true);
+    setError(null);
+    try {
+      const url = await uploadToR2(file, 'videos');
+      set('video', url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error subiendo el video.');
+    } finally {
+      setUploadingVideo(false);
       e.target.value = '';
     }
   }
@@ -592,14 +611,59 @@ export default function ProductForm({
           </div>
 
           <div>
-            <label className={labelClass} htmlFor="url">Enlace externo (opcional)</label>
-            <input
-              id="url"
-              className={inputClass}
-              value={form.url}
-              onChange={(e) => set('url', e.target.value)}
-              placeholder="https://www.cercasbalkran.com/tienda/..."
-            />
+            <label className={labelClass}>Video del producto (opcional)</label>
+            <div className="flex items-start gap-3">
+              <div className="flex-1">
+                <input
+                  className={inputClass}
+                  value={form.video}
+                  onChange={(e) => set('video', e.target.value)}
+                  placeholder="URL del video (mp4) o sube uno"
+                />
+              </div>
+              <label
+                className={`shrink-0 flex items-center justify-center gap-2 border-2 border-dashed rounded-lg px-4 py-2.5 text-sm cursor-pointer transition-colors ${
+                  uploadingVideo
+                    ? 'border-white/30 bg-black/30'
+                    : 'border-white/15 hover:border-[#ff5a00]/60 hover:bg-black/30'
+                }`}
+              >
+                {uploadingVideo ? (
+                  <>
+                    <Loader2 className="w-4 h-4 text-[#ff5a00] animate-spin" />
+                    <span className="text-xs text-white/60">Subiendo…</span>
+                  </>
+                ) : (
+                  <>
+                    <VideoIcon className="w-4 h-4 text-white/50" />
+                    <span className="text-xs text-white/60">Subir video</span>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="video/mp4,video/webm,video/quicktime"
+                  className="hidden"
+                  onChange={handleUploadVideo}
+                />
+              </label>
+            </div>
+            {form.video ? (
+              <div className="mt-2 flex items-center gap-3">
+                <video
+                  src={form.video}
+                  controls
+                  className="w-40 h-24 bg-black/40 rounded-lg object-contain border border-white/10"
+                />
+                <button
+                  type="button"
+                  onClick={() => set('video', '')}
+                  className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  Quitar video
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       )}
@@ -800,17 +864,6 @@ export default function ProductForm({
                 Añadir
               </button>
             </div>
-          </div>
-
-          <div>
-            <label className={labelClass} htmlFor="url">URL original (Framer)</label>
-            <input
-              id="url"
-              className={inputClass}
-              value={form.url}
-              onChange={(e) => set('url', e.target.value)}
-              placeholder="https://balkrann.framer.website/productos/b500"
-            />
           </div>
         </div>
       )}

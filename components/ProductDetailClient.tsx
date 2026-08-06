@@ -690,13 +690,15 @@ export default function ProductDetailClient({
               ))}
 
               {/* Video Thumbnail Button */}
-              <button
-                type="button"
-                onClick={() => setIsVideoModalOpen(true)}
-                className="relative w-20 h-16 rounded-lg bg-[#111111] text-white flex flex-col items-center justify-center gap-1 hover:bg-[#ff5a00] transition-colors shadow-sm"
-              >
-                <Play className="w-5 h-5 fill-white text-white" />
-              </button>
+              {product.video && (
+                <button
+                  type="button"
+                  onClick={() => setIsVideoModalOpen(true)}
+                  className="relative w-20 h-16 rounded-lg bg-[#111111] text-white flex flex-col items-center justify-center gap-1 hover:bg-[#ff5a00] transition-colors shadow-sm"
+                >
+                  <Play className="w-5 h-5 fill-white text-white" />
+                </button>
+              )}
             </div>
 
           </div>
@@ -1849,9 +1851,19 @@ export default function ProductDetailClient({
               </button>
             </div>
             <div className="aspect-video w-full rounded-2xl bg-black overflow-hidden flex items-center justify-center relative">
-              <p className="text-xs text-gray-400 text-center px-4">
-                [{t('detail.videoDesc')} {product.nombre}]
-              </p>
+              {product.video ? (
+                <video
+                  src={product.video}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <p className="text-xs text-gray-400 text-center px-4">
+                  [{t('detail.videoDesc')} {product.nombre}]
+                </p>
+              )}
             </div>
           </div>
         </div>
