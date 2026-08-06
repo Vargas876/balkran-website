@@ -66,8 +66,9 @@ export default function ProductDetailClient({
     return () => clearInterval(timer);
   }, [relatedProducts.length]);
 
-  // Interactive Zoom state for Mercado Libre effect
+  // Interactive Zoom & Lightbox state for mobile/desktop
   const [zoomPos, setZoomPos] = useState<{ x: number; y: number } | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
@@ -77,6 +78,19 @@ export default function ProductDetailClient({
   };
 
   const handleMouseLeave = () => {
+    setZoomPos(null);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!e.touches || e.touches.length === 0) return;
+    const touch = e.touches[0];
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((touch.clientX - left) / width) * 100));
+    const y = Math.max(0, Math.min(100, ((touch.clientY - top) / height) * 100));
+    setZoomPos({ x, y });
+  };
+
+  const handleTouchEnd = () => {
     setZoomPos(null);
   };
 
@@ -488,11 +502,15 @@ export default function ProductDetailClient({
           {/* RIGHT: PRODUCT GALLERY (7 columns) */}
           <div className="lg:col-span-7 space-y-6 flex flex-col items-center">
             
-            {/* Main Image Stage - Floating direct product image with Mercado Libre Interactive Zoom */}
+            {/* Main Image Stage - Floating direct product image with Mercado Libre Interactive Zoom & Mobile Touch */}
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="relative w-full h-[400px] sm:h-[480px] lg:h-[520px] flex items-center justify-center overflow-hidden cursor-zoom-in group select-none rounded-2xl"
+              onTouchStart={handleTouchMove}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onClick={() => setIsLightboxOpen(true)}
+              className="relative w-full h-[360px] sm:h-[480px] lg:h-[520px] flex items-center justify-center overflow-hidden cursor-zoom-in group select-none rounded-2xl bg-gray-50/50"
             >
               <div
                 className="relative w-full h-full transition-transform duration-100 ease-out"
@@ -510,14 +528,115 @@ export default function ProductDetailClient({
                 />
               </div>
 
-              {/* Mercado Libre Lens Hint Badge when not zooming */}
+              {/* Zoom Hint Badge */}
               {!zoomPos && (
-                <div className="absolute bottom-3 right-3 bg-white/80 backdrop-blur-xs border border-gray-200 text-gray-600 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-xs pointer-events-none flex items-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                  <Search className="w-3 h-3 text-[#ff5a00]" />
+                <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-xs border border-gray-200 text-gray-700 text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 opacity-90 group-hover:opacity-100 transition-opacity">
+                  <Search className="w-3.5 h-3.5 text-[#ff5a00]" />
                   <span>{t('detail.zoomHint')}</span>
                 </div>
               )}
             </div>
+
+            {/* Full-Screen Mobile / Desktop Lightbox Modal */}
+            <AnimatePresence>
+              {isLightboxOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4 sm:p-6"
+                  onClick={() => setIsLightboxOpen(false)}
+                >
+                  {/* Top Bar with Product Info & Close Button */}
+                  <div className="flex items-center justify-between text-white z-10">
+                    <div className="space-y-0.5">
+                      <p className="text-xs text-[#ff5a00] font-bold uppercase tracking-wider">{product.linea}</p>
+                      <h3 className="text-base sm:text-lg font-bold">{product.nombre}</h3>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsLightboxOpen(false);
+                      }}
+                      className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                      aria-label="Cerrar vista ampliada"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  {/* Center Stage Image Viewer */}
+                  <div
+                    className="relative flex-1 w-full max-h-[75vh] my-auto flex items-center justify-center overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="relative w-full h-full max-w-4xl max-h-full flex items-center justify-center">
+                      <Image
+                        src={galleryImages[selectedImageIndex]}
+                        alt={product.nombre}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+
+                    {/* Prev / Next Controls */}
+                    {galleryImages.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+                          }}
+                          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+                          aria-label="Imagen anterior"
+                        >
+                          <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedImageIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+                          }}
+                          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+                          aria-label="Siguiente imagen"
+                        >
+                          <ChevronRight className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Bottom Thumbnails */}
+                  <div className="flex items-center justify-center gap-3 z-10 pt-2" onClick={(e) => e.stopPropagation()}>
+                    {galleryImages.map((imgSrc, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setSelectedImageIndex(idx)}
+                        className={`relative w-16 h-12 rounded-lg border-2 overflow-hidden bg-black/40 transition-all p-1 flex items-center justify-center ${
+                          selectedImageIndex === idx
+                            ? 'border-[#ff5a00] scale-105'
+                            : 'border-white/30 opacity-70 hover:opacity-100'
+                        }`}
+                      >
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={imgSrc}
+                            alt={`Miniatura ampliada ${idx + 1}`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Thumbnails Strip & Video Button */}
             <div className="flex items-center justify-center gap-3 pt-2">
