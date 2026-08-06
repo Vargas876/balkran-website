@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Zap, X, Send, Loader2, Bot } from 'lucide-react';
+import { X, Send, Loader2, Bot } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface ChatMsg {
@@ -48,6 +48,12 @@ const SUBTITLE: Record<string, string> = {
   fr: 'Assistant virtuel Balkran',
 };
 
+const BUBBLE: Record<string, string> = {
+  es: '¡Hola! Soy Volt, tu asistente. ¿Te ayudo?',
+  en: "Hi! I'm Volt, your assistant. Can I help?",
+  fr: 'Bonjour ! Je suis Volt, votre assistant. Je peux aider ?',
+};
+
 let sessionIdCache: string | null = null;
 
 function getSessionId(): string {
@@ -71,9 +77,21 @@ export default function VoltChatWidget() {
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showBubble, setShowBubble] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const langKey = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
+
+  useEffect(() => {
+    if (!open) {
+      const timer = setTimeout(() => setShowBubble(false), 4500);
+      const showTimer = setTimeout(() => setShowBubble(true), 10000);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(showTimer);
+      };
+    }
+  }, [open, showBubble]);
 
   useEffect(() => {
     if (open) {
@@ -144,10 +162,21 @@ export default function VoltChatWidget() {
             <X className="w-6 h-6" />
           </span>
         ) : (
-          <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[#ff5a00] text-white shadow-lg shadow-[#ff5a00]/30 hover:bg-[#e55200] hover:scale-105 transition-all">
-            <Zap className="w-6 h-6 fill-current" />
-            <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white" />
-          </span>
+          <>
+            {/* Burbuja de presentación */}
+            {showBubble && (
+              <span className="pointer-events-none absolute bottom-full left-0 mb-4 w-max max-w-[240px] bg-white text-gray-900 text-[13px] font-medium rounded-2xl rounded-bl-sm px-4 py-2.5 shadow-xl animate-volt-bubble">
+                {BUBBLE[langKey]}
+                <span className="absolute -bottom-1.5 left-6 w-3 h-3 bg-white rotate-45" />
+              </span>
+            )}
+            {/* Círculo con movimiento */}
+            <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#ff5a00] text-white shadow-lg shadow-[#ff5a00]/30 hover:bg-[#e55200] hover:scale-105 transition-all animate-volt-bounce">
+              <span className="absolute inset-0 rounded-full bg-[#ff5a00]/60 animate-volt-ring" />
+              <Bot className="w-7 h-7 relative z-10" />
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white z-10" />
+            </span>
+          </>
         )}
       </button>
 

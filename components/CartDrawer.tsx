@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { X, Trash2, ShoppingBag, Plus, Minus, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
+import { X, Trash2, ShoppingCart, Plus, Minus, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
 
@@ -95,7 +95,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-white">
               <div className="flex items-center gap-3">
                 <div className="relative p-2.5 bg-[#ff5a00]/10 border border-[#ff5a00]/20 rounded-xl text-[#ff5a00]">
-                  <ShoppingBag className="w-5 h-5" />
+                  <ShoppingCart className="w-5 h-5" />
                 </div>
                 <div>
                   <h2 className="text-base font-extrabold text-[#1a2130] tracking-tight flex items-center gap-2">
@@ -135,7 +135,7 @@ export default function CartDrawer() {
               /* Empty Cart State */
               <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-5 bg-slate-50/50">
                 <div className="w-20 h-20 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 shadow-sm">
-                  <ShoppingBag className="w-10 h-10 stroke-[1.2]" />
+                  <ShoppingCart className="w-10 h-10 stroke-[1.2]" />
                 </div>
                 <div className="space-y-1.5 max-w-xs">
                   <h3 className="text-lg font-bold text-[#1a2130]">Tu carrito está vacío</h3>
