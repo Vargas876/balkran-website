@@ -156,14 +156,34 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'El video supera los 100 MB.' }, { status: 400 });
       }
 
-      const { buffer: output, contentType } = await compressVideo(buffer);
-      const url = await uploadToR2(output, file.name, folder, 'mp4', contentType);
-      return NextResponse.json({
-        url,
-        optimized: true,
-        originalSize: file.size,
-        optimizedSize: output.length,
-      });
+      // Intenta comprimir con ffmpeg; si falla (p. ej. en entornos serverless
+      // sin ffmpeg disponible o por límite de tiempo), sube el original tal cual.
+      try {
+        const { buffer: output, contentType } = await compressVideo(buffer);
+        const url = await uploadToR2(output, file.name, folder, 'mp4', contentType);
+        return NextResponse.json({
+          url,
+          optimized: true,
+          originalSize: file.size,
+          optimizedSize: output.length,
+        });
+      } catch (ffmpegErr) {
+        console.error('ffmpeg no disponible o falló, subiendo video original:', (ffmpegErr as Error).message);
+        const safeVideoExt = /\.(mp4|webm|mov|m4v)$/i.test(file.name) ? 'mp4' : 'mp4';
+        const url = await uploadToR2(
+          buffer,
+          file.name,
+          folder,
+          'mp4',
+          ext === 'mov' || ext === 'm4v' ? 'video/mp4' : `video/${ext}`
+        );
+        return NextResponse.json({
+          url,
+          optimized: false,
+          originalSize: file.size,
+          optimizedSize: buffer.length,
+        });
+      }
     }
 
     return NextResponse.json({ error: 'Tipo de archivo no soportado' }, { status: 400 });
