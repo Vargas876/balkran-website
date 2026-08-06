@@ -2,21 +2,45 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, Cpu, Leaf } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { signIn } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setError(null);
+    setLoading(true);
+
+    const callbackUrl = searchParams.get('callbackUrl') ?? '/admin';
+
+    const res = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    setLoading(false);
+
+    if (res?.error) {
+      setError('Credenciales inválidas. Verifica tu correo y contraseña.');
+      return;
+    }
+
+    router.push(callbackUrl);
+    router.refresh();
   };
 
   return (
@@ -36,7 +60,7 @@ export default function LoginPage() {
 
       {/* Main Container: Centered Login Card + Absolutely Positioned Left Branding */}
       <main className="relative z-10 flex-1 w-full min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-10">
-        
+
         {/* Left Column: Balkran Logo, Slogan & Feature Icons (Floating on Desktop) */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -131,15 +155,15 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Alert Success Notification */}
-          {isSubmitted && (
+          {/* Alert Error Notification */}
+          {error && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-5 p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-medium text-center"
+              className="mb-5 p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-xs font-medium text-center"
             >
-              ✓ Solicitud enviada correctamente. Verificando credenciales...
+              {error}
             </motion.div>
           )}
 
@@ -212,14 +236,15 @@ export default function LoginPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-2 bg-[#ff5a00] hover:bg-[#e04f00] active:scale-[0.99] text-white font-display text-xs sm:text-sm font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center justify-center gap-2"
+              disabled={loading}
+              className="w-full mt-2 bg-[#ff5a00] hover:bg-[#e04f00] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-display text-xs sm:text-sm font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center justify-center gap-2"
             >
-              <span>INICIAR SESIÓN</span>
+              <span>{loading ? 'VERIFICANDO…' : 'INICIAR SESIÓN'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          {/* Social Divider: Seamless flex lines without blocky background rectangle */}
+          {/* Social Divider */}
           <div className="flex items-center gap-3 my-6">
             <div className="border-t border-white/10 flex-1" />
             <span className="text-[11px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
@@ -233,7 +258,7 @@ export default function LoginPage() {
             {/* Google Button */}
             <button
               type="button"
-              onClick={() => alert('Iniciar sesión con Google')}
+              onClick={() => alert('El acceso con Google se habilitará próximamente. Usa tu correo y contraseña.')}
               className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
@@ -248,14 +273,14 @@ export default function LoginPage() {
             {/* Microsoft Button */}
             <button
               type="button"
-              onClick={() => alert('Iniciar sesión con Microsoft')}
+              onClick={() => alert('El acceso con Microsoft se habilitará próximamente. Usa tu correo y contraseña.')}
               className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 23 23">
                 <path fill="#f25022" d="M1 1h10v10H1z" />
                 <path fill="#7fba00" d="M12 1h10v10H1z" />
                 <path fill="#00a4ef" d="M1 12h10v10H1z" />
-                <path fill="#ffb900" d="M12 12h10v10H12z" />
+                <path fill="#ffb900" d="M12 12h10v12H12z" />
               </svg>
               <span>Microsoft</span>
             </button>
@@ -268,5 +293,13 @@ export default function LoginPage() {
         <p>© 2024 BALKRAN. Todos los derechos reservados.</p>
       </footer>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginContent />
+    </Suspense>
   );
 }

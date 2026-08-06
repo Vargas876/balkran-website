@@ -36,6 +36,7 @@ import {
   Trash2,
   Home,
   Briefcase,
+  Ruler,
   Leaf,
 } from 'lucide-react';
 
@@ -1304,106 +1305,116 @@ export default function ProductDetailClient({
         {/* TAB CONTENT 1: RECOMMENDATIONS (real installation info from cercasbalkran.com) */}
         {activeTab === 'instalacion' && (
           <div className="bg-white border border-gray-200 rounded-3xl p-8 lg:p-12 shadow-xs">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              
-              {/* Left text recommendations */}
-              <div className="lg:col-span-6 space-y-6">
-                <div>
-                  <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-widest block">
-                    {t('detail.recBadge')}
-                  </span>
-                  <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#111111] leading-tight">
-                    {t('detail.recTitle')}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-gray-500 font-medium pt-2">
-                    {t('detail.recSub')}
-                  </p>
-                </div>
+            <div className="space-y-8">
+              {/* Header */}
+              <div className="border-b border-gray-100 pb-6">
+                <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-widest block">
+                  {t('detail.recBadge')}
+                </span>
+                <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#111111] leading-tight">
+                  {t('detail.recTitle')}
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-500 font-medium pt-2">
+                  {t('detail.recSub')}
+                </p>
+              </div>
 
-                {isEnergizador ? (
-                  <div className="space-y-5 text-xs sm:text-sm text-gray-600">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <Home className="w-4 h-4 text-[#ff5a00]" />
-                      </div>
-                      <div className="leading-relaxed">
-                        <p className="font-bold text-[#111111]">{t('detail.instMontajeTitle')}</p>
-                        <p className="pt-1">{t('detail.instMontajeDesc')}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <Zap className="w-4 h-4 text-[#ff5a00]" />
-                      </div>
-                      <div className="leading-relaxed">
-                        <p className="font-bold text-[#111111]">{t('detail.instTierraTitle')}</p>
-                        <p className="pt-1">{t('detail.instTierraDesc')}</p>
-                        {product.varillas_tierra && (
-                          <p className="pt-1">{t('detail.instTierraVarillas').replace('{n}', product.varillas_tierra)}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <AlertTriangle className="w-4 h-4 text-[#ff5a00]" />
-                      </div>
-                      <div className="leading-relaxed">
-                        <p className="font-bold text-[#111111]">{t('detail.instTierraVarsTitle')}</p>
-                        <ul className="pt-1 list-disc pl-4 space-y-1">
-                          {[1, 2, 3, 4, 5].map((n) => (
-                            <li key={n}>{t(`detail.instTierraVar${n}`)}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <Briefcase className="w-4 h-4 text-[#ff5a00]" />
-                      </div>
-                      <div className="leading-relaxed">
-                        <p className="font-bold text-[#111111]">{t('detail.instRequisitosTitle')}</p>
-                        <ul className="pt-1 list-disc pl-4 space-y-1">
-                          {[1, 2, 3, 4].map((n) => (
-                            <li key={n}>{t(`detail.instReq${n}`)}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-start gap-3 text-xs sm:text-sm text-gray-600">
+              {isEnergizador ? (
+                <div className="space-y-8 text-xs sm:text-sm text-gray-600">
+                  {/* Montaje */}
+                  <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
-                      <Wrench className="w-4 h-4 text-[#ff5a00]" />
+                      <Home className="w-4 h-4 text-[#ff5a00]" />
                     </div>
-                    <p className="leading-relaxed">{t('detail.accTabNote')}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Right technical installation diagram illustration */}
-              <div className="lg:col-span-6 flex items-center justify-center">
-                <div className="bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-6 shadow-xs w-full space-y-3">
-                  <div className="border-b border-gray-100 pb-3">
-                    <h4 className="font-display font-extrabold text-base sm:text-lg text-[#111111]">
-                      {t('detail.diagramTitle')}
-                    </h4>
+                    <div className="leading-relaxed text-justify">
+                      <p className="font-bold text-[#111111]">{t('detail.instMontajeTitle')}</p>
+                      <p className="pt-1">{t('detail.instMontajeDesc')}</p>
+                    </div>
                   </div>
 
-                  <div className="relative w-full h-[440px] sm:h-[500px] lg:h-[520px] rounded-xl overflow-hidden bg-white">
-                    <Image
-                      src="/assets/images/esquema_instalacion.webp"
-                      alt="Esquema técnico de instalación de cerca eléctrica Balkran"
-                      fill
-                      className="object-contain object-center"
-                      priority
-                    />
+                  {/* Instalación polo a tierra */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
+                      <Zap className="w-4 h-4 text-[#ff5a00]" />
+                    </div>
+                    <div className="leading-relaxed text-justify">
+                      <p className="font-bold text-[#111111]">{t('detail.instTierraTitle')}</p>
+                      <p className="pt-1">{t('detail.instTierraDesc')}</p>
+                      {product.varillas_tierra && (
+                        <p className="pt-1">{t('detail.instTierraVarillas').replace('{n}', product.varillas_tierra)}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Factores de una incorrecta instalación polo a tierra */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
+                      <AlertTriangle className="w-4 h-4 text-[#ff5a00]" />
+                    </div>
+                    <div className="leading-relaxed text-justify">
+                      <p className="font-bold text-[#111111]">{t('detail.instTierraVarsTitle')}</p>
+                      <ul className="pt-1 list-disc pl-4 space-y-1">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <li key={n}>{t(`detail.instTierraVar${n}`)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Distanciamiento de las cuerdas para la cerca eléctrica */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
+                      <Ruler className="w-4 h-4 text-[#ff5a00]" />
+                    </div>
+                    <div className="leading-relaxed text-justify w-full">
+                      <p className="font-bold text-[#111111]">{t('detail.instDistTitle')}</p>
+                      <p className="pt-1">{t('detail.instDistDesc')}</p>
+                      <div className="mt-4 rounded-2xl border border-gray-200/90 bg-white p-4 flex justify-center">
+                        <Image
+                          src="/assets/images/numeroLineas.webp"
+                          alt="Figura de conexión recomendada para el cercado eléctrico Balkran"
+                          width={886}
+                          height={467}
+                          className="w-full max-w-[480px] h-auto object-contain rounded-lg"
+                          priority
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Requisitos de instalación */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
+                      <Briefcase className="w-4 h-4 text-[#ff5a00]" />
+                    </div>
+                    <div className="leading-relaxed text-justify w-full">
+                      <p className="font-bold text-[#111111]">{t('detail.instRequisitosTitle')}</p>
+                      <ul className="pt-1 list-disc pl-4 space-y-1">
+                        {[1, 2, 3, 4].map((n) => (
+                          <li key={n}>{t(`detail.instReq${n}`)}</li>
+                        ))}
+                      </ul>
+                      <div className="mt-4 rounded-2xl border border-gray-200/90 bg-white p-4 flex justify-center">
+                        <Image
+                          src="/assets/images/tablaFichaTecnica.webp"
+                          alt="Tabla de distancia de separación mínima para cerca eléctrica Balkran"
+                          width={680}
+                          height={232}
+                          className="w-full max-w-[400px] h-auto object-contain rounded-lg"
+                          priority
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
+              ) : (
+                <div className="flex items-start gap-3 text-xs sm:text-sm text-gray-600">
+                  <div className="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center shrink-0 mt-0.5">
+                    <Wrench className="w-4 h-4 text-[#ff5a00]" />
+                  </div>
+                  <p className="leading-relaxed">{t('detail.accTabNote')}</p>
+                </div>
+              )}
             </div>
           </div>
         )}

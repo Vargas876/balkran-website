@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  CUSTOMER
+}
+
+enum ProductCategory {
+  ENERGIZADORES
+  KITS_SOLARES
+  ACCESORIOS
+}
+
+enum InquiryStatus {
+  NUEVO
+  VISTO
+  CONTACTADO
+  CERRADO
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  passwordHash String
+  role         Role      @default(CUSTOMER)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Product {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  nombre           String
+  linea            String
+  categoria        ProductCategory
+  precio           String
+  precioNumerico   Float
+  imagen_local     String
+  imagen_url_original String?
+  subtitulo        String?
+  alcance          String?
+  joules           String?
+  voltaje          String?
+  descripcion      String?
+  ideal_para       String?
+  alimentacion     String?
+  consumo          String?
+  cobertura        String?
+  energia_salida   String?
+  voltaje_salida   String?
+  pulsos_minuto    String?
+  varillas_tierra  String?
+  autonomia        String?
+  peso             String?
+  dimensiones      String?
+  material         String?
+  color            String?
+  presentacion     String?
+  capacidad        String?
+  longitud         String?
+  esMasVendido     Boolean  @default(false)
+  esPopular        Boolean  @default(false)
+  esNuevo          Boolean  @default(false)
+  rating           Float    @default(0)
+  valoraciones     Int      @default(0)
+  url              String?
+  caracteristicas  String[]
+  recomendado_para String[]
+  imagenes         String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Inquiry {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    InquiryStatus @default(NUEVO)
+  createdAt DateTime      @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}

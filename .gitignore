@@ -7,3 +7,11 @@ tsconfig.tsbuildinfo
 
 .vercel
 .env*
+
+/lib/generated/prisma
+
+# Prisma skills (herramientas locales del editor)
+/.agents/
+/.claude/
+/.windsurf/
+skills-lock.json
