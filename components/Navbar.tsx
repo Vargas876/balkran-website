@@ -137,18 +137,18 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="md:hidden bg-white/97 backdrop-blur-xl border-b border-gray-200 px-4 pt-4 pb-6 space-y-4"
+              className="md:hidden bg-[#141824]/96 backdrop-blur-2xl border-b border-white/10 px-5 pt-5 pb-7 space-y-4 shadow-2xl"
             >
-              <div className="flex flex-col space-y-3 pt-2">
+              <div className="flex flex-col space-y-2 pt-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-display text-sm font-bold px-3 py-2 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] ${
+                    className={`font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all ${
                       isActive(link.href)
-                        ? 'bg-[#ff5a00]/10 text-[#ff5a00]'
-                        : 'text-[#1a2130] hover:bg-gray-100'
+                        ? 'bg-[#ff5a00] text-white shadow-md shadow-[#ff5a00]/30'
+                        : 'text-white hover:text-[#ff5a00] hover:bg-white/10'
                     }`}
                   >
                     {link.name}
