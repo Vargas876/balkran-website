@@ -11,9 +11,19 @@ import {
   GripVertical,
   Sparkles,
   ChevronLeft,
+  Wand2,
+  Zap,
+  CloudSun,
+  Cable,
 } from 'lucide-react';
 import type { ProductFormData } from '@/lib/productSchema';
 import { PRODUCT_PRESETS } from '@/lib/presets';
+
+const PRESET_ICONS: Record<string, typeof Zap> = {
+  Zap,
+  CloudSun,
+  Cable,
+};
 
 type FormState = { [K in keyof ProductFormData]: Exclude<ProductFormData[K], null> };
 
@@ -104,6 +114,7 @@ export default function ProductForm({
   const [uploading, setUploading] = useState(false);
   const [uploadingGallery, setUploadingGallery] = useState(false);
   const [newChip, setNewChip] = useState({ caracteristicas: '', recomendado_para: '' });
+  const [generatingDesc, setGeneratingDesc] = useState(false);
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -131,6 +142,41 @@ export default function ProductForm({
     const value = e.target.value;
     set('precio', value);
     set('precioNumerico', precioToNumerico(value));
+  }
+
+  async function generateDescripcion() {
+    if (!form.nombre.trim()) {
+      setError('Ingresa al menos el nombre antes de generar la descripción.');
+      setTab('basicos');
+      return;
+    }
+    setGeneratingDesc(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/admin/productos/descripcion-ia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: form.nombre,
+          categoria: form.categoria,
+          linea: form.linea,
+          subtitulo: form.subtitulo,
+          alcance: form.alcance,
+          alimentacion: form.alimentacion,
+          ideal_para: form.ideal_para,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'No se pudo generar la descripción.');
+        return;
+      }
+      set('descripcion', data.descripcion);
+    } catch {
+      setError('Error de conexión al generar la descripción.');
+    } finally {
+      setGeneratingDesc(false);
+    }
   }
 
   async function uploadToR2(file: File, folder: string): Promise<string> {
@@ -260,22 +306,29 @@ export default function ProductForm({
             <span className="text-sm font-semibold">Plantilla de inicio</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {PRODUCT_PRESETS.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => applyPreset(p.id)}
-                className={`text-left border rounded-xl px-4 py-3 transition-colors ${
-                  form.categoria === p.data.categoria && !form.nombre
-                    ? 'border-[#ff5a00] bg-[#ff5a00]/10'
-                    : 'border-white/10 bg-black/20 hover:border-[#ff5a00]/50'
-                }`}
-              >
-                <div className="text-lg mb-1">{p.icono}</div>
-                <div className="text-sm font-semibold mb-0.5">{p.nombre}</div>
-                <div className="text-[11px] text-white/40 leading-snug">{p.descripcion}</div>
-              </button>
-            ))}
+            {PRODUCT_PRESETS.map((p) => {
+              const PresetIcon = PRESET_ICONS[p.icono] ?? Zap;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => applyPreset(p.id)}
+                  className={`text-left border rounded-xl px-4 py-3 transition-colors group ${
+                    form.categoria === p.data.categoria && !form.nombre
+                      ? 'border-[#ff5a00] bg-[#ff5a00]/10'
+                      : 'border-white/10 bg-black/20 hover:border-[#ff5a00]/50'
+                  }`}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-lg border bg-gradient-to-br flex items-center justify-center mb-2.5 ${p.gradiente} group-hover:scale-105 transition-transform`}
+                  >
+                    <PresetIcon className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="text-sm font-semibold mb-0.5">{p.nombre}</div>
+                  <div className="text-[11px] text-white/40 leading-snug">{p.descripcion}</div>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
@@ -373,7 +426,22 @@ export default function ProductForm({
             />
           </div>
           <div className="md:col-span-2">
-            <label className={labelClass} htmlFor="descripcion">Descripción</label>
+            <div className="flex items-center justify-between">
+              <label className={labelClass} htmlFor="descripcion">Descripción</label>
+              <button
+                type="button"
+                onClick={generateDescripcion}
+                disabled={generatingDesc}
+                className="mb-2 flex items-center gap-1.5 text-xs font-medium text-[#ff5a00] border border-[#ff5a00]/40 rounded-lg px-3 py-1.5 transition-colors hover:bg-[#ff5a00]/10 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {generatingDesc ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Wand2 className="w-3.5 h-3.5" />
+                )}
+                {generatingDesc ? 'Generando…' : 'Generar con IA'}
+              </button>
+            </div>
             <textarea
               id="descripcion"
               className={`${inputClass} min-h-[100px]`}
