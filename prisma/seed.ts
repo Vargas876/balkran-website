@@ -55,7 +55,6 @@ async function main() {
         precioNumerico: p.precioNumerico ?? 0,
         imagen_local:
           p.imagen_local ?? '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
-        imagen_url_original: p.imagen_url_original ?? null,
         subtitulo: p.subtitulo ?? null,
         alcance: p.alcance ?? null,
         joules: p.joules ?? null,

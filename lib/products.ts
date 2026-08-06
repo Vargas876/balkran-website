@@ -22,7 +22,6 @@ function toProduct(p: PrismaProduct): Product {
     precio: p.precio,
     precioNumerico: p.precioNumerico,
     imagen_local: p.imagen_local,
-    imagen_url_original: p.imagen_url_original ?? undefined,
     subtitulo: p.subtitulo ?? undefined,
     alcance: p.alcance ?? undefined,
     joules: p.joules ?? undefined,

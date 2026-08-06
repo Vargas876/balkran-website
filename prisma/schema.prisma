@@ -83,7 +83,6 @@ model Product {
   precio           String
   precioNumerico   Float
   imagen_local     String
-  imagen_url_original String?
   subtitulo        String?
   alcance          String?
   joules           String?

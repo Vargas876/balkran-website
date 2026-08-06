@@ -7,7 +7,6 @@ export interface Product {
   precio: string;
   precioNumerico: number;
   imagen_local: string;
-  imagen_url_original?: string;
   alcance?: string;
   joules?: string;
   voltaje?: string;

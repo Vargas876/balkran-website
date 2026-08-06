@@ -44,7 +44,6 @@ export async function POST(
       subtitulo: source.subtitulo,
       descripcion: source.descripcion,
       imagen_local: source.imagen_local,
-      imagen_url_original: source.imagen_url_original,
       alcance: source.alcance,
       joules: source.joules,
       voltaje: source.voltaje,
