@@ -4,11 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-
-
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -96,8 +94,21 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center">
+            {/* Desktop CTA & Login */}
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                href="/login"
+                className={`p-2.5 rounded-full transition-all flex items-center justify-center border ${
+                  scrolled || isLightHeaderPage
+                    ? 'bg-gray-100 text-[#1a2130] hover:bg-[#ff5a00] hover:text-white border-gray-200/80 shadow-sm'
+                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-[#ff5a00] hover:border-[#ff5a00] shadow-md'
+                }`}
+                title="Iniciar Sesión"
+                aria-label="Iniciar Sesión"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+
               <a
                 href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
                 target="_blank"
@@ -111,7 +122,23 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className="md:hidden flex items-center">
+            {/* Mobile Header Buttons */}
+            <div className="md:hidden flex items-center space-x-2">
+              <Link
+                href="/login"
+                className={`p-2.5 rounded-xl transition-all flex items-center justify-center border ${
+                  mobileMenuOpen
+                    ? 'bg-white/10 text-white border-white/20'
+                    : scrolled || isLightHeaderPage
+                    ? 'bg-gray-100 text-[#1a2130] border-gray-200/80 hover:bg-gray-200'
+                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-black/60 shadow-md'
+                }`}
+                title="Iniciar Sesión"
+                aria-label="Iniciar Sesión"
+              >
+                <User className="w-5 h-5 text-[#ff5a00]" />
+              </Link>
+
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`p-2.5 rounded-xl transition-all flex items-center justify-center ${
@@ -158,6 +185,16 @@ export default function Navbar() {
                     {link.name}
                   </Link>
                 ))}
+
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all text-[#ff5a00] bg-white/5 border border-white/10 hover:bg-white/10"
+                >
+                  <User className="w-4 h-4" />
+                  <span>INICIAR SESIÓN</span>
+                </Link>
+
                 <div className="pt-2">
                   <a
                     href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
