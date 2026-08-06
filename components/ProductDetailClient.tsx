@@ -1193,35 +1193,35 @@ export default function ProductDetailClient({
                       return (
                         <div
                           key={p.slug}
-                          className={`flex items-center justify-between p-3 rounded-2xl border transition-all ${
+                          className={`flex items-center justify-between gap-3 p-3 rounded-2xl border transition-all ${
                             isAlreadySelected
                               ? 'bg-gray-50 border-gray-200 opacity-60'
                               : 'bg-white border-gray-100 hover:border-orange-200 hover:shadow-xs'
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="relative w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 p-1 shrink-0">
+                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                            <div className="relative w-11 h-11 rounded-xl bg-gray-50 border border-gray-100 p-1 shrink-0">
                               <Image src={p.imagen_local} alt={p.nombre} fill className="object-contain" />
                             </div>
-                            <div>
-                              <h5 className="font-display font-bold text-xs text-[#111111]">{p.nombre}</h5>
-                              <p className="text-[11px] text-gray-500">
-                                {formatAlcance(p.alcance)} • {p.joules || '1.5J'} • {formatAlimentacion(p.alimentacion)}
+                            <div className="min-w-0 flex-1">
+                              <h5 className="font-display font-bold text-xs text-[#111111] truncate">{p.nombre}</h5>
+                              <p className="text-[11px] text-gray-500 truncate">
+                                {formatAlcance(p.alcance)} • {p.joules || '1.5J'}
                               </p>
                             </div>
                           </div>
 
                           {isAlreadySelected ? (
-                            <span className="text-[11px] font-bold text-gray-400 px-3 py-1 bg-gray-100 rounded-full">
+                            <span className="text-[11px] font-bold text-gray-400 px-3 py-1.5 bg-gray-100 rounded-full whitespace-nowrap shrink-0">
                               {t('detail.added')}
                             </span>
                           ) : (
                             <button
                               type="button"
                               onClick={() => handleAddCompare(p.slug)}
-                              className="bg-[#ff5a00] hover:bg-orange-600 text-white text-xs font-bold px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                              className="bg-[#ff5a00] hover:bg-orange-600 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs whitespace-nowrap shrink-0"
                             >
-                              <Plus className="w-3.5 h-3.5" />
+                              <Plus className="w-3.5 h-3.5 shrink-0" />
                               <span>{t('detail.add')}</span>
                             </button>
                           )}
