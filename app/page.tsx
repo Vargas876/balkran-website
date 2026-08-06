@@ -30,6 +30,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { fadeInUp, fadeIn, staggerContainer, cardReveal, viewport, withDelay } from '@/lib/animations';
 import { useLanguage } from '@/context/LanguageContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 import BannerSlider from '@/components/BannerSlider';
 
 function KitSolarParallaxImage() {
@@ -142,6 +143,8 @@ function RenderSectorIcon({ sector }: { sector: string }) {
 
 export default function HomePage() {
   const { t, language } = useLanguage();
+  const { get } = useSiteConfig();
+  const whatsapp = get('whatsapp');
   const [activeFaq, setActiveFaq] = useState<number>(0);
   const [activeAppTab, setActiveAppTab] = useState<number>(0);
 
@@ -591,7 +594,7 @@ export default function HomePage() {
                 </Link>
 
                 <a
-                  href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa"
+                  href={`https://wa.me/${whatsapp}?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex justify-center items-center gap-2 bg-black/40 hover:bg-black/60 border border-white/40 text-white font-display font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xl backdrop-blur-md transition-all active:scale-95 shadow-md"
@@ -1964,7 +1967,7 @@ export default function HomePage() {
 
             <div className="pt-2 space-y-2">
               <a
-                href="https://wa.me/573114508064?text=Hola%20Balkran,%20necesito%20una%20cotizaci%C3%B3n"
+                href={`https://wa.me/${whatsapp}?text=Hola%20Balkran,%20necesito%20una%20cotizaci%C3%B3n`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#ff5a00] hover:bg-orange-600 text-white font-display font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all"

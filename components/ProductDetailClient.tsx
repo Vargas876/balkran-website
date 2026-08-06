@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 import { formatLinea, formatCategoria, formatSubtitulo, formatNombreProducto, formatDescripcionProducto } from '@/lib/i18nHelpers';
 import {
   Zap,
@@ -52,8 +53,10 @@ export default function ProductDetailClient({
   relatedProducts,
   allProducts,
 }: ProductDetailClientProps) {
-  const { t, language } = useLanguage();
-  const { addItem } = useCart();
+const { t, language } = useLanguage();
+const { addItem } = useCart();
+const { get } = useSiteConfig();
+const whatsapp = get('whatsapp');
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -227,7 +230,7 @@ export default function ProductDetailClient({
       ? `Bonjour Balkran, je souhaite acheter ${quantity} unité(s) de ${product.nombre} (${formatLinea(product.linea, language)}) - ${product.precio}. Pouvez-vous me conseiller et établir un devis?`
       : `Hola Balkran, estoy interesado en comprar ${quantity} unidad(es) de ${product.nombre} (${product.linea}) - ${product.precio}. ¿Me pueden brindar asesoría y cotización?`;
   const whatsappMessage = encodeURIComponent(whatsappMsgText);
-  const whatsappUrl = `https://wa.me/573114508064?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/${whatsapp}?text=${whatsappMessage}`;
 
   // FAQs data
   const faqs = [

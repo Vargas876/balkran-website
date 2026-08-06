@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { X, Trash2, ShoppingCart, Plus, Minus, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 export default function CartDrawer() {
   const {
@@ -18,6 +19,8 @@ export default function CartDrawer() {
     totalItems,
     totalPrice,
   } = useCart();
+  const { get } = useSiteConfig();
+  const whatsapp = get('whatsapp');
 
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -61,7 +64,7 @@ export default function CartDrawer() {
     message += `¡Hola Balkran! Quisiera finalizar la compra de estos productos. Quedo atento a la disponibilidad y métodos de pago.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/573218524676?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${whatsapp}?text=${encodedMessage}`;
 
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
