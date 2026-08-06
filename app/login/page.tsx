@@ -34,9 +34,75 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-black/20 backdrop-brightness-[0.98] pointer-events-none" />
       </div>
 
-      {/* Main Container: Centered Login Card */}
-      <main className="relative z-10 flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex items-center justify-center my-auto">
+      {/* Main Container: Centered Login Card + Absolutely Positioned Left Branding */}
+      <main className="relative z-10 flex-1 w-full min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-10">
         
+        {/* Left Column: Balkran Logo, Slogan & Feature Icons (Floating on Desktop) */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute left-8 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 hidden lg:flex flex-col justify-center max-w-md xl:max-w-lg space-y-10 text-white pointer-events-none z-10"
+        >
+          {/* Logo & Slogan */}
+          <div className="space-y-5">
+            <div className="relative w-64 h-14">
+              <Image
+                src="/assets/images/LogoBlanco.webp"
+                alt="BALKRAN Tecnología e Innovación"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+
+            <div className="space-y-1 font-sans text-2xl xl:text-3xl font-normal leading-relaxed tracking-tight">
+              <p>
+                <span className="text-[#ff5a00] font-semibold">Energía</span> que protege,
+              </p>
+              <p>
+                tecnología que <span className="text-[#22c55e] font-semibold">conecta.</span>
+              </p>
+            </div>
+          </div>
+
+          {/* 3 Icons Row */}
+          <div className="grid grid-cols-3 gap-6 pt-2">
+            {/* Seguridad */}
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="text-[#ff5a00]">
+                <Shield className="w-8 h-8 stroke-[1.5]" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
+                <p className="text-[11px] text-gray-400 font-medium">Confiable</p>
+              </div>
+            </div>
+
+            {/* Tecnología */}
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="text-[#ff5a00]">
+                <Cpu className="w-8 h-8 stroke-[1.5]" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
+                <p className="text-[11px] text-gray-400 font-medium">Avanzada</p>
+              </div>
+            </div>
+
+            {/* Innovación */}
+            <div className="flex flex-col items-start space-y-2.5">
+              <div className="text-[#ff5a00]">
+                <Leaf className="w-8 h-8 stroke-[1.5]" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
+                <p className="text-[11px] text-gray-400 font-medium">Sostenible</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Centered Login Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
