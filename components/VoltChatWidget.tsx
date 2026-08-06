@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { X, Send, Loader2, Bot } from 'lucide-react';
+import { X, Send, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import VoltBotFace from '@/components/VoltBotFace';
 
 interface ChatMsg {
   role: 'user' | 'assistant';
@@ -171,9 +172,9 @@ export default function VoltChatWidget() {
               </span>
             )}
             {/* Círculo con movimiento */}
-            <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#ff5a00] text-white shadow-lg shadow-[#ff5a00]/30 hover:bg-[#e55200] hover:scale-105 transition-all animate-volt-bounce">
-              <span className="absolute inset-0 rounded-full bg-[#ff5a00]/60 animate-volt-ring" />
-              <Bot className="w-7 h-7 relative z-10" />
+            <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#111827] border border-orange-500/40 text-white shadow-xl shadow-[#ff5a00]/30 hover:scale-105 transition-all animate-volt-bounce p-1">
+              <span className="absolute inset-0 rounded-full bg-[#ff5a00]/20 animate-volt-ring" />
+              <VoltBotFace mood="happy" className="w-10 h-10 relative z-10" />
               <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white z-10" />
             </span>
           </>
@@ -185,8 +186,8 @@ export default function VoltChatWidget() {
         <div className="fixed bottom-24 left-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#ff5a00] to-[#ff7a1a]">
-            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-full bg-[#111827] border border-white/20 flex items-center justify-center p-0.5 shrink-0 shadow-inner">
+              <VoltBotFace mood={typing ? 'thinking' : 'idle'} className="w-8 h-8" />
             </div>
             <div className="flex-1">
               <p className="font-display font-bold text-white text-sm leading-none">Volt</p>
