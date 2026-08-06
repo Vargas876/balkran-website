@@ -1,12 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Red_Hat_Display, Red_Hat_Text } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
-import Preloader from '@/components/Preloader';
-import VoltChatWidget from '@/components/VoltChatWidget';
-import CartDrawer from '@/components/CartDrawer';
+import SiteChrome from '@/components/SiteChrome';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { CartProvider } from '@/context/CartContext';
 import { getSiteUrl } from '@/lib/site';
@@ -92,13 +87,8 @@ export default function RootLayout({
       <body className="bg-[#0b0c10] text-white min-h-screen flex flex-col antialiased selection:bg-[#ff5a00] selection:text-white">
         <LanguageProvider>
           <CartProvider>
-            <Preloader />
-            <Navbar />
+            <SiteChrome />
             <main className="flex-1">{children}</main>
-            <Footer />
-            <LanguageSwitcher />
-            <VoltChatWidget />
-            <CartDrawer />
           </CartProvider>
         </LanguageProvider>
       </body>
