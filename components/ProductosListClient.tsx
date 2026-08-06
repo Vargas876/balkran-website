@@ -11,10 +11,12 @@ import {
 } from 'lucide-react';
 import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { formatLinea, formatCategoria, formatSubtitulo } from '@/lib/i18nHelpers';
 
 export default function ProductosListClient({ initialProducts }: { initialProducts: Product[] }) {
   const { t, language } = useLanguage();
+  const { addItem } = useCart();
   const allProducts = useMemo(() => initialProducts, [initialProducts]);
 
   // Dynamic 4-Product Interactive Comparator State
@@ -901,9 +903,21 @@ export default function ProductosListClient({ initialProducts }: { initialProduc
                         </button>
                         <button
                           type="button"
-                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            addItem({
+                              id: product.id,
+                              slug: product.slug,
+                              nombre: product.nombre,
+                              linea: product.linea,
+                              precio: product.precio,
+                              precioNumerico: product.precioNumerico,
+                              imagen: product.imagen_local,
+                            });
+                          }}
                           title={t('productos.titleCart')}
-                          className="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a2130] hover:bg-[#ff5a00] text-white rounded-lg flex items-center justify-center transition-all shrink-0"
+                          className="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a2130] hover:bg-[#ff5a00] text-white rounded-lg flex items-center justify-center transition-all shrink-0 active:scale-95 shadow-xs"
                         >
                           <ShoppingCart className="w-3.5 h-3.5" />
                         </button>

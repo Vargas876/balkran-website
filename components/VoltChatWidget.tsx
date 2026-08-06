@@ -1,12 +1,52 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Zap, X, Send, Loader2, Bot, MessageCircle } from 'lucide-react';
+import { Zap, X, Send, Loader2, Bot } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ChatMsg {
   role: 'user' | 'assistant';
   content: string;
 }
+
+const WELCOME: Record<string, string> = {
+  es: '¡Hola! Soy **Volt**, el asistente virtual de Balkran. Te ayudo con información de energizadores, cercas eléctricas, precios, garantías y más. ¿En qué te puedo ayudar?',
+  en: 'Hello! I am **Volt**, the Balkran virtual assistant. I can help you with energizers, electric fences, prices, warranties and more. How can I help you?',
+  fr: 'Bonjour ! Je suis **Volt**, l\'assistant virtuel de Balkran. Je peux vous aider avec les électrificateurs, clôtures électriques, prix, garanties et plus. Comment puis-je vous aider ?',
+};
+
+const SUGGESTIONS: Record<string, string[]> = {
+  es: [
+    '¿Cuántos kilómetros de cerca puedo electrificar?',
+    '¿Cuál energizador me recomiendas para 50 km?',
+    '¿Tienen garantía?',
+    '¿Cuánto cuesta el B9000D?',
+  ],
+  en: [
+    'How many kilometers of fence can I energize?',
+    'Which energizer do you recommend for 50 km?',
+    'Do you offer a warranty?',
+    'How much does the B9000D cost?',
+  ],
+  fr: [
+    'Combien de kilomètres de clôture puis-je électrifier ?',
+    'Quel électrificateur recommandez-vous pour 50 km ?',
+    'Offrez-vous une garantie ?',
+    'Combien coûte le B9000D ?',
+  ],
+};
+
+const PLACEHOLDER: Record<string, string> = {
+  es: 'Escribe tu mensaje…',
+  en: 'Type your message…',
+  fr: 'Écrivez votre message…',
+};
+
+const SUBTITLE: Record<string, string> = {
+  es: 'Asistente virtual Balkran',
+  en: 'Balkran virtual assistant',
+  fr: 'Assistant virtuel Balkran',
+};
 
 let sessionIdCache: string | null = null;
 
@@ -24,14 +64,8 @@ function getSessionId(): string {
   return 'anon';
 }
 
-const SUGGESTIONS = [
-  '¿Cuántos kilómetros de cerca puedo electrificar?',
-  '¿Cuál energizador me recomiendas para 50 km?',
-  '¿Tienen garantía?',
-  '¿Cuánto cuesta el B9000D?',
-];
-
 export default function VoltChatWidget() {
+  const { language } = useLanguage();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState('');
@@ -39,6 +73,7 @@ export default function VoltChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const langKey = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
 
   useEffect(() => {
     if (open) {
@@ -47,13 +82,12 @@ export default function VoltChatWidget() {
         setMessages([
           {
             role: 'assistant',
-            content:
-              '¡Hola! 👋 Soy **Volt**, el asistente virtual de Balkran. Te ayudo con información de energizadores, cercas eléctricas, precios, garantías y más. ¿En qué te puedo ayudar?',
+            content: WELCOME[langKey],
           },
         ]);
       }
     }
-  }, [open, messages.length]);
+  }, [open]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +106,7 @@ export default function VoltChatWidget() {
       const res = await fetch('/api/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: content, sessionId: getSessionId() }),
+        body: JSON.stringify({ message: content, sessionId: getSessionId(), lang: langKey }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -103,7 +137,7 @@ export default function VoltChatWidget() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Cerrar chat' : 'Abrir chat Volt'}
-        className="fixed bottom-6 right-6 z-[90] group"
+        className="fixed bottom-6 left-6 z-[90] group"
       >
         {open ? (
           <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[#111] border border-white/20 text-white hover:bg-black shadow-xl transition-all">
@@ -119,7 +153,7 @@ export default function VoltChatWidget() {
 
       {/* Widget */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 left-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#ff5a00] to-[#ff7a1a]">
             <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
@@ -128,7 +162,7 @@ export default function VoltChatWidget() {
             <div className="flex-1">
               <p className="font-display font-bold text-white text-sm leading-none">Volt</p>
               <p className="text-white/80 text-[11px] mt-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block" /> Asistente virtual Balkran
+                <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block" /> {SUBTITLE[langKey]}
               </p>
             </div>
             <button
@@ -172,7 +206,7 @@ export default function VoltChatWidget() {
             {/* Sugerencias */}
             {messages.length <= 1 && !typing && (
               <div className="space-y-2 pt-1">
-                {SUGGESTIONS.map((s) => (
+                {SUGGESTIONS[langKey].map((s) => (
                   <button
                     key={s}
                     onClick={() => send(s)}
@@ -199,7 +233,7 @@ export default function VoltChatWidget() {
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Escribe tu mensaje…"
+                placeholder={PLACEHOLDER[langKey]}
                 className="flex-1 bg-black/40 border border-white/10 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-[#ff5a00] text-white placeholder-white/30"
               />
               <button

@@ -19,6 +19,7 @@ const GROQ_MODEL = loadEnvValue('GROQ_MODEL') ?? 'llama-3.3-70b-versatile';
 interface ChatBody {
   message: string;
   sessionId?: string;
+  lang?: string;
 }
 
 interface HistoryMsg {
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ChatBody;
     const message = typeof body.message === 'string' ? body.message.trim() : '';
+    const lang = (body.lang || 'es') === 'en' ? 'en' : (body.lang || 'es') === 'fr' ? 'fr' : 'es';
 
     if (!message) {
       return NextResponse.json({ error: 'Mensaje requerido.' }, { status: 400 });
@@ -61,7 +63,9 @@ export async function POST(request: Request) {
 
     const systemPrompt = `
 Eres VOLT, el asistente virtual oficial de Balkran (BALKRAN INC S.A.S. BIC), una empresa colombiana de cercas eléctricas y energizadores para el sector agropecuario.
-Tu tono es amigable, cercano y profesional. Respondes en el idioma del cliente (español por defecto). Sé conciso pero completo, usando emojis moderadamente para hacer la conversación natural.
+RESPONDE SIEMPRE EN EL IDIOMA DEL CLIENTE. El idioma actual del cliente es: ${lang === 'en' ? 'INGLÉS (English)' : lang === 'fr' ? 'FRANCÉS (Français)' : 'ESPAÑOL'}. Si no estás seguro, usa ese idioma indicado.
+Tu tono es amigable, cercano y profesional. Sé conciso pero completo, con un uso moderado de emojis relacionados con el tema (⚡🌾🐄). Evita emojis genéricos.
+Los nombres de productos y términos técnicos (energizador, impulsador, cerca eléctrica) puedes traducirlos: energizer, electric fence, etc.
 
 INFORMACIÓN DE LA EMPRESA:
 ${knowledge.company}
