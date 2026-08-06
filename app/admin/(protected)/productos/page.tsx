@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Plus, Pencil, Trash2, Eye } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DeleteProductButton from '@/components/admin/DeleteProductButton';
+import ProductSearchBar from '@/components/admin/ProductSearchBar';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,32 +59,7 @@ export default async function AdminProductosPage({
         </Link>
       </div>
 
-      <form method="GET" className="flex gap-3 mb-6">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="Buscar producto…"
-          className="flex-1 bg-[#14161d] border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#ff5a00]"
-        />
-        <select
-          name="categoria"
-          defaultValue={categoria ?? 'TODOS'}
-          className="bg-[#14161d] border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#ff5a00]"
-        >
-          <option value="TODOS">Todas las categorías</option>
-          {categorias.map((c: any) => (
-            <option key={c.categoria} value={c.categoria}>
-              {c.categoria} ({c._count})
-            </option>
-          ))}
-        </select>
-        <button
-          type="submit"
-          className="bg-white/10 hover:bg-white/20 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-        >
-          Filtrar
-        </button>
-      </form>
+      <ProductSearchBar categorias={categorias as any} />
 
       <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-hidden">
         <table className="w-full text-sm">
