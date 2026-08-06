@@ -156,7 +156,7 @@ export default function VoltChatWidget() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Cerrar chat' : 'Abrir chat Volt'}
-        className="fixed bottom-6 left-6 z-[90] group"
+        className="fixed bottom-3 left-4 sm:left-6 z-[90] group focus:outline-none"
       >
         {open ? (
           <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[#111] border border-white/20 text-white hover:bg-black shadow-xl transition-all">
@@ -166,15 +166,15 @@ export default function VoltChatWidget() {
           <>
             {/* Burbuja de presentación */}
             {showBubble && (
-              <span className="pointer-events-none absolute bottom-full left-0 mb-4 w-max max-w-[240px] bg-white text-gray-900 text-[13px] font-medium rounded-2xl rounded-bl-sm px-4 py-2.5 shadow-xl animate-volt-bubble">
+              <span className="pointer-events-none absolute bottom-full left-0 mb-3 w-max max-w-[240px] bg-white text-gray-900 text-[13px] font-medium rounded-2xl rounded-bl-sm px-4 py-2.5 shadow-2xl animate-volt-bubble border border-gray-100">
                 {BUBBLE[langKey]}
                 <span className="absolute -bottom-1.5 left-6 w-3 h-3 bg-white rotate-45" />
               </span>
             )}
-            {/* Robot 3D Flotante Sin Círculo Ni Fondo Oscuro */}
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95">
-              <VoltBotFace className="w-full h-full" isFloating={true} />
-              <span className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white z-20 shadow-md animate-pulse" />
+            {/* Robot 3D Flotante Grande Sin Círculo Ni Fondo Oscuro */}
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95">
+              <VoltBotFace className="w-full h-full drop-shadow-[0_12px_28px_rgba(255,90,0,0.6)]" isFloating={true} />
+              <span className="absolute top-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white z-20 shadow-md animate-pulse" />
             </div>
           </>
         )}
@@ -182,11 +182,11 @@ export default function VoltChatWidget() {
 
       {/* Widget */}
       {open && (
-        <div className="fixed bottom-28 left-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 left-4 sm:left-6 z-[90] w-[calc(100vw-2rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#ff5a00] to-[#ff7a1a]">
-            <div className="w-12 h-12 flex items-center justify-center shrink-0">
-              <VoltBotFace className="w-full h-full" />
+            <div className="w-20 h-20 flex items-center justify-center shrink-0 -my-3 -ml-2">
+              <VoltBotFace className="w-full h-full scale-125 drop-shadow-md" />
             </div>
             <div className="flex-1">
               <p className="font-display font-bold text-white text-sm leading-none">Volt</p>
