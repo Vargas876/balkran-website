@@ -1611,13 +1611,13 @@ export default function HomePage() {
                 "
               />
 
-              {/* PRODUCT IMAGE WITH FLY-IN & LANDING ANIMATION ON SCROLL */}
+              {/* PRODUCT IMAGE WITH ELEGANT SMOOTH LANDING ON SCROLL */}
               <motion.div
-                initial={{ opacity: 0, y: -140, x: 90, scale: 1.18, rotate: 6 }}
-                whileInView={{ opacity: 1, y: 0, x: 0, scale: 1, rotate: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  duration: 1.3,
+                  duration: 0.8,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="
