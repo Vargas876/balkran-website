@@ -1,90 +1,96 @@
-import productosData from '../productos.json';
+import { prisma } from '@/lib/prisma';
+import type { Product as PrismaProduct } from '@/lib/generated/prisma/client';
+import type { Product } from '@/lib/types';
 
-export interface Product {
-  slug: string;
-  nombre: string;
-  linea: string;
-  categoria: 'Energizadores' | 'Kits Solares' | 'Accesorios';
-  precio: string;
-  precioNumerico: number;
-  imagen_local: string;
-  imagen_url_original?: string;
-  alcance?: string;
-  joules?: string;
-  voltaje?: string;
-  subtitulo?: string;
-  url?: string;
-  title?: string;
-  imagenes?: string[];
-  descripcion?: string;
-  alimentacion?: string;
-  consumo?: string;
-  ideal_para?: string;
-  esMasVendido?: boolean;
-  esPopular?: boolean;
-  esNuevo?: boolean;
-  cobertura?: string;
-  energia_salida?: string;
-  voltaje_salida?: string;
-  pulsos_minuto?: string;
-  varillas_tierra?: string;
-  autonomia?: string;
-  peso?: string;
-  dimensiones?: string;
-  material?: string;
-  color?: string;
-  presentacion?: string;
-  capacidad?: string;
-  longitud?: string;
-  caracteristicas?: string[];
-  recomendado_para?: string[];
-  rating?: number;
-  valoraciones?: number;
-}
+export type { Product } from '@/lib/types';
 
-// Clean and categorize products dataset
-const productsList: Product[] = (productosData as any[]).map((p) => {
-  const slug = (p.slug || '').toLowerCase();
-  const nombre = p.nombre || p.slug.toUpperCase();
-  const lineaClean = (p.linea || 'ACCESORIOS Y OTROS').replace(/^L[ÍI]?L[ÍI]?NEA/i, 'LÍNEA').replace(/L[ÍI]NEA L[ÍI]NEA/g, 'LÍNEA');
+type Categoria = 'Energizadores' | 'Kits Solares' | 'Accesorios';
 
+const CATEGORIA_MAP: Record<string, Categoria> = {
+  ENERGIZADORES: 'Energizadores',
+  KITS_SOLARES: 'Kits Solares',
+  ACCESORIOS: 'Accesorios',
+};
+
+function toProduct(p: PrismaProduct): Product {
   return {
-    ...p,
-    nombre,
-    linea: lineaClean,
-    categoria: p.categoria || 'Energizadores',
-    precio: p.precio || 'Consultar',
-    precioNumerico: p.precioNumerico || 0,
-    imagen_local: p.imagen_local || '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
-    subtitulo: p.subtitulo || (p.alcance ? `${p.alcance}${p.joules ? ' • ' + p.joules : ''}` : ''),
-    esMasVendido: !!p.esMasVendido,
-    esNuevo: !!p.esNuevo,
+    slug: p.slug,
+    nombre: p.nombre,
+    linea: p.linea,
+    categoria: CATEGORIA_MAP[p.categoria] ?? 'Energizadores',
+    precio: p.precio,
+    precioNumerico: p.precioNumerico,
+    imagen_local: p.imagen_local,
+    imagen_url_original: p.imagen_url_original ?? undefined,
+    subtitulo: p.subtitulo ?? undefined,
+    alcance: p.alcance ?? undefined,
+    joules: p.joules ?? undefined,
+    voltaje: p.voltaje ?? undefined,
+    descripcion: p.descripcion ?? undefined,
+    ideal_para: p.ideal_para ?? undefined,
+    alimentacion: p.alimentacion ?? undefined,
+    consumo: p.consumo ?? undefined,
+    cobertura: p.cobertura ?? undefined,
+    energia_salida: p.energia_salida ?? undefined,
+    voltaje_salida: p.voltaje_salida ?? undefined,
+    pulsos_minuto: p.pulsos_minuto ?? undefined,
+    varillas_tierra: p.varillas_tierra ?? undefined,
+    autonomia: p.autonomia ?? undefined,
+    peso: p.peso ?? undefined,
+    dimensiones: p.dimensiones ?? undefined,
+    material: p.material ?? undefined,
+    color: p.color ?? undefined,
+    presentacion: p.presentacion ?? undefined,
+    capacidad: p.capacidad ?? undefined,
+    longitud: p.longitud ?? undefined,
+    url: p.url ?? undefined,
+    esMasVendido: p.esMasVendido,
+    esPopular: p.esPopular,
+    esNuevo: p.esNuevo,
+    rating: p.rating,
+    valoraciones: p.valoraciones,
+    caracteristicas: p.caracteristicas,
+    recomendado_para: p.recomendado_para,
+    imagenes: p.imagenes,
   };
-});
-
-export function getAllProducts(): Product[] {
-  return productsList;
 }
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return productsList.find((p) => p.slug.toLowerCase() === slug.toLowerCase());
+export async function getAllProducts(): Promise<Product[]> {
+  const products = await prisma.product.findMany({
+    orderBy: { createdAt: 'asc' },
+  });
+  return products.map(toProduct);
 }
 
-export function getProductsByCategory(category: string): Product[] {
-  if (!category || category === 'TODOS') return productsList;
-  return productsList.filter((p) => p.categoria.toLowerCase() === category.toLowerCase());
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const p = await prisma.product.findUnique({
+    where: { slug: slug.toLowerCase() },
+  });
+  return p ? toProduct(p) : null;
 }
 
-export function getCategoryCounts() {
+export async function getProductsByCategory(category: string): Promise<Product[]> {
+  const products = await prisma.product.findMany({
+    orderBy: { createdAt: 'asc' },
+  });
+  if (!category || category === 'TODOS') return products.map(toProduct);
+  return products.filter(
+    (p) => CATEGORIA_MAP[p.categoria]?.toLowerCase() === category.toLowerCase()
+  ).map(toProduct);
+}
+
+export async function getCategoryCounts() {
+  const products = await prisma.product.findMany({
+    select: { categoria: true },
+  });
   const counts = {
     Energizadores: 0,
     'Kits Solares': 0,
     Accesorios: 0,
   };
-  productsList.forEach((p) => {
-    if (p.categoria in counts) {
-      counts[p.categoria as keyof typeof counts]++;
-    }
+  products.forEach((p) => {
+    const c = CATEGORIA_MAP[p.categoria] as Categoria;
+    if (c in counts) counts[c]++;
   });
   return counts;
 }

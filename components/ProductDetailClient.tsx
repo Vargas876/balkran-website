@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Product, getAllProducts } from '@/lib/products';
+import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatLinea, formatCategoria, formatSubtitulo, formatNombreProducto, formatDescripcionProducto } from '@/lib/i18nHelpers';
 import {
@@ -43,11 +43,13 @@ import {
 interface ProductDetailClientProps {
   product: Product;
   relatedProducts: Product[];
+  allProducts: Product[];
 }
 
 export default function ProductDetailClient({
   product,
   relatedProducts,
+  allProducts,
 }: ProductDetailClientProps) {
   const { t, language } = useLanguage();
   const [quantity, setQuantity] = useState(1);
@@ -245,8 +247,8 @@ export default function ProductDetailClient({
     }, 50);
   };
 
-  // Real comparison models dynamically fetched from real database records (getAllProducts)
-  const allProds = getAllProducts();
+  // Real comparison models dynamically fetched from real database records
+  const allProds = allProducts;
 
   const defaultSelectedSlugs = [
     product.slug,

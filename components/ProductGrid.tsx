@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Product } from '@/lib/products';
+import { Product } from '@/lib/types';
 import ProductCard from './ProductCard';
 import { Search, Filter, RotateCcw, ChevronLeft, ChevronRight, Zap, Sun, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';

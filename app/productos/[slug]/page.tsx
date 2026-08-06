@@ -3,6 +3,8 @@ import { getAllProducts, getProductBySlug } from '@/lib/products';
 import ProductDetailClient from '@/components/ProductDetailClient';
 import { Metadata } from 'next';
 
+export const revalidate = 3600;
+
 interface ProductPageProps {
   params: Promise<{
     slug: string;
@@ -10,7 +12,7 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
-  const products = getAllProducts();
+  const products = await getAllProducts();
   return products.map((p) => ({
     slug: p.slug,
   }));
@@ -18,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return {
@@ -34,14 +36,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
   // Get related products in the same category or line, excluding current product
-  const allProducts = getAllProducts();
+  const allProducts = await getAllProducts();
   const relatedProducts = allProducts.filter(
     (p) => p.slug.toLowerCase() !== product.slug.toLowerCase() && p.categoria === product.categoria
   );
@@ -50,6 +52,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     <ProductDetailClient
       product={product}
       relatedProducts={relatedProducts.length > 0 ? relatedProducts : allProducts.filter((p) => p.slug.toLowerCase() !== product.slug.toLowerCase())}
+      allProducts={allProducts}
     />
   );
 }

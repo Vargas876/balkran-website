@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Product } from '@/lib/products';
+import { Product } from '@/lib/types';
 import { ShoppingCart, Zap } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatLinea, formatSubtitulo, formatNombreProducto } from '@/lib/i18nHelpers';
