@@ -28,11 +28,11 @@ export default function LanguageSwitcher() {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="fixed bottom-6 right-6 z-50 font-sans">
+    <div ref={dropdownRef} className="fixed bottom-4 left-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none">
       
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute bottom-14 right-0 w-60 bg-[#1a2130] text-white rounded-2xl p-2 shadow-2xl border border-white/10 animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="absolute bottom-14 left-0 sm:left-auto sm:right-0 w-60 bg-[#1a2130] text-white rounded-2xl p-2 shadow-2xl border border-white/10 animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-white/10 mb-1">
             Seleccionar Idioma / Select Language
           </div>
@@ -63,14 +63,14 @@ export default function LanguageSwitcher() {
         </div>
       )}
 
-      {/* Floating Pill Button - Match screenshot dark pill */}
+      {/* Floating Pill Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-[#14171f] hover:bg-[#1f2430] text-white rounded-full px-4 py-2.5 shadow-2xl border border-white/15 flex items-center gap-2 transition-all transform hover:scale-105 active:scale-95 group"
+        className="bg-[#14171f]/95 backdrop-blur-md hover:bg-[#1f2430] text-white rounded-full px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-2xl border border-white/20 flex items-center gap-2 transition-all transform hover:scale-105 active:scale-95 group"
         aria-label="Cambiar idioma"
       >
         <span className="text-base leading-none">{currentLangObj.flag}</span>
-        <span className="font-display font-extrabold text-xs tracking-wider uppercase text-white">
+        <span className="font-display font-extrabold text-[11px] sm:text-xs tracking-wider uppercase text-white">
           {currentLangObj.code.toUpperCase()}
         </span>
         <ChevronUp className={`w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
