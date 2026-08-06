@@ -42,7 +42,7 @@ export default function LoginPage() {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="absolute left-8 lg:left-16 xl:left-24 top-[43%] -translate-y-1/2 hidden lg:flex flex-col justify-center max-w-md xl:max-w-lg space-y-9 text-white pointer-events-none z-10"
+          className="absolute left-8 lg:left-16 xl:left-24 top-[34%] -translate-y-1/2 hidden lg:flex flex-col justify-center max-w-md xl:max-w-lg space-y-9 text-white pointer-events-none z-10"
         >
           {/* Logo & Slogan */}
           <div className="space-y-5">
