@@ -171,23 +171,22 @@ export default function VoltChatWidget() {
                 <span className="absolute -bottom-1.5 left-6 w-3 h-3 bg-white rotate-45" />
               </span>
             )}
-            {/* Círculo con movimiento */}
-            <span className="relative flex items-center justify-center w-16 h-16 rounded-full bg-[#0b0f19] border-2 border-[#ff5a00] shadow-[0_0_20px_rgba(255,90,0,0.5)] hover:shadow-[0_0_30px_rgba(255,90,0,0.8)] hover:scale-110 transition-all duration-300 overflow-hidden p-0">
-              <span className="absolute inset-0 rounded-full bg-[#ff5a00]/30 animate-pulse pointer-events-none" />
-              <VoltBotFace mood={typing ? 'thinking' : open ? 'success' : 'idle'} className="w-full h-full scale-[1.35] relative z-10" isFloating={true} />
-              <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white z-20 shadow-md" />
-            </span>
+            {/* Robot 3D Flotante Sin Círculo Ni Fondo Oscuro */}
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95">
+              <VoltBotFace className="w-full h-full" isFloating={true} />
+              <span className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white z-20 shadow-md animate-pulse" />
+            </div>
           </>
         )}
       </button>
 
       {/* Widget */}
       {open && (
-        <div className="fixed bottom-24 left-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed bottom-28 left-6 z-[90] w-[calc(100vw-3rem)] max-w-[380px] h-[70vh] max-h-[560px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#ff5a00] to-[#ff7a1a]">
-            <div className="w-11 h-11 rounded-full bg-[#0d1117] border border-white/30 flex items-center justify-center overflow-hidden shrink-0 shadow-md p-0">
-              <VoltBotFace mood={typing ? 'thinking' : 'success'} className="w-full h-full scale-[1.3]" />
+            <div className="w-12 h-12 flex items-center justify-center shrink-0">
+              <VoltBotFace className="w-full h-full" />
             </div>
             <div className="flex-1">
               <p className="font-display font-bold text-white text-sm leading-none">Volt</p>
