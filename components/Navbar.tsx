@@ -31,6 +31,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const isLightHeaderPage = pathname === '/nosotros';
+
   const navLinks = [
     { name: t('nav.inicio'), href: '/' },
     { name: t('nav.productos'), href: '/productos' },
@@ -50,6 +52,8 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-white/95 backdrop-blur-xl shadow-md shadow-black/8 border-b border-gray-200/60'
+            : isLightHeaderPage
+            ? 'bg-white/90 backdrop-blur-md border-b border-gray-200/50'
             : 'bg-transparent'
         }`}
       >
@@ -60,11 +64,11 @@ export default function Navbar() {
             <Link href="/" className="flex items-center group">
               <div
                 className={`relative w-44 h-11 transition-all duration-300 group-hover:scale-105 rounded-lg ${
-                  scrolled ? '' : 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'
+                  scrolled || isLightHeaderPage ? '' : 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'
                 }`}
               >
                 <Image
-                  src={scrolled ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
+                  src={scrolled || isLightHeaderPage ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
                   alt="BALKRAN Electric Fences"
                   fill
                   className="object-contain object-left transition-opacity duration-300"
@@ -82,7 +86,7 @@ export default function Navbar() {
                   className={`font-display text-xs font-bold tracking-widest uppercase transition-colors hover:text-[#ff5a00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] focus-visible:ring-offset-2 rounded-sm ${
                     isActive(link.href)
                       ? 'text-[#ff5a00] font-extrabold border-b-2 border-[#ff5a00] pb-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
-                      : scrolled ? 'text-[#1a2130]' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]'
+                      : scrolled || isLightHeaderPage ? 'text-[#1a2130]' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]'
                   }`}
                 >
                   {link.name}
@@ -108,13 +112,17 @@ export default function Navbar() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`p-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5a00] focus-visible:ring-offset-2 transition-colors ${scrolled ? 'text-[#1a2130]' : 'text-white'} hover:text-[#ff5a00]`}
+                className={`p-2.5 rounded-xl transition-all flex items-center justify-center ${
+                  scrolled || isLightHeaderPage
+                    ? 'bg-gray-100 text-[#1a2130] border border-gray-200/80 hover:bg-gray-200'
+                    : 'bg-black/40 backdrop-blur-md text-white border border-white/20 hover:bg-black/60 shadow-md'
+                } hover:text-[#ff5a00]`}
                 aria-label="Toggle menu"
                 aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen
-                  ? <X className="w-7 h-7 text-[#ff5a00]" />
-                  : <Menu className="w-7 h-7" />
+                  ? <X className="w-6 h-6 text-[#ff5a00]" />
+                  : <Menu className="w-6 h-6" />
                 }
               </button>
             </div>
