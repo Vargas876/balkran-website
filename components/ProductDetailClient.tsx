@@ -53,6 +53,7 @@ export default function ProductDetailClient({
   allProducts,
 }: ProductDetailClientProps) {
   const { t, language } = useLanguage();
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -201,6 +202,18 @@ export default function ProductDetailClient({
 
   const handleAddToCart = () => {
     setAddedToCart(true);
+    addItem(
+      {
+        id: product.id,
+        slug: product.slug,
+        nombre: product.nombre,
+        linea: product.linea,
+        precio: product.precio,
+        precioNumerico: product.precioNumerico,
+        imagen: product.imagen_local,
+      },
+      quantity
+    );
     setTimeout(() => setAddedToCart(false), 3000);
   };
 
