@@ -3,12 +3,15 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { hash } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
+import { getClientIp } from '@/lib/rateLimit';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 
 export const dynamic = 'force-dynamic';
 
 const resetSchema = z.object({
   token: z.string().min(16).max(256),
   password: z.string().min(8).max(128),
+  turnstileToken: z.string().min(1).max(2048).optional().nullable(),
 });
 
 function hashToken(token: string): string {
@@ -16,11 +19,21 @@ function hashToken(token: string): string {
 }
 
 export async function POST(request: Request) {
+  const ip = getClientIp(request);
+
   const body = await request.json().catch(() => null);
   const parsed = resetSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: 'Datos inválidos. La contraseña debe tener al menos 8 caracteres.' },
+      { status: 400 }
+    );
+  }
+
+  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip);
+  if (!turnstileOk) {
+    return NextResponse.json(
+      { error: 'Verificación de seguridad fallida. Recarga e intenta de nuevo.' },
       { status: 400 }
     );
   }

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { X, Send, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import VoltBotFace from '@/components/VoltBotFace';
+import Turnstile from '@/components/Turnstile';
 
 interface ChatMsg {
   role: 'user' | 'assistant';
@@ -79,6 +80,7 @@ export default function VoltChatWidget() {
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showBubble, setShowBubble] = useState(true);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const langKey = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
@@ -125,7 +127,7 @@ export default function VoltChatWidget() {
       const res = await fetch('/api/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: content, sessionId: getSessionId(), lang: langKey }),
+        body: JSON.stringify({ message: content, sessionId: getSessionId(), lang: langKey, turnstileToken }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -251,6 +253,9 @@ export default function VoltChatWidget() {
 
           {/* Input */}
           <div className="border-t border-white/10 p-3 bg-[#0d1117]">
+            <div className="mb-2 flex items-center justify-center [&_.turnstile-widget]:scale-[0.85] [&_iframe]:!w-[300px]">
+              <Turnstile onToken={setTurnstileToken} />
+            </div>
             <form
               onSubmit={(e) => {
                 e.preventDefault();

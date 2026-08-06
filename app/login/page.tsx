@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useState } from 'react';
+import Turnstile from '@/components/Turnstile';
 
 function LoginContent() {
   const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ function LoginContent() {
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,6 +31,7 @@ function LoginContent() {
     const res = await signIn('credentials', {
       email,
       password,
+      turnstileToken,
       redirect: false,
     });
 
@@ -233,6 +236,7 @@ function LoginContent() {
             </div>
 
             {/* Submit Button */}
+            <Turnstile onToken={setTurnstileToken} />
             <button
               type="submit"
               disabled={loading}

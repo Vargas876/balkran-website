@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { buildKnowledge, getProductByName } from '@/lib/knowledge';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 import { sanitizeReply } from '@/lib/sanitize';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 
 function loadEnvValue(key: string): string | undefined {
   if (existsSync('.env')) {
@@ -26,6 +27,7 @@ interface ChatBody {
   message: string;
   sessionId?: string;
   lang?: string;
+  turnstileToken?: string;
 }
 
 interface HistoryMsg {
@@ -64,6 +66,19 @@ export async function POST(request: Request) {
     }
 
     const sessionId = String(body.sessionId || 'anon').slice(0, MAX_SESSION_ID_LENGTH);
+
+    // Solo exige Turnstile en el PRIMER mensaje de la sesión (evita fricción
+    // en conversaciones largas, pero bloquea bots que comienzan a chatear).
+    const firstMessage = (await prisma.chatMessage.count({ where: { sessionId } })) === 0;
+    if (firstMessage) {
+      const turnstileOk = await verifyTurnstileToken(body?.turnstileToken ?? null, ip);
+      if (!turnstileOk) {
+        return NextResponse.json(
+          { error: 'Verificación de seguridad fallida. Recarga la página e intenta de nuevo.' },
+          { status: 400 }
+        );
+      }
+    }
 
     const knowledge = await buildKnowledge();
     const productMatch = await getProductByName(message);

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Lock, Eye, EyeOff, ArrowRight, CheckCircle2 } from 'lucide-react';
+import Turnstile from '@/components/Turnstile';
 
 function ResetContent() {
   const params = useParams<{ token: string }>();
@@ -16,6 +17,7 @@ function ResetContent() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ function ResetContent() {
     const res = await fetch('/api/auth/reset', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, password }),
+      body: JSON.stringify({ token, password, turnstileToken }),
     });
     const data = await res.json().catch(() => ({}));
     setLoading(false);
@@ -154,6 +156,8 @@ function ResetContent() {
               <span>{loading ? 'ACTUALIZANDO…' : 'ACTUALIZAR CONTRASEÑA'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
+
+            <Turnstile onToken={setTurnstileToken} />
           </form>
         )}
       </div>

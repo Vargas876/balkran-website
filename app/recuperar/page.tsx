@@ -4,12 +4,14 @@ import React, { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { Mail, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import Turnstile from '@/components/Turnstile';
 
 function ForgotContent() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ function ForgotContent() {
     const res = await fetch('/api/auth/forgot', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, turnstileToken }),
     });
 
     setLoading(false);
@@ -115,6 +117,8 @@ function ForgotContent() {
               <span>{loading ? 'ENVIANDO…' : 'ENVIAR ENLACE'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
+
+            <Turnstile onToken={setTurnstileToken} />
 
             <Link
               href="/login"

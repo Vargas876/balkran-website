@@ -4,6 +4,7 @@ import { compare } from 'bcryptjs';
 import { z } from 'zod';
 import { authConfig } from '@/auth.config';
 import { prisma } from '@/lib/prisma';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 
 const credentialsSchema = z.object({
   email: z.string().email().max(254),
@@ -46,14 +47,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Contraseña', type: 'password' },
+        turnstileToken: { label: 'Turnstile', type: 'text' },
       },
       authorize: async (credentials, request) => {
+        const ip = clientIp(request.headers);
+
+        // Bloquea si Turnstile no está resuelto (falla cerrado por seguridad).
+        const turnstileOk = await verifyTurnstileToken(
+          typeof credentials?.turnstileToken === 'string'
+            ? credentials.turnstileToken
+            : null,
+          ip
+        );
+        if (!turnstileOk) return null;
+
         const parsed = credentialsSchema.safeParse(credentials);
         if (!parsed.success) return null;
 
         const { email, password } = parsed.data;
         const normalizedEmail = email.toLowerCase();
-        const ip = clientIp(request.headers);
 
         if (await isLockedOut(normalizedEmail)) {
           return null;
