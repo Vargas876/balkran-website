@@ -50,7 +50,9 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+          mobileMenuOpen
+            ? 'bg-[#141824] border-b border-white/10'
+            : scrolled
             ? 'bg-white/95 backdrop-blur-xl shadow-md shadow-black/8 border-b border-gray-200/60'
             : isLightHeaderPage
             ? 'bg-white/90 backdrop-blur-md border-b border-gray-200/50'
@@ -64,11 +66,11 @@ export default function Navbar() {
             <Link href="/" className="flex items-center group">
               <div
                 className={`relative w-44 h-11 transition-all duration-300 group-hover:scale-105 rounded-lg ${
-                  scrolled || isLightHeaderPage ? '' : 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'
+                  mobileMenuOpen || scrolled || isLightHeaderPage ? '' : 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'
                 }`}
               >
                 <Image
-                  src={scrolled || isLightHeaderPage ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
+                  src={mobileMenuOpen ? '/assets/images/LogoBlanco.webp' : (scrolled || isLightHeaderPage) ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
                   alt="BALKRAN Electric Fences"
                   fill
                   className="object-contain object-left transition-opacity duration-300"
@@ -113,7 +115,9 @@ export default function Navbar() {
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`p-2.5 rounded-xl transition-all flex items-center justify-center ${
-                  scrolled || isLightHeaderPage
+                  mobileMenuOpen
+                    ? 'bg-white/10 text-white border border-white/20'
+                    : scrolled || isLightHeaderPage
                     ? 'bg-gray-100 text-[#1a2130] border border-gray-200/80 hover:bg-gray-200'
                     : 'bg-black/40 backdrop-blur-md text-white border border-white/20 hover:bg-black/60 shadow-md'
                 } hover:text-[#ff5a00]`}
@@ -137,7 +141,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="md:hidden bg-[#141824]/96 backdrop-blur-2xl border-b border-white/10 px-5 pt-5 pb-7 space-y-4 shadow-2xl"
+              className="md:hidden bg-[#141824] text-white border-b border-white/10 px-5 pt-3 pb-7 space-y-4 shadow-2xl"
             >
               <div className="flex flex-col space-y-2 pt-2">
                 {navLinks.map((link) => (
