@@ -198,7 +198,7 @@ export default function UserManagement({
             />
           </div>
           <div>
-            <label className={labelClass}>ContraseÃ±a * (mÃ­n. 6)</label>
+            <label className={labelClass}>Contraseña * (mín. 6)</label>
             <input
               className={inputClass}
               type="password"
@@ -264,7 +264,7 @@ export default function UserManagement({
                           type="password"
                           value={editForm.password}
                           onChange={(e) => setEditForm((p) => ({ ...p, password: e.target.value }))}
-                          placeholder="Nueva contraseÃ±a (opcional)"
+                          placeholder="Nueva contraseña (opcional)"
                         />
                       </div>
                     ) : (
@@ -366,7 +366,7 @@ export default function UserManagement({
           <div className="bg-[#1a1d24] border border-white/10 rounded-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Â¿Eliminar usuario?</h3>
             <p className="text-sm text-white/60 mb-6">
-              Esta acciÃ³n es permanente y eliminarÃ¡ el acceso del usuario al panel.
+              Esta acción es permanente y eliminará el acceso del usuario al panel.
             </p>
             <div className="flex items-center gap-3 justify-end">
               <button
@@ -381,7 +381,7 @@ export default function UserManagement({
                 className="bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white font-semibold rounded-lg px-4 py-2 text-sm transition-colors flex items-center gap-2"
               >
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                {saving ? 'Eliminandoâ€¦' : 'SÃ­, eliminar'}
+                {saving ? 'Eliminando…' : 'Sí, eliminar'}
               </button>
             </div>
           </div>

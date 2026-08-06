@@ -93,7 +93,7 @@ export default function ContactoPage() {
       <div className="relative z-20 -mt-8 bg-[#f8fafc] rounded-t-[36px] shadow-2xl pt-16 pb-20 border-t border-white/80">
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-20">
           
-          {/* SECTION 1: Â¿DÃ“NDE NECESITAS INFORMACIÃ“N? */}
+          {/* SECTION 1: ¿DÓNDE NECESITAS INFORMACIÓN? */}
           <section className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
@@ -200,14 +200,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/tgs1xz6VEadCARlFtXBgVos6Y0.webp"
-                        alt="JosÃ© AgustÃ­n GonzÃ¡lez"
+                        alt="José Agustín González"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        JosÃ© AgustÃ­n GonzÃ¡lez
+                        José Agustín González
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -247,14 +247,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/WK9jcmGEhfsoxbpzkBeiw38l2Uc.webp"
-                        alt="Alejandro AlarcÃ³n"
+                        alt="Alejandro Alarcón"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Alejandro AlarcÃ³n
+                        Alejandro Alarcón
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -294,14 +294,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/F5smyks6PLeyEoYue5fdEFY114.webp"
-                        alt="Jorge IvÃ¡n HernÃ¡ndez"
+                        alt="Jorge Iván Hernández"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Jorge IvÃ¡n HernÃ¡ndez
+                        Jorge Iván Hernández
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -387,7 +387,7 @@ export default function ContactoPage() {
             </div>
           </section>
 
-          {/* SECTION 3: SOPORTE TÃ‰CNICO (DARK CONTAINER BANNER) */}
+          {/* SECTION 3: SOPORTE TÉCNICO (DARK CONTAINER BANNER) */}
           <section className="bg-[#0b0f17] text-white rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               
@@ -483,7 +483,7 @@ export default function ContactoPage() {
                 </div>
               </div>
 
-              {/* Col 2: LÃ­nea Nacional */}
+              {/* Col 2: Línea Nacional */}
               <div className="md:col-span-3 p-6 sm:p-8 space-y-1 border-b md:border-b-0 md:border-r border-gray-200/80 flex flex-col justify-center">
                 <span className="text-[11px] text-[#565e6e] font-semibold block">
                   {t('contacto.nationalLine')}
@@ -506,7 +506,7 @@ export default function ContactoPage() {
                   </span>
                 </div>
                 <p className="font-display font-extrabold text-lg text-[#1a2130]">
-                  +57 311 450 8064
+                  {telefono}
                 </p>
                 <p className="text-[10px] text-[#565e6e]">
                   {t('contacto.whatsappSub')}
@@ -521,8 +521,8 @@ export default function ContactoPage() {
                 <span className="text-[10px] text-white/90 font-semibold block">
                   {t('contacto.orWrite')}
                 </span>
-                <a href="mailto:info@cercasbalkran.com" className="font-display font-bold text-xs hover:underline break-all">
-                  info@cercasbalkran.com
+                <a href={`mailto:${email}`} className="font-display font-bold text-xs hover:underline break-all">
+                  {email}
                 </a>
                 <p className="text-[10px] text-white/80">
                   {t('contacto.emailSub')}
@@ -575,7 +575,7 @@ export default function ContactoPage() {
                     <h3 className="font-display font-bold text-base text-[#1a2130]">{t('contacto.emailTitle')}</h3>
                   </div>
                   <div className="space-y-2">
-                    {['info@cercasbalkran.com', 'ventas@cercasbalkran.com', 'soporte@cercasbalkran.com'].map((mail) => (
+                    {[email, 'info@cercasbalkran.com', 'soporte@cercasbalkran.com'].map((mail) => (
                       <a key={mail} href={`mailto:${mail}`} className="block text-sm font-semibold text-[#ff5a00] hover:underline break-all">
                         {mail}
                       </a>

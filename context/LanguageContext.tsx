@@ -416,6 +416,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contacto.advisor1Zone': 'Zona Boyacá, Norte de Santander, Tolima, Nariño y Cauca.',
     'contacto.advisor2Zone': 'Zona Cundinamarca, Arauca, Meta, Santander y Bogotá.',
     'contacto.advisor3Zone': 'Zona Norte Boyacá, Cundinamarca, Costa Caribe y Guajira.',
+    'contacto.advisor4Zone': 'Ventas internacionales y grandes proyectos.',
     'prodFaq.q5': '¿Los productos Balkran tienen garantía?',
     'prodFaq.a5': 'Todos los energizadores y kits Balkran cuentan con 2 Años de Garantía directa de fábrica y certificación de calidad colombiana.',
     'prodFaq.recTag5': 'Respaldo Nacional',
@@ -1308,6 +1309,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contacto.advisor1Zone': 'Boyacá, Norte de Santander, Tolima, Nariño & Cauca Zone.',
     'contacto.advisor2Zone': 'Cundinamarca, Arauca, Meta, Santander & Bogotá Zone.',
     'contacto.advisor3Zone': 'North Boyacá, Cundinamarca, Caribbean Coast & Guajira Zone.',
+    'contacto.advisor4Zone': 'International sales and large projects.',
     'home.readStory': 'Read story',
 
     // Section 7: Presence
@@ -1999,6 +2001,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contacto.advisor1Zone': 'Zone Boyacá, Norte de Santander, Tolima, Nariño et Cauca.',
     'contacto.advisor2Zone': 'Zone Cundinamarca, Arauca, Meta, Santander et Bogotá.',
     'contacto.advisor3Zone': 'Zone Nord Boyacá, Cundinamarca, Côte Caraïbe et Guajira.',
+    'contacto.advisor4Zone': 'Ventes internationales et grands projets.',
     'home.advQ1': 'Que devez-vous protéger?',
     'home.advQ2': 'De combien de kilomètres de clôture avez-vous besoin?',
     'home.advQ3': 'Quel type d’énergie avez-vous à disposition?',
