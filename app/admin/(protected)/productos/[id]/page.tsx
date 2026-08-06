@@ -35,7 +35,6 @@ export default async function EditarProductoPage({
           subtitulo: product.subtitulo ?? undefined,
           descripcion: product.descripcion ?? undefined,
           imagen_local: product.imagen_local ?? undefined,
-          imagen_url_original: product.imagen_url_original ?? undefined,
           alcance: product.alcance ?? undefined,
           joules: product.joules ?? undefined,
           voltaje: product.voltaje ?? undefined,

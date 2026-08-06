@@ -31,7 +31,7 @@ const securityHeaders = [
       "font-src 'self' data: https://fonts.gstatic.com",
       "connect-src 'self' https://*.groq.com https://*.vercel.app",
       "frame-src 'self'",
-      "media-src 'self'",
+      "media-src 'self' https://*.r2.dev https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -44,6 +44,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  serverExternalPackages: ['ffmpeg-static'],
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,

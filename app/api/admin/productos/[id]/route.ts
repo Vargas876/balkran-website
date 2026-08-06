@@ -57,7 +57,6 @@ export async function PUT(
       subtitulo: data.subtitulo ?? null,
       descripcion: data.descripcion ?? null,
       imagen_local: data.imagen_local || '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
-      imagen_url_original: data.imagen_url_original ?? null,
       alcance: data.alcance ?? null,
       joules: data.joules ?? null,
       voltaje: data.voltaje ?? null,

@@ -1,4 +1,4 @@
-import { Package, Inbox, Users, MessagesSquare, Bot } from 'lucide-react';
+import { Package, Inbox, MessagesSquare, Users, Bot } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DashboardCharts from '@/components/admin/DashboardCharts';
 import StatCards from '@/components/admin/StatCards';
@@ -37,11 +37,11 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { label: 'Productos', value: productCount, icon: Package, accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
-    { label: 'Consultas totales', value: inquiryCount, icon: Inbox, accent: 'from-sky-500/30 to-sky-500/5' },
-    { label: 'Consultas nuevas', value: newInquiryCount, icon: MessagesSquare, accent: 'from-emerald-500/30 to-emerald-500/5' },
-    { label: 'Usuarios', value: userCount, icon: Users, accent: 'from-violet-500/30 to-violet-500/5' },
-    { label: 'Mensajes de chat', value: chatCount, icon: Bot, accent: 'from-amber-500/30 to-amber-500/5' },
+    { label: 'Productos', value: productCount, icon: 'Package', accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
+    { label: 'Consultas totales', value: inquiryCount, icon: 'Inbox', accent: 'from-sky-500/30 to-sky-500/5' },
+    { label: 'Consultas nuevas', value: newInquiryCount, icon: 'MessagesSquare', accent: 'from-emerald-500/30 to-emerald-500/5' },
+    { label: 'Usuarios', value: userCount, icon: 'Users', accent: 'from-violet-500/30 to-violet-500/5' },
+    { label: 'Mensajes de chat', value: chatCount, icon: 'Bot', accent: 'from-amber-500/30 to-amber-500/5' },
   ];
 
   const categoryData = byCategory.map((c) => ({

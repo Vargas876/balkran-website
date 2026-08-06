@@ -8,7 +8,6 @@ import {
   Check,
   Plus,
   X,
-  GripVertical,
   Sparkles,
   ChevronLeft,
   Wand2,
@@ -37,7 +36,6 @@ const EMPTY_FORM: FormState = {
   subtitulo: '',
   descripcion: '',
   imagen_local: '',
-  imagen_url_original: '',
   alcance: '',
   joules: '',
   voltaje: '',
@@ -508,7 +506,7 @@ export default function ProductForm({
           </div>
 
           <div>
-            <label className={labelClass}>Galería (adicionales)</label>
+            <label className={labelClass}>Galería de imágenes</label>
             <label
               className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-4 py-5 cursor-pointer transition-colors ${
                 uploadingGallery
@@ -525,7 +523,7 @@ export default function ProductForm({
                 <>
                   <Upload className="w-6 h-6 text-white/50" />
                   <span className="text-xs text-white/60">
-                    Selecciona varias imágenes (webp, png, jpg · máx 5 MB c/u)
+                    Selecciona varias imágenes (webp, png, jpg · se optimizan a WebP)
                   </span>
                 </>
               )}
@@ -538,7 +536,7 @@ export default function ProductForm({
               />
             </label>
 
-            {(form.imagenes ?? []).length > 0 && (
+            {(form.imagenes ?? []).length > 0 ? (
               <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3">
                 {form.imagenes!.map((img, idx) => (
                   <div
@@ -548,58 +546,59 @@ export default function ProductForm({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={img}
-                      alt={`Galería ${idx + 1}`}
+                      alt={`Producto ${idx + 1}`}
                       className="object-cover w-full h-full"
                       onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.2'; }}
                     />
-                    <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-black/70 to-transparent px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="flex items-center gap-1">
-                        <button
-                          type="button"
-                          onClick={() => moveGallery(idx, -1)}
-                          disabled={idx === 0}
-                          className="p-1 rounded bg-white/20 hover:bg-white/30 disabled:opacity-30"
-                          aria-label="Mover arriba"
-                        >
-                          <ChevronLeft className="w-3 h-3 rotate-90" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => moveGallery(idx, 1)}
-                          disabled={idx === form.imagenes!.length - 1}
-                          className="p-1 rounded bg-white/20 hover:bg-white/30 disabled:opacity-30"
-                          aria-label="Mover abajo"
-                        >
-                          <ChevronLeft className="w-3 h-3 -rotate-90" />
-                        </button>
-                        <GripVertical className="w-3 h-3 text-white/50" />
-                      </div>
+                    <span className="absolute bottom-1 right-1 text-[9px] text-white bg-black/70 rounded px-1.5 py-0.5">
+                      {idx + 1} / {form.imagenes!.length}
+                    </span>
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-gradient-to-t from-black/80 to-transparent py-1.5">
+                      <button
+                        type="button"
+                        onClick={() => moveGallery(idx, -1)}
+                        disabled={idx === 0}
+                        title="Subir"
+                        className="p-1.5 rounded-md bg-white/20 hover:bg-[#ff5a00] disabled:opacity-30 disabled:hover:bg-white/20 transition-colors"
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5 rotate-90" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => moveGallery(idx, 1)}
+                        disabled={idx === form.imagenes!.length - 1}
+                        title="Bajar"
+                        className="p-1.5 rounded-md bg-white/20 hover:bg-[#ff5a00] disabled:opacity-30 disabled:hover:bg-white/20 transition-colors"
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5 -rotate-90" />
+                      </button>
                       <button
                         type="button"
                         onClick={() => removeGallery(idx)}
-                        className="p-1 rounded bg-red-500/80 hover:bg-red-500"
-                        aria-label="Quitar"
+                        title="Eliminar"
+                        className="p-1.5 rounded-md bg-red-500/80 hover:bg-red-500 transition-colors"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                    <span className="absolute bottom-1 right-1 text-[9px] text-white/50 bg-black/60 rounded px-1">
-                      {idx === 0 ? '1ª' : `${idx + 1}ª`}
-                    </span>
                   </div>
                 ))}
               </div>
+            ) : (
+              <p className="mt-3 text-xs text-white/30 text-center py-3 bg-black/20 rounded-xl">
+                Sin imágenes adicionales
+              </p>
             )}
           </div>
 
           <div>
-            <label className={labelClass} htmlFor="imagen_url_original">URL imagen original (Framer)</label>
+            <label className={labelClass} htmlFor="url">Enlace externo (opcional)</label>
             <input
-              id="imagen_url_original"
+              id="url"
               className={inputClass}
-              value={form.imagen_url_original}
-              onChange={(e) => set('imagen_url_original', e.target.value)}
-              placeholder="https://framerusercontent.com/..."
+              value={form.url}
+              onChange={(e) => set('url', e.target.value)}
+              placeholder="https://www.cercasbalkran.com/tienda/..."
             />
           </div>
         </div>

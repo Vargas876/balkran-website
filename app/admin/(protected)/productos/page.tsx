@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DeleteProductButton from '@/components/admin/DeleteProductButton';
-import DuplicateProductButton from '@/components/admin/DuplicateProductButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -128,13 +127,21 @@ export default async function AdminProductosPage({
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-2">
                     <Link
+                      href={`/productos/${p.slug}`}
+                      target="_blank"
+                      title="Ver producto en la web"
+                      className="p-2 rounded-lg text-white/70 hover:text-[#ff5a00] hover:bg-white/10"
+                      aria-label="Ver producto"
+                    >
+                      <Eye size={16} />
+                    </Link>
+                    <Link
                       href={`/admin/productos/${p.id}`}
                       className="p-2 rounded-lg hover:bg-white/10"
                       aria-label="Editar"
                     >
                       <Pencil size={16} />
                     </Link>
-                    <DuplicateProductButton productId={p.id} slug={p.slug} />
                     <DeleteProductButton productId={p.id} slug={p.slug} />
                   </div>
                 </td>

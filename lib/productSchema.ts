@@ -10,7 +10,6 @@ export const productSchema = z.object({
   subtitulo: z.string().max(300).optional().nullable(),
   descripcion: z.string().max(5000).optional().nullable(),
   imagen_local: z.string().max(500).optional().nullable(),
-  imagen_url_original: z.string().max(500).optional().nullable(),
   alcance: z.string().max(100).optional().nullable(),
   joules: z.string().max(100).optional().nullable(),
   voltaje: z.string().max(100).optional().nullable(),
