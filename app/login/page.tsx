@@ -28,10 +28,10 @@ export default function LoginPage() {
           alt="Balkran Login Background"
           fill
           priority
-          className="object-cover object-center brightness-95"
+          className="object-cover object-right lg:object-center"
         />
-        {/* Soft Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/60 lg:to-transparent" />
+        {/* Subtle contrast overlay for mobile screens */}
+        <div className="absolute inset-0 bg-black/20 lg:bg-transparent pointer-events-none" />
       </div>
 
       {/* Top Navbar / Back Link */}
