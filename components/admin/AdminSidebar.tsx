@@ -2,6 +2,7 @@
 
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -37,7 +38,17 @@ export default function AdminSidebar({
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#14161d] border-r border-white/10 flex flex-col max-md:static max-md:w-full max-md:h-auto max-md:flex-row max-md:overflow-x-auto">
       <div className="p-6 border-b border-white/10">
-        <p className="text-[#ff5a00] font-bold text-lg">Balkran Admin</p>
+        <Link href="/admin" className="block mb-4">
+          <Image
+            src="/assets/images/LogoBlanco.webp"
+            alt="Balkran"
+            width={180}
+            height={45}
+            className="object-contain object-left"
+            priority
+          />
+        </Link>
+        <p className="text-[#ff5a00] font-bold text-sm">Balkran Admin</p>
         <p className="text-xs text-white/40 mt-1 truncate">{userEmail}</p>
         <span className="inline-block mt-2 px-2 py-0.5 rounded bg-[#ff5a00]/20 text-[#ff5a00] text-[10px] uppercase tracking-wide font-semibold">
           {userRole}

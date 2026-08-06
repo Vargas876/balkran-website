@@ -1,6 +1,7 @@
 import { Package, Inbox, Users, MessagesSquare, Bot } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DashboardCharts from '@/components/admin/DashboardCharts';
+import StatCards from '@/components/admin/StatCards';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,11 +37,11 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { label: 'Productos', value: productCount, icon: Package },
-    { label: 'Consultas totales', value: inquiryCount, icon: Inbox },
-    { label: 'Consultas nuevas', value: newInquiryCount, icon: Inbox },
-    { label: 'Usuarios', value: userCount, icon: Users },
-    { label: 'Mensajes de chat', value: chatCount, icon: Bot },
+    { label: 'Productos', value: productCount, icon: Package, accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
+    { label: 'Consultas totales', value: inquiryCount, icon: Inbox, accent: 'from-sky-500/30 to-sky-500/5' },
+    { label: 'Consultas nuevas', value: newInquiryCount, icon: MessagesSquare, accent: 'from-emerald-500/30 to-emerald-500/5' },
+    { label: 'Usuarios', value: userCount, icon: Users, accent: 'from-violet-500/30 to-violet-500/5' },
+    { label: 'Mensajes de chat', value: chatCount, icon: Bot, accent: 'from-amber-500/30 to-amber-500/5' },
   ];
 
   const categoryData = byCategory.map((c) => ({
@@ -78,16 +79,7 @@ export default async function AdminDashboardPage() {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        {stats.map((stat: any) => (
-          <div
-            key={stat.label}
-            className="bg-[#14161d] border border-white/10 rounded-2xl p-5"
-          >
-            <stat.icon size={20} className="text-[#ff5a00] mb-3" />
-            <p className="text-3xl font-bold">{stat.value}</p>
-            <p className="text-white/50 text-sm mt-1">{stat.label}</p>
-          </div>
-        ))}
+        <StatCards stats={stats} />
       </div>
 
       <DashboardCharts
