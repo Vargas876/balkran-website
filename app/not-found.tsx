@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
+import { motion } from 'framer-motion';
+import { Home } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Home } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export default function NotFound() {
   return (
@@ -87,7 +86,7 @@ export default function NotFound() {
 
       {/* Footer Copy */}
       <footer className="relative z-10 w-full py-4 px-6 text-center text-xs text-gray-400/80">
-        <p>© 2024 BALKRAN. Todos los derechos reservados.</p>
+        <p>© 2026 BALKRAN. Todos los derechos reservados.</p>
       </footer>
     </div>
   );

@@ -87,8 +87,9 @@ export default function RootLayout({
       <body className="bg-[#0b0c10] text-white min-h-screen flex flex-col antialiased selection:bg-[#ff5a00] selection:text-white">
         <LanguageProvider>
           <CartProvider>
-            <SiteChrome />
-            <main className="flex-1">{children}</main>
+            <SiteChrome>
+              <main className="flex-1">{children}</main>
+            </SiteChrome>
           </CartProvider>
         </LanguageProvider>
       </body>

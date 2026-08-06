@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, Cpu, Leaf } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ArrowRight, Cpu, Eye, EyeOff, Leaf, Lock, Mail, Shield } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { Suspense, useState } from 'react';
 
 function LoginContent() {
   const [email, setEmail] = useState('');
@@ -290,7 +289,7 @@ function LoginContent() {
 
       {/* Footer */}
       <footer className="relative z-10 w-full py-4 px-6 text-center text-xs text-gray-400/90">
-        <p>© 2024 BALKRAN. Todos los derechos reservados.</p>
+        <p>© 2026 BALKRAN. Todos los derechos reservados.</p>
       </footer>
     </div>
   );

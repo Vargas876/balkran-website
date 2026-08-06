@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export type Language = 'es' | 'en' | 'fr';
 
@@ -697,7 +697,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.newsletter': 'Recibe novedades y consejos',
     'footer.emailPlaceholder': 'Tu correo electrónico',
     'footer.madeIn': 'Hecho en Colombia 🇨🇴',
-    'footer.rights': '© 2024 Balkran. Todos los derechos reservados.',
+    'footer.rights': '© 2026 Balkran. Todos los derechos reservados.',
     'footer.privacy': 'Política de privacidad',
     'footer.terms': 'Términos y condiciones',
 
@@ -1400,7 +1400,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.newsletter': 'Get news and updates',
     'footer.emailPlaceholder': 'Your email address',
     'footer.madeIn': 'Made in Colombia 🇨🇴',
-    'footer.rights': '© 2024 Balkran. All rights reserved.',
+    'footer.rights': '© 2026 Balkran. All rights reserved.',
     'footer.privacy': 'Privacy policy',
     'footer.terms': 'Terms & conditions',
 
@@ -2100,7 +2100,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.newsletter': 'Recevez nos actualités',
     'footer.emailPlaceholder': 'Votre adresse e-mail',
     'footer.madeIn': 'Fabriqué en Colombie 🇨🇴',
-    'footer.rights': '© 2024 Balkran. Tous droits réservés.',
+    'footer.rights': '© 2026 Balkran. Tous droits réservés.',
     'footer.privacy': 'Politique de confidentialité',
     'footer.terms': 'Conditions générales',
 
