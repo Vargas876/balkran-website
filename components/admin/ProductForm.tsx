@@ -180,14 +180,52 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
     }
   }
 
+  const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
+  const MAX_VIDEO_SIZE = 100 * 1024 * 1024;
+  const MAX_GALLERY = 12;
+  const IMAGE_TYPES = ['image/webp', 'image/png', 'image/jpeg', 'image/gif', 'image/avif'];
+  const VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-m4v', 'video/mpeg'];
+
+  function formatBytes(bytes: number): string {
+    if (bytes >= 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    return `${(bytes / 1024).toFixed(0)} KB`;
+  }
+
+  function validateImageFile(file: File): string | null {
+    if (!IMAGE_TYPES.includes(file.type)) {
+      return `Formato no permitido (${file.name}). Usa webp, png, jpg, gif o avif.`;
+    }
+    if (file.size > MAX_IMAGE_SIZE) {
+      return `La imagen "${file.name}" pesa ${formatBytes(file.size)} y supera el máximo de 10 MB.`;
+    }
+    return null;
+  }
+
+  function validateVideoFile(file: File): string | null {
+    if (!VIDEO_TYPES.includes(file.type)) {
+      return `Formato no permitido (${file.name}). Usa mp4, webm, mov o m4v.`;
+    }
+    if (file.size > MAX_VIDEO_SIZE) {
+      return `El video "${file.name}" pesa ${formatBytes(file.size)} y supera el máximo de 100 MB.`;
+    }
+    return null;
+  }
+
   async function uploadToR2(file: File, folder: string): Promise<string> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('folder', folder);
     const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error ?? 'Error subiendo la imagen.');
+      let msg = 'Error subiendo el archivo.';
+      if (res.status === 413) {
+        msg = `El archivo es demasiado grande para el servidor (límite ~4.5 MB). Comprímelo o reduce su tamaño antes de subirlo.`;
+      } else {
+        const data = await res.json().catch(() => ({}));
+        msg = data.error ?? `Error subiendo el archivo (${res.status}).`;
+      }
+      throw new Error(msg);
     }
     const data = await res.json();
     return data.url;
@@ -196,6 +234,12 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
   async function handleUploadMain(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    e.target.value = '';
+    const invalid = validateImageFile(file);
+    if (invalid) {
+      setError(invalid);
+      return;
+    }
     setUploading(true);
     setError(null);
     try {
@@ -205,13 +249,29 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       setError(err instanceof Error ? err.message : 'Error subiendo la imagen.');
     } finally {
       setUploading(false);
-      e.target.value = '';
     }
   }
 
   async function handleUploadGallery(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
+    e.target.value = '';
+    const current = (form.imagenes ?? []).length;
+    if (current >= MAX_GALLERY) {
+      setError(`La galería ya alcanzó el máximo de ${MAX_GALLERY} imágenes. Quita algunas para subir más.`);
+      return;
+    }
+    if (current + files.length > MAX_GALLERY) {
+      setError(`La galería permite máximo ${MAX_GALLERY} imágenes. Tienes ${current} y seleccionaste ${files.length}; sube solo ${MAX_GALLERY - current}.`);
+      return;
+    }
+    for (const file of Array.from(files)) {
+      const invalid = validateImageFile(file);
+      if (invalid) {
+        setError(invalid);
+        return;
+      }
+    }
     setUploadingGallery(true);
     setError(null);
     try {
@@ -225,13 +285,18 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       setError(err instanceof Error ? err.message : 'Error subiendo la galería.');
     } finally {
       setUploadingGallery(false);
-      e.target.value = '';
     }
   }
 
   async function handleUploadVideo(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    e.target.value = '';
+    const invalid = validateVideoFile(file);
+    if (invalid) {
+      setError(invalid);
+      return;
+    }
     setUploadingVideo(true);
     setError(null);
     try {
@@ -241,7 +306,6 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       setError(err instanceof Error ? err.message : 'Error subiendo el video.');
     } finally {
       setUploadingVideo(false);
-      e.target.value = '';
     }
   }
 
@@ -525,7 +589,17 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
           </div>
 
           <div>
-            <label className={labelClass}>Galería de imágenes</label>
+            <label className={labelClass}>
+              Galería de imágenes
+              <span className="ml-2 text-white/30">
+                {(form.imagenes ?? []).length}/{MAX_GALLERY}
+              </span>
+            </label>
+            {(form.imagenes ?? []).length >= MAX_GALLERY ? (
+              <div className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-white/10 rounded-xl px-4 py-5 text-white/30">
+                <span className="text-xs">Máximo alcanzado ({MAX_GALLERY} imágenes)</span>
+              </div>
+            ) : (
             <label
               className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-4 py-5 cursor-pointer transition-colors ${
                 uploadingGallery
@@ -554,6 +628,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
                 onChange={handleUploadGallery}
               />
             </label>
+            )}
 
             {(form.imagenes ?? []).length > 0 ? (
               <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3">
