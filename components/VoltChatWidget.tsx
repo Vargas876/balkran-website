@@ -156,7 +156,7 @@ export default function VoltChatWidget() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Cerrar chat' : 'Abrir chat Volt'}
-        className="fixed bottom-3 left-4 sm:left-6 z-[90] group focus:outline-none"
+        className="fixed bottom-1 left-1 sm:left-2 z-[90] group focus:outline-none"
       >
         {open ? (
           <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[#111] border border-white/20 text-white hover:bg-black shadow-xl transition-all">
@@ -174,7 +174,7 @@ export default function VoltChatWidget() {
             {/* Robot 3D Flotante Grande Sin Círculo Ni Fondo Oscuro */}
             <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95">
               <VoltBotFace className="w-full h-full drop-shadow-[0_12px_28px_rgba(255,90,0,0.6)]" isFloating={true} />
-              <span className="absolute top-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white z-20 shadow-md animate-pulse" />
+              <span className="absolute top-5 right-5 sm:top-7 sm:right-7 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white z-20 shadow-md animate-pulse" />
             </div>
           </>
         )}
