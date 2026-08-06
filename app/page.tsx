@@ -26,10 +26,51 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 import { fadeInUp, fadeIn, staggerContainer, cardReveal, viewport, withDelay } from '@/lib/animations';
 import { useLanguage } from '@/context/LanguageContext';
+
+function KitSolarParallaxImage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Smooth scroll-driven parallax transform both scrolling down and scrolling up
+  const y = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [100, 0, 0, -80]);
+  const scale = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.92, 1.04, 1.04, 0.94]);
+  const rotate = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [4, 0, 0, -3]);
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.3, 1, 1, 0.4]);
+
+  return (
+    <div ref={containerRef} className="relative w-full h-full flex items-center justify-center">
+      <motion.div
+        style={{ y, scale, rotate, opacity }}
+        className="
+          relative
+          z-10
+          w-[110%]
+          max-w-[850px]
+          lg:-translate-x-[2%]
+          xl:-translate-x-[3%]
+          drop-shadow-[0_35px_70px_rgba(0,0,0,0.55)]
+          will-change-transform
+        "
+      >
+        <Image
+          src="/assets/images/kit_solar_balkran.webp"
+          alt="Kit Solar Balkran"
+          width={1000}
+          height={780}
+          priority
+          className="w-full h-auto object-contain pointer-events-none"
+        />
+      </motion.div>
+    </div>
+  );
+}
 
 function RenderSectorIcon({ sector }: { sector: string }) {
   switch (sector) {
@@ -1611,38 +1652,8 @@ export default function HomePage() {
                 "
               />
 
-              {/* PRODUCT IMAGE WITH ELEGANT SMOOTH LANDING ON SCROLL */}
-              <motion.div
-                initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="
-                  relative
-                  z-10
-                  w-[110%]
-                  max-w-[850px]
-                  lg:-translate-x-[2%]
-                  xl:-translate-x-[3%]
-                  drop-shadow-[0_35px_70px_rgba(0,0,0,0.55)]
-                "
-              >
-                <Image
-                  src="/assets/images/kit_solar_balkran.webp"
-                  alt="Kit Solar Balkran"
-                  width={1000}
-                  height={780}
-                  priority
-                  className="
-                    w-full
-                    h-auto
-                    object-contain
-                  "
-                />
-              </motion.div>
+              {/* PARALLAX SCROLL-DRIVEN PRODUCT IMAGE (Smooth down & up scroll animation) */}
+              <KitSolarParallaxImage />
 
               {/* FLOATING PRODUCT BADGE — Larger & matching reference image */}
               <div
