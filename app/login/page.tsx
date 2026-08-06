@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, Cpu, Leaf } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function LoginPage() {
@@ -20,113 +20,29 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#0a0d14] font-sans flex flex-col justify-between overflow-x-hidden selection:bg-[#ff5a00] selection:text-white">
-      {/* Background Image Layer */}
+    <div className="relative min-h-screen w-full bg-[#0a0d14] font-sans flex flex-col items-center justify-center overflow-x-hidden selection:bg-[#ff5a00] selection:text-white">
+      {/* Background Image Layer using FondoLogin.png */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/BGLogin.png"
+          src="/assets/images/FondoLogin.png"
           alt="Balkran Login Background"
           fill
           priority
-          className="object-cover object-right lg:object-center"
+          className="object-cover object-center"
         />
-        {/* Subtle contrast overlay for mobile screens */}
-        <div className="absolute inset-0 bg-black/20 lg:bg-transparent pointer-events-none" />
+        {/* Soft Vignette Overlay for maximum visual clarity */}
+        <div className="absolute inset-0 bg-black/20 backdrop-brightness-[0.98] pointer-events-none" />
       </div>
 
-      {/* Top Navbar / Back Link */}
-      <header className="relative z-10 w-full max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 pt-6 pb-2 flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="relative w-36 sm:w-44 h-10 transition-transform group-hover:scale-105">
-            <Image
-              src="/assets/images/LogoBlanco.webp"
-              alt="BALKRAN"
-              fill
-              className="object-contain object-left"
-              priority
-            />
-          </div>
-        </Link>
-
-        <Link
-          href="/"
-          className="text-xs font-bold uppercase tracking-wider text-white/80 hover:text-[#ff5a00] bg-black/40 hover:bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 transition-all flex items-center gap-1.5"
-        >
-          <span>← Volver al inicio</span>
-        </Link>
-      </header>
-
-      {/* Main Content: Left Branding + Center Card */}
-      <main className="relative z-10 flex-1 max-w-[1500px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12">
+      {/* Main Centered Content */}
+      <main className="relative z-10 w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex items-center justify-center">
         
-        {/* Left Column (Brand info on desktop) */}
+        {/* Centered Login Form Card */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="hidden lg:flex flex-col justify-between max-w-lg space-y-10 text-white"
-        >
-          {/* Logo & Headline */}
-          <div className="space-y-4 pt-4">
-            <div className="relative w-56 h-14">
-              <Image
-                src="/assets/images/LogoBlanco.webp"
-                alt="BALKRAN Tecnología e Innovación"
-                fill
-                className="object-contain object-left"
-              />
-            </div>
-            
-            <div className="pt-4 space-y-1">
-              <h1 className="text-3xl font-extrabold text-white tracking-tight">
-                <span className="text-[#ff5a00]">Energía</span> que protege,
-              </h1>
-              <h1 className="text-3xl font-extrabold text-[#22c55e] tracking-tight">
-                tecnología que conecta.
-              </h1>
-            </div>
-          </div>
-
-          {/* Features Row */}
-          <div className="grid grid-cols-3 gap-6 pt-8">
-            <div className="flex flex-col items-start space-y-2.5">
-              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
-                <Shield className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
-                <p className="text-xs text-gray-400">Confiable</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start space-y-2.5">
-              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
-                <Cpu className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
-                <p className="text-xs text-gray-400">Avanzada</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start space-y-2.5">
-              <div className="w-11 h-11 rounded-xl border border-[#ff5a00]/40 bg-[#ff5a00]/10 flex items-center justify-center text-[#ff5a00] shadow-md shadow-[#ff5a00]/10">
-                <Leaf className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
-                <p className="text-xs text-gray-400">Sostenible</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Center / Right Login Form Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full max-w-[440px] bg-[#121620]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-7 sm:p-9 shadow-2xl shadow-black/80"
+          initial={{ opacity: 0, y: 20, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="w-full max-w-[440px] bg-[#121620]/92 backdrop-blur-2xl border border-white/15 rounded-3xl p-7 sm:p-9 shadow-2xl shadow-black/80 my-auto"
         >
           {/* Card Logo & Title */}
           <div className="text-center space-y-3 mb-7">
@@ -136,12 +52,13 @@ export default function LoginPage() {
                 alt="BALKRAN"
                 fill
                 className="object-contain"
+                priority
               />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                 Bienvenido de nuevo
-              </h2>
+              </h1>
               <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Inicia sesión para continuar
               </p>
