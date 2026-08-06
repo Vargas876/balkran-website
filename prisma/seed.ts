@@ -15,7 +15,7 @@ function loadDotEnvValue(key: string): string | undefined {
 
 const databaseUrl = loadDotEnvValue('DATABASE_URL');
 
-const prisma = new PrismaClient({
+const prisma = new (PrismaClient as any)({
   adapter: new PrismaPg({ connectionString: databaseUrl }),
 });
 

@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, ShoppingCart } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
@@ -14,6 +15,7 @@ export default function Navbar() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const pathname = usePathname();
   const { t } = useLanguage();
+  const { totalItems, openCart } = useCart();
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -94,8 +96,26 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop CTA & Login */}
+            {/* Desktop CTA, Login & Cart */}
             <div className="hidden md:flex items-center space-x-3">
+              <button
+                onClick={openCart}
+                className={`relative p-2.5 rounded-full transition-all flex items-center justify-center border ${
+                  scrolled || isLightHeaderPage
+                    ? 'bg-gray-100 text-[#1a2130] hover:bg-[#ff5a00] hover:text-white border-gray-200/80 shadow-sm'
+                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-[#ff5a00] hover:border-[#ff5a00] shadow-md'
+                }`}
+                title="Carrito de Compras"
+                aria-label="Carrito de Compras"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#ff5a00] text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-lg shadow-[#ff5a00]/50 animate-pulse">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
               <Link
                 href="/login"
                 className={`p-2.5 rounded-full transition-all flex items-center justify-center border ${
@@ -124,6 +144,26 @@ export default function Navbar() {
 
             {/* Mobile Header Buttons */}
             <div className="md:hidden flex items-center space-x-2">
+              <button
+                onClick={openCart}
+                className={`relative p-2.5 rounded-xl transition-all flex items-center justify-center border ${
+                  mobileMenuOpen
+                    ? 'bg-white/10 text-white border-white/20'
+                    : scrolled || isLightHeaderPage
+                    ? 'bg-gray-100 text-[#1a2130] border-gray-200/80 hover:bg-gray-200'
+                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-black/60 shadow-md'
+                }`}
+                title="Carrito de Compras"
+                aria-label="Carrito de Compras"
+              >
+                <ShoppingCart className="w-5 h-5 text-[#ff5a00]" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#ff5a00] text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center shadow-lg shadow-[#ff5a00]/50">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
               <Link
                 href="/login"
                 className={`p-2.5 rounded-xl transition-all flex items-center justify-center border ${

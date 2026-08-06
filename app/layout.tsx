@@ -5,7 +5,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Preloader from '@/components/Preloader';
+import VoltChatWidget from '@/components/VoltChatWidget';
+import CartDrawer from '@/components/CartDrawer';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { CartProvider } from '@/context/CartContext';
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ['latin'],
@@ -46,11 +49,15 @@ export default function RootLayout({
     <html lang="es" className={`${redHatDisplay.variable} ${redHatText.variable}`}>
       <body className="bg-[#0b0c10] text-white min-h-screen flex flex-col antialiased selection:bg-[#ff5a00] selection:text-white">
         <LanguageProvider>
-          <Preloader />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <LanguageSwitcher />
+          <CartProvider>
+            <Preloader />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <LanguageSwitcher />
+            <VoltChatWidget />
+            <CartDrawer />
+          </CartProvider>
         </LanguageProvider>
       </body>
     </html>

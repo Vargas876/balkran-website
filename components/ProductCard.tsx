@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { Product } from '@/lib/types';
-import { ShoppingCart, Zap } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { formatLinea, formatSubtitulo, formatNombreProducto } from '@/lib/i18nHelpers';
 
 interface ProductCardProps {
@@ -10,14 +13,20 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { t, language } = useLanguage();
-  const whatsappMessage =
-    language === 'en'
-      ? `Hello Balkran, I am interested in quoting ${formatNombreProducto(product.nombre, language)} (${formatLinea(product.linea, language)}) with price ${product.precio}.`
-      : language === 'fr'
-      ? `Bonjour Balkran, je souhaite obtenir un devis pour le produit ${formatNombreProducto(product.nombre, language)} (${formatLinea(product.linea, language)}) au prix de ${product.precio}.`
-      : `Hola Balkran, estoy interesado en cotizar el producto ${product.nombre} (${product.linea}) con precio ${product.precio}.`;
+  const { addItem } = useCart();
 
-  const whatsappUrl = `https://wa.me/573114508064?text=${encodeURIComponent(whatsappMessage)}`;
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    addItem({
+      id: product.id,
+      slug: product.slug,
+      nombre: product.nombre,
+      linea: product.linea,
+      precio: product.precio,
+      precioNumerico: product.precioNumerico,
+      imagen: product.imagen_local,
+    });
+  };
 
   return (
     <div className="group bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:border-[#ff5a00]/40 transition-all duration-300 flex flex-col justify-between relative">
@@ -79,15 +88,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
           {t('productos.btnViewDetails')}
         </Link>
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Cotizar por WhatsApp"
-          className="bg-[#1a2130] hover:bg-[#ff5a00] text-white p-2 rounded-lg transition-colors flex items-center justify-center shrink-0"
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          title="Añadir al carrito"
+          aria-label="Añadir al carrito"
+          className="bg-[#1a2130] hover:bg-[#ff5a00] text-white p-2 rounded-lg transition-colors flex items-center justify-center shrink-0 active:scale-95"
         >
           <ShoppingCart className="w-3.5 h-3.5" />
-        </a>
+        </button>
       </div>
 
     </div>

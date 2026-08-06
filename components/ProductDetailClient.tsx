@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { formatLinea, formatCategoria, formatSubtitulo, formatNombreProducto, formatDescripcionProducto } from '@/lib/i18nHelpers';
 import {
   Zap,

@@ -14,6 +14,7 @@ const CATEGORIA_MAP: Record<string, Categoria> = {
 
 function toProduct(p: PrismaProduct): Product {
   return {
+    id: p.id,
     slug: p.slug,
     nombre: p.nombre,
     linea: p.linea,
