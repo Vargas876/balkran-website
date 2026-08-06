@@ -106,7 +106,7 @@ export default function VoltChatWidget() {
         ]);
       }
     }
-  }, [open]);
+  }, [open, langKey]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

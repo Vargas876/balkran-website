@@ -3,6 +3,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import Groq from 'groq-sdk';
 import { prisma } from '@/lib/prisma';
 import { buildKnowledge, getProductByName } from '@/lib/knowledge';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import { sanitizeReply } from '@/lib/sanitize';
 
 function loadEnvValue(key: string): string | undefined {
   if (existsSync('.env')) {
@@ -15,6 +17,10 @@ function loadEnvValue(key: string): string | undefined {
 
 const GROQ_API_KEY = loadEnvValue('GROQ_API_KEY');
 const GROQ_MODEL = loadEnvValue('GROQ_MODEL') ?? 'llama-3.3-70b-versatile';
+
+const MAX_MESSAGE_LENGTH = 500;
+const MAX_SESSION_ID_LENGTH = 64;
+const MAX_HISTORY = 10;
 
 interface ChatBody {
   message: string;
@@ -29,8 +35,21 @@ interface HistoryMsg {
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+
+    const limit = await checkRateLimit(ip, 'volt-chat', {
+      windowSeconds: 60,
+      max: 10,
+    });
+    if (!limit.ok) {
+      return NextResponse.json(
+        { error: 'Demasiadas consultas. Espera un momento antes de volver a preguntar.' },
+        { status: 429 }
+      );
+    }
+
     const body = (await request.json()) as ChatBody;
-    const message = typeof body.message === 'string' ? body.message.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim().slice(0, MAX_MESSAGE_LENGTH) : '';
     const lang = (body.lang || 'es') === 'en' ? 'en' : (body.lang || 'es') === 'fr' ? 'fr' : 'es';
 
     if (!message) {
@@ -39,12 +58,12 @@ export async function POST(request: Request) {
 
     if (!GROQ_API_KEY) {
       return NextResponse.json(
-        { error: 'GROQ_API_KEY no configurada en el servidor. Agrega la variable en Vercel.' },
+        { error: 'El asistente no está configurado en el servidor.' },
         { status: 500 }
       );
     }
 
-    const sessionId = (body.sessionId || 'anon').slice(0, 100);
+    const sessionId = String(body.sessionId || 'anon').slice(0, MAX_SESSION_ID_LENGTH);
 
     const knowledge = await buildKnowledge();
     const productMatch = await getProductByName(message);
@@ -52,7 +71,7 @@ export async function POST(request: Request) {
     const recent = await prisma.chatMessage.findMany({
       where: { sessionId },
       orderBy: { createdAt: 'asc' },
-      take: 10,
+      take: MAX_HISTORY,
       select: { role: true, content: true },
     });
 
@@ -79,6 +98,7 @@ ${knowledge.products
   .join('\n')}
 
 Si el cliente pregunta por un producto y coincide con algo del catálogo, respóndele con su información y sugiérele el enlace. Si pregunta por precio, da el de la lista o indica "consultar". Si no estás seguro o la pregunta requiere un humano (precios exactos, compra, cotización), sugiere contactar por WhatsApp +57 311 450 8064 o los correos oficiales.
+Nunca inventes datos técnicos. Responde solo con información del catálogo o de las preguntas frecuentes proporcionadas.
 `;
 
     const messages: any[] = [{ role: 'system', content: systemPrompt }];
@@ -109,14 +129,15 @@ Si el cliente pregunta por un producto y coincide con algo del catálogo, respó
       reply = completion.choices?.[0]?.message?.content || 'Lo siento, no pude generar una respuesta.';
     } catch (e) {
       const errText = e instanceof Error ? e.message : String(e);
+      console.error('Error consultando Groq:', errText);
       if (/429|quota|rate|limit/i.test(errText)) {
         return NextResponse.json(
-          { error: 'Límite de uso de la IA alcanzado. Intenta en unos minutos.', usedQuota: true },
+          { error: 'Límite de uso de la IA alcanzado. Intenta en unos minutos.' },
           { status: 429 }
         );
       }
       return NextResponse.json(
-        { error: 'Error consultando la IA.', detail: errText },
+        { error: 'Error consultando la IA. Intenta de nuevo en unos minutos.' },
         { status: 500 }
       );
     }
@@ -127,7 +148,7 @@ Si el cliente pregunta por un producto y coincide con algo del catálogo, respó
     return NextResponse.json({
       status: 'success',
       agent: 'Volt',
-      reply,
+      reply: sanitizeReply(reply),
     });
   } catch (error) {
     console.error('Error en /api/agent/chat:', error);

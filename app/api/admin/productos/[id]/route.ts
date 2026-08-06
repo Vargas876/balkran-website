@@ -2,21 +2,22 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+import { deleteImageFromR2 } from '@/lib/r2';
 
 export const dynamic = 'force-dynamic';
 
 const productSchema = z.object({
-  nombre: z.string().min(1),
-  slug: z.string().min(1).regex(/^[a-z0-9-]+$/, 'Slug inválido'),
+  nombre: z.string().min(1).max(200),
+  slug: z.string().min(1).max(150).regex(/^[a-z0-9-]+$/, 'Slug inválido'),
   categoria: z.enum(['ENERGIZADORES', 'KITS_SOLARES', 'ACCESORIOS']),
-  linea: z.string().optional().default(''),
-  precio: z.string().optional().default(''),
-  precioNumerico: z.number().optional().default(0),
-  alcance: z.string().optional().nullable(),
-  joules: z.string().optional().nullable(),
-  voltaje: z.string().optional().nullable(),
-  descripcion: z.string().optional().nullable(),
-  imagen_local: z.string().optional().nullable(),
+  linea: z.string().max(100).optional().default(''),
+  precio: z.string().max(50).optional().default(''),
+  precioNumerico: z.number().finite().nonnegative().max(1e12).optional().default(0),
+  alcance: z.string().max(100).optional().nullable(),
+  joules: z.string().max(100).optional().nullable(),
+  voltaje: z.string().max(100).optional().nullable(),
+  descripcion: z.string().max(5000).optional().nullable(),
+  imagen_local: z.string().max(500).optional().nullable(),
   esMasVendido: z.boolean().optional().default(false),
   esNuevo: z.boolean().optional().default(false),
   esPopular: z.boolean().optional().default(false),
@@ -100,5 +101,15 @@ export async function DELETE(
   }
 
   await prisma.product.delete({ where: { id } });
+
+  // Limpia la imagen en R2 si el producto la apuntaba (evita huérfanos).
+  try {
+    if (existing.imagen_local?.includes('r2.dev')) {
+      await deleteImageFromR2(existing.imagen_local);
+    }
+  } catch (e) {
+    console.error('Error eliminando imagen en R2:', e);
+  }
+
   return NextResponse.json({ success: true });
 }

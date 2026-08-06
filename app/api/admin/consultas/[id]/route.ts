@@ -4,12 +4,14 @@ import { auth } from '@/auth';
 
 export const dynamic = 'force-dynamic';
 
+const ADMIN_ROLES = ['SUPER_ADMIN', 'ADMIN'];
+
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
-  if (!session?.user) {
+  if (!session?.user || !ADMIN_ROLES.includes(session.user.role)) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 403 });
   }
 

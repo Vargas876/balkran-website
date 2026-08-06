@@ -1,6 +1,13 @@
 import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
 import { auth } from '@/auth';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
+
+const ADMIN_ROLES = ['SUPER_ADMIN', 'ADMIN', 'EDITOR'];
 
 export default async function AdminLayout({
   children,
@@ -11,6 +18,10 @@ export default async function AdminLayout({
 
   if (!session?.user) {
     redirect('/login');
+  }
+
+  if (!ADMIN_ROLES.includes(session.user.role)) {
+    redirect('/');
   }
 
   return (

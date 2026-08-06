@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getAllProducts, getProductBySlug } from '@/lib/products';
 import ProductDetailClient from '@/components/ProductDetailClient';
 import { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
 
 export const revalidate = 3600;
 
@@ -24,13 +25,35 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   if (!product) {
     return {
-      title: 'Producto no encontrado – Balkran',
+      title: 'Producto no encontrado',
     };
   }
 
+  const url = `${getSiteUrl()}/productos/${product.slug}`;
+  const title = `${product.nombre} (${product.linea}) – Cercas Eléctricas | Balkran`;
+  const description = `Conoce las especificaciones técnicas, precio y beneficios de ${product.nombre} (${product.linea}). Alcance: ${product.alcance || 'Hasta 40 km'}. Garantía oficial Balkran.`;
+
   return {
-    title: `${product.nombre} (${product.linea}) – Cercas Eléctricas | Balkran`,
-    description: `Conoce las especificaciones técnicas, precio y beneficios de ${product.nombre} (${product.linea}). Alcance: ${product.alcance || 'Hasta 40 km'}. Garantía oficial Balkran.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+      locale: 'es_CO',
+      siteName: 'Balkran',
+      images: product.imagen_local
+        ? [{ url: product.imagen_local, alt: product.nombre }]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: product.imagen_local ? [product.imagen_local] : undefined,
+    },
   };
 }
 
@@ -48,11 +71,34 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     (p) => p.slug.toLowerCase() !== product.slug.toLowerCase() && p.categoria === product.categoria
   );
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.nombre,
+    description: product.descripcion || product.subtitulo || `Energizador de cercas eléctricas ${product.nombre}`,
+    image: product.imagen_local ? [product.imagen_local] : undefined,
+    brand: { '@type': 'Brand', name: 'Balkran' },
+    sku: product.slug,
+    offers: {
+      '@type': 'Offer',
+      price: product.precioNumerico > 0 ? String(product.precioNumerico) : undefined,
+      priceCurrency: 'COP',
+      availability: 'https://schema.org/InStock',
+      url: `${getSiteUrl()}/productos/${product.slug}`,
+    },
+  };
+
   return (
-    <ProductDetailClient
-      product={product}
-      relatedProducts={relatedProducts.length > 0 ? relatedProducts : allProducts.filter((p) => p.slug.toLowerCase() !== product.slug.toLowerCase())}
-      allProducts={allProducts}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProductDetailClient
+        product={product}
+        relatedProducts={relatedProducts.length > 0 ? relatedProducts : allProducts.filter((p) => p.slug.toLowerCase() !== product.slug.toLowerCase())}
+        allProducts={allProducts}
+      />
+    </>
   );
 }

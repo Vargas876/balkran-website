@@ -506,6 +506,27 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-white text-[#1a2130] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Balkran',
+            url: 'https://balkran.com',
+            logo: 'https://balkran.com/assets/images/LogoBlanco.webp',
+            description:
+              'BALKRAN INC S.A.S. BIC. Más de 25 años fabricando energizadores y cercas eléctricas para el sector agropecuario.',
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+57-311-450-8064',
+              contactType: 'sales',
+              areaServed: 'CO',
+              availableLanguage: ['Spanish'],
+            },
+          }),
+        }}
+      />
 
       {/* SECTION 1: HERO PROTECCIÓN CON ENERGÍA (Proportional Replica of Framer Official Design) */}
       <section className="relative min-h-[460px] lg:min-h-[520px] flex items-center pt-24 pb-10 lg:pt-28 lg:pb-12 overflow-hidden">

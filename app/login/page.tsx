@@ -6,6 +6,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, Cpu, Leaf } from 'lucide-r
 import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 function LoginContent() {
@@ -224,13 +225,12 @@ function LoginContent() {
                 />
                 <span>Recordarme</span>
               </label>
-              <a
-                href="#"
-                onClick={(e) => { e.preventDefault(); alert('Instrucciones de recuperación enviadas.'); }}
+              <Link
+                href="/recuperar"
                 className="text-xs font-semibold text-[#ff5a00] hover:underline"
               >
                 ¿Olvidaste tu clave?
-              </a>
+              </Link>
             </div>
 
             {/* Submit Button */}

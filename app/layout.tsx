@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Red_Hat_Display, Red_Hat_Text } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
@@ -9,6 +9,7 @@ import VoltChatWidget from '@/components/VoltChatWidget';
 import CartDrawer from '@/components/CartDrawer';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { CartProvider } from '@/context/CartContext';
+import { getSiteUrl } from '@/lib/site';
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ['latin'],
@@ -26,10 +27,41 @@ const redHatText = Red_Hat_Text({
   display: 'swap',
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: 'Balkran – Electric Fences & Energizadores para Fincas',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Balkran – Electric Fences & Energizadores para Fincas',
+    template: '%s | Balkran',
+  },
   description: 'Protección con toda la energía. Más de 25 años fabricando energizadores y cercas eléctricas en Colombia para el sector agropecuario.',
   keywords: 'Balkran, cercas electricas, energizadores, impulsadores, ganaderia, fincas, colombia',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_CO',
+    url: siteUrl,
+    siteName: 'Balkran',
+    title: 'Balkran – Electric Fences & Energizadores para Fincas',
+    description: 'Protección con toda la energía. Más de 25 años fabricando energizadores y cercas eléctricas en Colombia para el sector agropecuario.',
+    images: [
+      {
+        url: '/assets/images/LogoBlanco.webp',
+        width: 512,
+        height: 512,
+        alt: 'Balkran Tecnología e Innovación',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Balkran – Electric Fences & Energizadores para Fincas',
+    description: 'Protección con toda la energía. Más de 25 años fabricando energizadores y cercas eléctricas en Colombia.',
+    images: ['/assets/images/LogoBlanco.webp'],
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -38,6 +70,16 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
     apple: '/assets/images/IsotipoBlanco.png',
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#ff5a00',
 };
 
 export default function RootLayout({

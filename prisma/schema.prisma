@@ -38,6 +38,42 @@ model User {
   updatedAt    DateTime  @updatedAt
 }
 
+// Rate limiting de login (fuerza bruta / credential stuffing)
+model LoginAttempt {
+  id           String   @id @default(cuid())
+  email        String
+  ip           String
+  success      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ip, createdAt])
+}
+
+// Rate limiting por endpoint (IP + acción)
+model ApiRateLimit {
+  id        String   @id @default(cuid())
+  ip        String
+  action    String
+  window    DateTime
+  count     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@unique([ip, action, window])
+}
+
+// Tokens de recuperación de contraseña (un solo uso)
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
 model Product {
   id               String   @id @default(cuid())
   slug             String   @unique

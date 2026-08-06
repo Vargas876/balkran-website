@@ -25,8 +25,15 @@ const categoryMap: Record<string, ProductCategory> = {
   Accesorios: ProductCategory.ACCESORIOS,
 };
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'admin@balkran.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'AdminBalkran2026!';
+const ADMIN_EMAIL: string | undefined = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD: string | undefined = process.env.ADMIN_PASSWORD;
+
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+  console.error(
+    'ERROR: ADMIN_EMAIL y ADMIN_PASSWORD son obligatorios para el seed. Defínelas en el entorno.'
+  );
+  process.exit(1);
+}
 
 async function main() {
   console.log('Seeding productos...');
@@ -86,12 +93,12 @@ async function main() {
   const total = await prisma.product.count();
   console.log(`Productos listos: ${total}`);
 
-  const passwordHash = await hash(ADMIN_PASSWORD, 12);
+  const passwordHash = await hash(ADMIN_PASSWORD!, 12);
   await prisma.user.upsert({
-    where: { email: ADMIN_EMAIL },
+    where: { email: ADMIN_EMAIL! },
     update: {},
     create: {
-      email: ADMIN_EMAIL,
+      email: ADMIN_EMAIL!,
       name: 'Super Admin',
       passwordHash,
       role: Role.SUPER_ADMIN,

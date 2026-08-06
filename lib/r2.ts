@@ -38,7 +38,7 @@ export function publicImageUrl(key: string): string {
 
 export async function uploadImageToR2(buffer: Buffer, filename: string, folder = 'productos'): Promise<string> {
   const ext = filename.split('.').pop()?.toLowerCase() || 'webp';
-  const safeExt = /^[a-z0-9]+$/.test(ext) ? ext : 'webp';
+  const safeExt = /^(webp|png|jpe?g|gif|avif)$/.test(ext) ? ext : 'webp';
   const base = filename.replace(/\.[^/.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const key = `${folder}/${base}-${Date.now()}.${safeExt}`;
 
