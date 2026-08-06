@@ -28,11 +28,11 @@ export default function LanguageSwitcher() {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="fixed bottom-4 left-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none">
+    <div ref={dropdownRef} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none">
       
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute bottom-14 left-0 sm:left-auto sm:right-0 w-60 bg-[#1a2130] text-white rounded-2xl p-2 shadow-2xl border border-white/10 animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="absolute bottom-14 right-0 w-60 bg-[#1a2130] text-white rounded-2xl p-2 shadow-2xl border border-white/10 animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-white/10 mb-1">
             Seleccionar Idioma / Select Language
           </div>
