@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, User, ShoppingCart } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
@@ -16,6 +17,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { t } = useLanguage();
   const { totalItems, openCart } = useCart();
+  const { get } = useSiteConfig();
+  const whatsapp = get('whatsapp');
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -130,7 +133,7 @@ export default function Navbar() {
               </Link>
 
               <a
-                href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
+                href={`https://wa.me/${whatsapp}?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#ff5a00] hover:bg-[#e04f00] text-white font-display text-xs font-bold tracking-wider uppercase px-6 py-3 rounded-full shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center gap-2.5 hover:-translate-y-0.5"
@@ -237,7 +240,7 @@ export default function Navbar() {
 
                 <div className="pt-2">
                   <a
-                    href="https://wa.me/573114508064?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores"
+                    href={`https://wa.me/${whatsapp}?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}

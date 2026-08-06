@@ -8,6 +8,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Preloader from '@/components/Preloader';
 import VoltChatWidget from '@/components/VoltChatWidget';
 import CartDrawer from '@/components/CartDrawer';
+import ViewTracker from '@/components/ViewTracker';
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -20,6 +21,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <>
       <Preloader />
+      <ViewTracker />
       <Navbar />
       <LanguageSwitcher />
       {children}

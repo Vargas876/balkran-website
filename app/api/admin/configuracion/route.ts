@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+import { clearSiteConfigCache } from '@/lib/site-config';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,6 +37,10 @@ export async function PUT(request: Request) {
       })
     )
   );
+
+  clearSiteConfigCache();
+  revalidatePath('/');
+  revalidatePath('/contacto');
 
   return NextResponse.json({ success: true });
 }

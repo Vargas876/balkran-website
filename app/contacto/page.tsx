@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -7,6 +7,7 @@ import {
   Mail, Phone, Wrench, Headphones, MapPin
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer, viewport } from '@/lib/animations';
 
@@ -20,6 +21,10 @@ function WhatsAppIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 
 export default function ContactoPage() {
   const { t } = useLanguage();
+  const { get } = useSiteConfig();
+  const whatsapp = get('whatsapp');
+  const telefono = get('telefono');
+  const email = get('email');
 
   return (
     <main className="min-h-screen bg-[#f5f5f6] text-[#1a2130] font-sans overflow-hidden">
@@ -88,7 +93,7 @@ export default function ContactoPage() {
       <div className="relative z-20 -mt-8 bg-[#f8fafc] rounded-t-[36px] shadow-2xl pt-16 pb-20 border-t border-white/80">
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-20">
           
-          {/* SECTION 1: ¿DÓNDE NECESITAS INFORMACIÓN? */}
+          {/* SECTION 1: Â¿DÃ“NDE NECESITAS INFORMACIÃ“N? */}
           <section className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
@@ -195,14 +200,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/tgs1xz6VEadCARlFtXBgVos6Y0.webp"
-                        alt="José Agustín González"
+                        alt="JosÃ© AgustÃ­n GonzÃ¡lez"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        José Agustín González
+                        JosÃ© AgustÃ­n GonzÃ¡lez
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -213,13 +218,13 @@ export default function ContactoPage() {
                       
                       {/* Icons Row */}
                       <div className="flex items-center gap-3 pt-2">
-                        <a href="mailto:ventas@cercasbalkran.com" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Mail className="w-3.5 h-3.5" />
                         </a>
-                        <a href="tel:+573114508064" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Phone className="w-3.5 h-3.5" />
                         </a>
-                        <a href="https://wa.me/573114508064" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
                           <WhatsAppIcon className="w-3.5 h-3.5" />
                         </a>
                       </div>
@@ -227,7 +232,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/573114508064"
+                    href="https://wa.me/${whatsapp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -242,14 +247,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/WK9jcmGEhfsoxbpzkBeiw38l2Uc.webp"
-                        alt="Alejandro Alarcón"
+                        alt="Alejandro AlarcÃ³n"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Alejandro Alarcón
+                        Alejandro AlarcÃ³n
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -260,13 +265,13 @@ export default function ContactoPage() {
                       
                       {/* Icons Row */}
                       <div className="flex items-center gap-3 pt-2">
-                        <a href="mailto:ventas@cercasbalkran.com" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Mail className="w-3.5 h-3.5" />
                         </a>
-                        <a href="tel:+573114508064" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Phone className="w-3.5 h-3.5" />
                         </a>
-                        <a href="https://wa.me/573114508064" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
                           <WhatsAppIcon className="w-3.5 h-3.5" />
                         </a>
                       </div>
@@ -274,7 +279,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/573114508064"
+                    href="https://wa.me/${whatsapp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -289,14 +294,14 @@ export default function ContactoPage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
                       <Image
                         src="/assets/images/F5smyks6PLeyEoYue5fdEFY114.webp"
-                        alt="Jorge Iván Hernández"
+                        alt="Jorge IvÃ¡n HernÃ¡ndez"
                         fill
                         className="object-cover rounded-full"
                       />
                     </div>
                     <div className="space-y-1 pt-1">
                       <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Jorge Iván Hernández
+                        Jorge IvÃ¡n HernÃ¡ndez
                       </h3>
                       <span className="text-xs font-bold text-[#ff5a00] block">
                         {t('contacto.roleSales')}
@@ -307,13 +312,13 @@ export default function ContactoPage() {
                       
                       {/* Icons Row */}
                       <div className="flex items-center gap-3 pt-2">
-                        <a href="mailto:ventas@cercasbalkran.com" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Mail className="w-3.5 h-3.5" />
                         </a>
-                        <a href="tel:+573114508064" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Phone className="w-3.5 h-3.5" />
                         </a>
-                        <a href="https://wa.me/573114508064" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
                           <WhatsAppIcon className="w-3.5 h-3.5" />
                         </a>
                       </div>
@@ -321,7 +326,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/573114508064"
+                    href="https://wa.me/${whatsapp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -354,13 +359,13 @@ export default function ContactoPage() {
                       
                       {/* Icons Row */}
                       <div className="flex items-center gap-3 pt-2">
-                        <a href="mailto:ventas@cercasbalkran.com" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Mail className="w-3.5 h-3.5" />
                         </a>
-                        <a href="tel:+573114508064" className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
                           <Phone className="w-3.5 h-3.5" />
                         </a>
-                        <a href="https://wa.me/573114508064" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
                           <WhatsAppIcon className="w-3.5 h-3.5" />
                         </a>
                       </div>
@@ -368,7 +373,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/573114508064"
+                    href="https://wa.me/${whatsapp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -382,7 +387,7 @@ export default function ContactoPage() {
             </div>
           </section>
 
-          {/* SECTION 3: SOPORTE TÉCNICO (DARK CONTAINER BANNER) */}
+          {/* SECTION 3: SOPORTE TÃ‰CNICO (DARK CONTAINER BANNER) */}
           <section className="bg-[#0b0f17] text-white rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               
@@ -416,7 +421,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/573114508064"
+                    href="https://wa.me/${whatsapp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/40 text-[#ff5a00] bg-black/40 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -456,7 +461,7 @@ export default function ContactoPage() {
             </div>
           </section>
 
-          {/* SECTION 4: ¿NECESITAS AYUDA INMEDIATA? (BOTTOM FUSED CARD BANNER) */}
+          {/* SECTION 4: Â¿NECESITAS AYUDA INMEDIATA? (BOTTOM FUSED CARD BANNER) */}
           <section className="bg-white border border-gray-200/80 rounded-3xl overflow-hidden shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-12 items-stretch">
               
@@ -478,7 +483,7 @@ export default function ContactoPage() {
                 </div>
               </div>
 
-              {/* Col 2: Línea Nacional */}
+              {/* Col 2: LÃ­nea Nacional */}
               <div className="md:col-span-3 p-6 sm:p-8 space-y-1 border-b md:border-b-0 md:border-r border-gray-200/80 flex flex-col justify-center">
                 <span className="text-[11px] text-[#565e6e] font-semibold block">
                   {t('contacto.nationalLine')}

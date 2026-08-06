@@ -532,8 +532,8 @@ export default function HomePage() {
       {/* BANNERS ADMINISTRABLES (solo aparece si hay banners activos) */}
       <BannerSlider />
 
-      {/* SECTION 1: HERO PROTECCIÓN CON ENERGÍA (Proportional Replica of Framer Official Design) */}
-      <section className="relative min-h-[460px] lg:min-h-[520px] flex items-center pt-24 pb-10 lg:pt-28 lg:pb-12 overflow-hidden">
+      {/* SECTION 1: HERO PROTECCIÓN CON ENERGÍA (Taller Hero & Repositioned Energizer Background) */}
+      <section className="relative min-h-[600px] lg:min-h-[680px] xl:min-h-[720px] flex items-center pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
         {/* Background Image - Bright Warm Golden Sunset Field */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -541,11 +541,11 @@ export default function HomePage() {
             alt="Campo colombiano al amanecer — Balkran cerca eléctrica"
             fill
             sizes="100vw"
-            className="object-cover object-center brightness-[1.05] contrast-[1.05]"
+            className="object-cover object-[72%_center] lg:object-[68%_center] brightness-[1.22] contrast-[1.08] saturate-[1.2]"
             priority
           />
           {/* Contrast Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-transparent z-1" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-black/10 z-1" />
         </div>
 
         <div className="relative z-10 max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 w-full">
@@ -553,7 +553,7 @@ export default function HomePage() {
 
             {/* Left Main Content */}
             <motion.div
-              className="lg:col-span-7 space-y-5"
+              className="lg:col-span-7 space-y-4 sm:space-y-5"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
@@ -569,14 +569,14 @@ export default function HomePage() {
               {/* H1 Main Title (High Contrast) */}
               <motion.h1
                 variants={fadeInUp}
-                className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] tracking-tight leading-[1.02] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
+                className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] tracking-tight leading-[1.05] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
               >
                 {t('home.heroTitle1')} <br />
                 <span className="text-[#ff5a00] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">{t('home.heroTitle2')}</span>
               </motion.h1>
 
               {/* Subtitle Paragraph */}
-              <motion.p variants={fadeInUp} className="font-display text-[15px] sm:text-[17px] text-gray-100 font-medium leading-[1.5] max-w-[450px] drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+              <motion.p variants={fadeInUp} className="font-display text-[15px] sm:text-[17px] text-gray-100 font-medium leading-[1.45] max-w-[460px] drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
                 {t('home.heroDesc')}
               </motion.p>
 

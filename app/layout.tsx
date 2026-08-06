@@ -4,6 +4,8 @@ import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { CartProvider } from '@/context/CartContext';
+import { SiteConfigProvider } from '@/context/SiteConfigContext';
+import { getSiteConfigCached } from '@/lib/site-config';
 import { getSiteUrl } from '@/lib/site';
 
 const redHatDisplay = Red_Hat_Display({
@@ -77,21 +79,24 @@ export const viewport: Viewport = {
   themeColor: '#ff5a00',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteConfig = await getSiteConfigCached();
   return (
     <html lang="es" className={`${redHatDisplay.variable} ${redHatText.variable}`}>
       <body className="bg-[#0b0c10] text-white min-h-screen flex flex-col antialiased selection:bg-[#ff5a00] selection:text-white">
-        <LanguageProvider>
-          <CartProvider>
-            <SiteChrome>
-              <main className="flex-1">{children}</main>
-            </SiteChrome>
-          </CartProvider>
-        </LanguageProvider>
+        <SiteConfigProvider config={siteConfig}>
+          <LanguageProvider>
+            <CartProvider>
+              <SiteChrome>
+                <main className="flex-1">{children}</main>
+              </SiteChrome>
+            </CartProvider>
+          </LanguageProvider>
+        </SiteConfigProvider>
       </body>
     </html>
   );

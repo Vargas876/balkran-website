@@ -159,3 +159,13 @@ model SiteConfig {
   value      String
   updatedAt  DateTime @updatedAt
 }
+
+// Vistas de página registradas por el tracker
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  createdAt DateTime @default(now())
+
+  @@index([path, createdAt])
+}

@@ -14,6 +14,7 @@ import {
   Image as ImageIcon,
   Settings,
   Bot,
+  BarChart3,
   PanelLeftClose,
   PanelLeftOpen,
   X,
@@ -25,6 +26,7 @@ const links = [
   { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
   { href: '/admin/consultas', label: 'Consultas', icon: Inbox },
   { href: '/admin/usuarios', label: 'Usuarios', icon: Users },
+  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/knowledge', label: 'Volt IA', icon: Bot },
   { href: '/admin/configuracion', label: 'Configuración', icon: Settings },
 ];
