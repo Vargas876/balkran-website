@@ -61,7 +61,7 @@ export default function LoginPage() {
                 <span className="text-[#ff5a00] font-semibold">Energía</span> que protege,
               </p>
               <p>
-                tecnología que <span className="text-[#22c55e] font-semibold">conecta.</span>
+                tecnología que <span className="text-[#22c55e] font-semibold">conecta</span>
               </p>
             </div>
           </div>
