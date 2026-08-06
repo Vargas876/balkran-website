@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Upload, Loader2, Check } from 'lucide-react';
 
 type ProductFormData = {
   nombre: string;
@@ -44,6 +45,39 @@ export default function ProductForm({
   });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setError(null);
+    setUploaded(false);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', 'productos');
+
+    const res = await fetch('/api/admin/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    setUploading(false);
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? 'Error subiendo la imagen.');
+      e.target.value = '';
+      return;
+    }
+
+    const data = await res.json();
+    set('imagen_local', data.url);
+    setUploaded(true);
+    e.target.value = '';
+  }
 
   function set<K extends keyof ProductFormData>(key: K, value: ProductFormData[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -190,10 +224,58 @@ export default function ProductForm({
             id="imagen_local"
             className={inputClass}
             value={form.imagen_local}
-            onChange={(e) => set('imagen_local', e.target.value)}
-            placeholder="/assets/images/..."
+            onChange={(e) => { set('imagen_local', e.target.value); setUploaded(false); }}
+            placeholder="/assets/images/... o URL de R2"
           />
         </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Subir imagen a R2</label>
+        <label
+          className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-4 py-6 cursor-pointer transition-colors ${
+            uploading ? 'border-white/30 bg-black/30' : 'border-white/15 hover:border-[#ff5a00]/60 hover:bg-black/30'
+          }`}
+        >
+          {uploading ? (
+            <>
+              <Loader2 className="w-6 h-6 text-[#ff5a00] animate-spin" />
+              <span className="text-xs text-white/60">Subiendo imagen…</span>
+            </>
+          ) : uploaded && form.imagen_local ? (
+            <>
+              <Check className="w-6 h-6 text-green-400" />
+              <span className="text-xs text-green-400">Imagen subida correctamente</span>
+            </>
+          ) : (
+            <>
+              <Upload className="w-6 h-6 text-white/50" />
+              <span className="text-xs text-white/60">
+                Haz clic para seleccionar (webp, png, jpg · máx 5 MB)
+              </span>
+            </>
+          )}
+          <input
+            type="file"
+            accept="image/webp,image/png,image/jpeg,image/gif,image/avif"
+            className="hidden"
+            onChange={handleUpload}
+          />
+        </label>
+        {form.imagen_local && (
+          <div className="mt-2 flex items-center gap-3">
+            <div className="relative w-16 h-12 bg-black/40 rounded-lg overflow-hidden border border-white/10 shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={form.imagen_local}
+                alt="Vista previa"
+                className="object-contain w-full h-full"
+                onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.2'; }}
+              />
+            </div>
+            <span className="text-[11px] text-white/40 break-all">{form.imagen_local}</span>
+          </div>
+        )}
       </div>
 
       <div>
