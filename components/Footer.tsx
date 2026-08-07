@@ -18,8 +18,8 @@ export default function Footer() {
     <footer className="bg-white border-t border-gray-200 text-[#565e6e] pt-10 pb-8 font-sans">
       <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16">
         
-        {/* Main Footer Grid - 7 Columns Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-8 pb-12">
+        {/* Main Footer Grid - 8 Columns Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-8 pb-12">
           
           {/* Col 1: Logo, Tagline & Social Icons */}
           <div className="lg:col-span-1 space-y-4">
@@ -101,7 +101,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 5: SOBRE BALKRAN */}
+          {/* Col 5: AYUDA */}
+          <div>
+            <h3 className="font-display text-[#1a2130] text-xs font-bold tracking-wider uppercase mb-3">
+              {t('footer.ayuda')}
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li><Link href="/preguntas-frecuentes" className="hover:text-[#ff5a00] transition-colors">{t('footer.faq')}</Link></li>
+              <li><Link href="/manuales" className="hover:text-[#ff5a00] transition-colors">{t('footer.manuales')}</Link></li>
+              <li><Link href="/garantias-y-devoluciones" className="hover:text-[#ff5a00] transition-colors">{t('footer.garantias')}</Link></li>
+              <li><Link href="/pqrs" className="hover:text-[#ff5a00] transition-colors">{t('footer.pqrs')}</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 6: SOBRE BALKRAN */}
           <div>
             <h3 className="font-display text-[#1a2130] text-xs font-bold tracking-wider uppercase mb-3">
               {t('footer.sobre')}
@@ -114,7 +127,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 6: CONTÁCTANOS */}
+          {/* Col 7: CONTÁCTANOS */}
           <div>
             <h3 className="font-display text-[#1a2130] text-xs font-bold tracking-wider uppercase mb-3">
               {t('footer.contactanos')}
@@ -135,7 +148,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 7: Recibe novedades y consejos (Newsletter) */}
+          {/* Col 8: Recibe novedades y consejos (Newsletter) */}
           <div className="space-y-3">
             <h3 className="font-display text-[#1a2130] text-xs font-bold tracking-wider mb-2">
               {t('footer.newsletter')}

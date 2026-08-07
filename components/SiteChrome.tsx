@@ -9,6 +9,7 @@ import Preloader from '@/components/Preloader';
 import VoltChatWidget from '@/components/VoltChatWidget';
 import CartDrawer from '@/components/CartDrawer';
 import ViewTracker from '@/components/ViewTracker';
+import CookieBanner from '@/components/CookieBanner';
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -28,6 +29,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       <Footer />
       <VoltChatWidget />
       <CartDrawer />
+      <CookieBanner />
     </>
   );
 }

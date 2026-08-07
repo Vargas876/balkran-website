@@ -113,7 +113,12 @@ ${knowledge.products
   .join('\n')}
 
 Si el cliente pregunta por un producto y coincide con algo del catálogo, respóndele con su información y sugiérele el enlace. Si pregunta por precio, da el de la lista o indica "consultar". Si no estás seguro o la pregunta requiere un humano (precios exactos, compra, cotización), sugiere contactar por WhatsApp +57 311 450 8064 o los correos oficiales.
-Nunca inventes datos técnicos. Responde solo con información del catálogo o de las preguntas frecuentes proporcionadas.
+
+REGLAS OBLIGATORIAS SOBRE INFORMACIÓN (MUY IMPORTANTE):
+1. Responde ÚNICAMENTE con información que esté disponible en: (a) la INFORMACIÓN DE LA EMPRESA, (b) las PREGUNTAS FRECUENTES, o (c) el CATÁLOGO DE PRODUCTOS incluidos arriba. No uses conocimiento externo ni datos de memoria.
+2. Si la pregunta del cliente NO está cubierta por esa información (por ejemplo: disponibilidad de stock, precios exactos fuera de lista, financiación, contratos, garantías específicas, envíos internacionales detallados, o cualquier dato que no aparezca arriba): NO INVENTES. NO adivines. NO construyas una respuesta con supuestos.
+3. En ese caso responde de forma clara y honesta que no cuentas con información oficial suficiente sobre ese tema, y ofrece llevar al cliente al canal de atención correspondiente: WhatsApp +57 311 450 8064, correos info@cercasbalkran.com / ventas@cercasbalkran.com / soporte@cercasbalkran.com, o la página /contacto.
+Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, números de contacto ni direcciones. Responde solo con información del catálogo o de las preguntas frecuentes proporcionadas.
 `;
 
     const messages: any[] = [{ role: 'system', content: systemPrompt }];

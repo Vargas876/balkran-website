@@ -22,9 +22,56 @@ function WhatsAppIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 export default function ContactoPage() {
   const { t } = useLanguage();
   const { get } = useSiteConfig();
-  const whatsapp = get('whatsapp');
   const telefono = get('telefono');
   const email = get('email');
+
+  const asesores = [
+    {
+      nombre: 'José Agustín González',
+      cargo: 'contacto.roleSales',
+      zona: 'contacto.advisor1Zone',
+      foto: '/assets/images/tgs1xz6VEadCARlFtXBgVos6Y0.webp',
+      whatsappNum: '573204114484',
+      tel: '573204114484',
+      emailAsesor: 'jose.gonzalez@cercasbalkran.com',
+    },
+    {
+      nombre: 'Alejandro Alarcón',
+      cargo: 'contacto.roleSales',
+      zona: 'contacto.advisor2Zone',
+      foto: '/assets/images/WK9jcmGEhfsoxbpzkBeiw38l2Uc.webp',
+      whatsappNum: '573112276195',
+      tel: '573112276195',
+      emailAsesor: 'alejandro.alarcon@cercasbalkran.com',
+    },
+    {
+      nombre: 'Jorge Iván Hernández',
+      cargo: 'contacto.roleSales',
+      zona: 'contacto.advisor3Zone',
+      foto: '/assets/images/F5smyks6PLeyEoYue5fdEFY114.webp',
+      whatsappNum: '573112258679',
+      tel: '573112258679',
+      emailAsesor: 'ivan.ferrucho@cercasbalkran.com',
+    },
+    {
+      nombre: 'Fabian Vega',
+      cargo: 'contacto.roleDirector',
+      zona: 'contacto.advisor4Zone',
+      foto: '/assets/images/vq39pTRjk3KbeBLS9e5PGfn2OIs.webp',
+      whatsappNum: '573114508064',
+      tel: '573114508064',
+      emailAsesor: 'ventas@cercasbalkran.com',
+    },
+    {
+      nombre: 'Harold Vargas',
+      cargo: 'contacto.roleSales',
+      zona: 'contacto.advisor5Zone',
+      foto: '/assets/images/asesor_harold_vargas.webp',
+      whatsappNum: '573118988057',
+      tel: '573118988057',
+      emailAsesor: 'harold.vargas@cercasbalkran.com',
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-[#f5f5f6] text-[#1a2130] font-sans overflow-hidden">
@@ -191,197 +238,55 @@ export default function ContactoPage() {
                 </p>
               </div>
 
-              {/* Right Column 2x2 Grid */}
+              {/* Right Column 2x3 Grid */}
               <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                
-                {/* Advisor 1 */}
-                <div className="bg-white border border-gray-200/90 rounded-2xl p-6 shadow-sm hover:border-[#ff5a00]/40 transition-all flex flex-col justify-between space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
-                      <Image
-                        src="/assets/images/tgs1xz6VEadCARlFtXBgVos6Y0.webp"
-                        alt="José Agustín González"
-                        fill
-                        className="object-cover rounded-full"
-                      />
-                    </div>
-                    <div className="space-y-1 pt-1">
-                      <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        José Agustín González
-                      </h3>
-                      <span className="text-xs font-bold text-[#ff5a00] block">
-                        {t('contacto.roleSales')}
-                      </span>
-                      <p className="text-[11px] text-[#565e6e] leading-normal pt-1">
-                        {t('contacto.advisor1Zone')}
-                      </p>
-                      
-                      {/* Icons Row */}
-                      <div className="flex items-center gap-3 pt-2">
-                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Mail className="w-3.5 h-3.5" />
-                        </a>
-                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Phone className="w-3.5 h-3.5" />
-                        </a>
-                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
-                          <WhatsAppIcon className="w-3.5 h-3.5" />
-                        </a>
+                {asesores.map((a) => (
+                  <div key={a.nombre} className="bg-white border border-gray-200/90 rounded-2xl p-6 shadow-sm hover:border-[#ff5a00]/40 transition-all flex flex-col justify-between space-y-6">
+                    <div className="flex gap-4 items-start">
+                      <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
+                        <Image
+                          src={a.foto}
+                          alt={a.nombre}
+                          fill
+                          className="object-cover rounded-full"
+                        />
+                      </div>
+                      <div className="space-y-1 pt-1">
+                        <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
+                          {a.nombre}
+                        </h3>
+                        <span className="text-xs font-bold text-[#ff5a00] block">
+                          {t(a.cargo)}
+                        </span>
+                        <p className="text-[11px] text-[#565e6e] leading-normal pt-1">
+                          {t(a.zona)}
+                        </p>
+
+                        {/* Icons Row */}
+                        <div className="flex items-center gap-3 pt-2">
+                          <a href={`mailto:${a.emailAsesor}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                            <Mail className="w-3.5 h-3.5" />
+                          </a>
+                          <a href={`tel:${a.tel}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
+                            <Phone className="w-3.5 h-3.5" />
+                          </a>
+                          <a href={`https://wa.me/${a.whatsappNum}`} target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                            <WhatsAppIcon className="w-3.5 h-3.5" />
+                          </a>
+                        </div>
                       </div>
                     </div>
+
+                    <a
+                      href={`https://wa.me/${a.whatsappNum}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
+                    >
+                      {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
                   </div>
-
-                  <a
-                    href="https://wa.me/${whatsapp}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
-                  >
-                    {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
-                {/* Advisor 2 */}
-                <div className="bg-white border border-gray-200/90 rounded-2xl p-6 shadow-sm hover:border-[#ff5a00]/40 transition-all flex flex-col justify-between space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
-                      <Image
-                        src="/assets/images/WK9jcmGEhfsoxbpzkBeiw38l2Uc.webp"
-                        alt="Alejandro Alarcón"
-                        fill
-                        className="object-cover rounded-full"
-                      />
-                    </div>
-                    <div className="space-y-1 pt-1">
-                      <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Alejandro Alarcón
-                      </h3>
-                      <span className="text-xs font-bold text-[#ff5a00] block">
-                        {t('contacto.roleSales')}
-                      </span>
-                      <p className="text-[11px] text-[#565e6e] leading-normal pt-1">
-                        {t('contacto.advisor2Zone')}
-                      </p>
-                      
-                      {/* Icons Row */}
-                      <div className="flex items-center gap-3 pt-2">
-                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Mail className="w-3.5 h-3.5" />
-                        </a>
-                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Phone className="w-3.5 h-3.5" />
-                        </a>
-                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
-                          <WhatsAppIcon className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    href="https://wa.me/${whatsapp}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
-                  >
-                    {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
-                {/* Advisor 3 */}
-                <div className="bg-white border border-gray-200/90 rounded-2xl p-6 shadow-sm hover:border-[#ff5a00]/40 transition-all flex flex-col justify-between space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
-                      <Image
-                        src="/assets/images/F5smyks6PLeyEoYue5fdEFY114.webp"
-                        alt="Jorge Iván Hernández"
-                        fill
-                        className="object-cover rounded-full"
-                      />
-                    </div>
-                    <div className="space-y-1 pt-1">
-                      <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Jorge Iván Hernández
-                      </h3>
-                      <span className="text-xs font-bold text-[#ff5a00] block">
-                        {t('contacto.roleSales')}
-                      </span>
-                      <p className="text-[11px] text-[#565e6e] leading-normal pt-1">
-                        {t('contacto.advisor3Zone')}
-                      </p>
-                      
-                      {/* Icons Row */}
-                      <div className="flex items-center gap-3 pt-2">
-                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Mail className="w-3.5 h-3.5" />
-                        </a>
-                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Phone className="w-3.5 h-3.5" />
-                        </a>
-                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
-                          <WhatsAppIcon className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    href="https://wa.me/${whatsapp}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
-                  >
-                    {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
-                {/* Advisor 4 */}
-                <div className="bg-white border border-gray-200/90 rounded-2xl p-6 shadow-sm hover:border-[#ff5a00]/40 transition-all flex flex-col justify-between space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden shrink-0 ring-4 ring-[#ff5a00]/90 p-0.5">
-                      <Image
-                        src="/assets/images/vq39pTRjk3KbeBLS9e5PGfn2OIs.webp"
-                        alt="Fabian Vega"
-                        fill
-                        className="object-cover rounded-full"
-                      />
-                    </div>
-                    <div className="space-y-1 pt-1">
-                      <h3 className="font-display font-bold text-base text-[#1a2130] leading-snug">
-                        Fabian Vega
-                      </h3>
-                      <span className="text-xs font-bold text-[#ff5a00] block">
-                        {t('contacto.roleDirector')}
-                      </span>
-                      <p className="text-[11px] text-[#565e6e] leading-normal pt-1">
-                        {t('contacto.advisor4Zone')}
-                      </p>
-                      
-                      {/* Icons Row */}
-                      <div className="flex items-center gap-3 pt-2">
-                        <a href={`mailto:${email}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Mail className="w-3.5 h-3.5" />
-                        </a>
-                        <a href={`tel:${telefono}`} className="w-7 h-7 rounded-full bg-orange-50 border border-orange-200 text-[#ff5a00] flex items-center justify-center hover:bg-[#ff5a00] hover:text-white transition-colors">
-                          <Phone className="w-3.5 h-3.5" />
-                        </a>
-                        <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-green-50 border border-green-200 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
-                          <WhatsAppIcon className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    href="https://wa.me/${whatsapp}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 border border-[#ff5a00]/30 text-[#ff5a00] bg-orange-50/30 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
-                  >
-                    {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
+                ))}
               </div>
 
             </div>
@@ -421,7 +326,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="https://wa.me/${whatsapp}"
+                    href="https://wa.me/573204093110"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/40 text-[#ff5a00] bg-black/40 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
@@ -449,7 +354,7 @@ export default function ContactoPage() {
                   </div>
 
                   <a
-                    href="tel:+57018000112727"
+                    href="tel:573114508064"
                     className="w-full py-2.5 px-4 border border-[#ff5a00]/40 text-[#ff5a00] bg-black/40 hover:bg-[#ff5a00] hover:text-white rounded-xl text-xs font-bold font-display uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
                   >
                     {t('contacto.contact')} <ArrowRight className="w-3.5 h-3.5" />
@@ -483,13 +388,13 @@ export default function ContactoPage() {
                 </div>
               </div>
 
-              {/* Col 2: Línea Nacional */}
+              {/* Col 2: Línea de Atención */}
               <div className="md:col-span-3 p-6 sm:p-8 space-y-1 border-b md:border-b-0 md:border-r border-gray-200/80 flex flex-col justify-center">
                 <span className="text-[11px] text-[#565e6e] font-semibold block">
                   {t('contacto.nationalLine')}
                 </span>
                 <p className="font-display font-extrabold text-lg text-[#1a2130]">
-                  01 8000 112 727
+                  +57 311 450 8064
                 </p>
                 <div className="text-[10px] text-[#565e6e] space-y-0.5 pt-0.5">
                   <p>{t('contacto.scheduleDays')}</p>
