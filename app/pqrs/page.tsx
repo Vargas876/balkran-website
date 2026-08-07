@@ -38,7 +38,7 @@ export default function PqrsPage() {
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[44px] tracking-tight leading-[1.08]">
               Peticiones, Quejas, <span className="text-[#ff5a00]">Reclamos y Solicitudes</span>
             </h1>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl text-justify">
               En BALKRAN INC S.A.S BIC ponemos a tu disposición el formulario de peticiones, quejas, reclamos y solicitudes (PQRS) junto con los canales de atención y los tiempos de respuesta establecidos.
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function PqrsPage() {
                 <h2 className="font-display font-extrabold text-xl sm:text-2xl text-[#111111]">
                   Formulario de peticiones, quejas, reclamos y solicitudes
                 </h2>
-                <p className="text-xs text-[#565e6e] font-medium mt-1">
+                <p className="text-xs text-[#565e6e] font-medium mt-1 text-justify">
                   Completa los campos y radica tu solicitud. Recibirás respuesta por los canales que nos indiques.
                 </p>
               </div>

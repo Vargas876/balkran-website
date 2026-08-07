@@ -111,7 +111,7 @@ export default function TerminosCondicionesPage() {
               <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">Acuerdo de uso</span>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#111111] leading-tight mt-2">Antes de adquirir un producto</h2>
             </div>
-            <div className="lg:col-span-8 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed">
+            <div className="lg:col-span-8 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
               <p>
                 Antes de adquirir un producto en nuestro Sitio Web www.cercasbalkran.com, debe leer atentamente estos términos y condiciones. Nos reservamos el derecho a modificar los términos y condiciones que rigen la tienda virtual y los productos.
               </p>
@@ -140,7 +140,7 @@ export default function TerminosCondicionesPage() {
                     <h2 className="font-display font-extrabold text-xl sm:text-2xl text-[#111111]">{cl.titulo}</h2>
                   </div>
                 </div>
-                <div className="space-y-3 text-sm sm:text-base text-[#565e6e] leading-relaxed">
+                <div className="space-y-3 text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
                   {cl.parrafos.map((p, j) => (
                     <p key={j}>{p}</p>
                   ))}
@@ -166,7 +166,7 @@ export default function TerminosCondicionesPage() {
             <div className="lg:col-span-8 space-y-4">
               <ol className="space-y-3">
                 {pqrsItems.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-[#565e6e] leading-relaxed bg-[#fcfcfc] border border-gray-200/90 rounded-2xl p-5">
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#565e6e] leading-relaxed text-justify bg-[#fcfcfc] border border-gray-200/90 rounded-2xl p-5">
                     <span className="w-6 h-6 rounded-full bg-[#ff5a00] text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
                     <span>{item}</span>
                   </li>
@@ -176,7 +176,7 @@ export default function TerminosCondicionesPage() {
             <div className="lg:col-span-4">
               <div className="bg-gradient-to-br from-[#111111] to-[#1e232d] text-white rounded-3xl p-6 sm:p-8 space-y-4 shadow-lg sticky top-24">
                 <h3 className="font-display font-extrabold text-xl text-white">¿Tienes una petición, queja o reclamo?</h3>
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed text-justify">
                   Al momento de recibir su radicado, el tiempo de respuesta a las PQRS será acordado con el cliente dependiendo de su solicitud; en este tiempo se le dará información de los procesos posteriores al radicado para la gestión por parte de BALKRAN INC SAS BIC.
                 </p>
                 <Link href="/pqrs" className="inline-flex items-center justify-center gap-2 bg-[#ff5a00] hover:bg-orange-600 text-white text-xs font-bold px-5 py-3 rounded-full transition-colors w-full">

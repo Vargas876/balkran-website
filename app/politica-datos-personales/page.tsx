@@ -65,7 +65,7 @@ export default function PoliticaDatosPage() {
               <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">1 · Responsable del tratamiento</span>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#111111] leading-tight mt-2">BALKRAN INC. S.A.S. BIC</h2>
             </div>
-            <div className="lg:col-span-9 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed">
+            <div className="lg:col-span-9 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
               <p>
                 Sociedad identificada con Nit 900.215.119-6 con domicilio legal en la ciudad de Duitama, departamento de Boyacá, Colombia, cuya dirección es Carrera 26 No. 24 – 17 y teléfono de contacto (+57) 3114508064, sitio web www.cercasbalkran.com. Como responsable del tratamiento de recolección, almacenamiento, uso, circulación y disposición de los datos personales, lleva a cabo en ejercicio natural de sus actividades derivadas de las relaciones comerciales con los respectivos clientes actuales y potenciales, proveedores, colaboradores y, en general, los terceros de quienes recolecta datos personales.
               </p>
@@ -125,7 +125,7 @@ export default function PoliticaDatosPage() {
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl text-justify">
             Para los efectos de la presente política se entenderán como titulares de derecho todas las personas que aparezcan registradas en las bases de datos de BALKRAN INC. S.A.S – BIC: (I) Socios; (II) empleados; (III) proveedores; (IV) clientes; (V) aliados. El titular de los datos personales tendrá derecho a:
           </p>
 
@@ -133,7 +133,7 @@ export default function PoliticaDatosPage() {
             {derechos.map((d, i) => (
               <div key={i} className="bg-[#fcfcfc] border border-gray-200/90 rounded-2xl p-5 flex gap-4 items-start hover:border-orange-300 transition-colors">
                 <span className="w-7 h-7 rounded-full bg-[#ff5a00] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
-                <p className="text-sm text-[#565e6e] leading-relaxed">{d}</p>
+                <p className="text-sm text-[#565e6e] leading-relaxed text-justify">{d}</p>
               </div>
             ))}
           </div>
@@ -164,7 +164,7 @@ export default function PoliticaDatosPage() {
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl text-justify">
             En cumplimiento de las normas sobre protección de datos personales contempladas en la constitución política en su articulado N° 15 según la cual el hábeas data es el derecho que tienen todas las personas a conocer, actualizar y rectificar las informaciones que se hayan recogido sobre ellas en bases de datos o archivos, y de conformidad con la Ley 1581 de 2012 y el Decreto 1377 de 2013, BALKRAN INC. S.A.S – BIC presenta el procedimiento y requisitos mínimos para el ejercicio de sus derechos:
           </p>
 
@@ -191,7 +191,7 @@ export default function PoliticaDatosPage() {
               <ShieldCheck className="w-5 h-5 text-[#ff5a00]" />
               <h2 className="font-display font-extrabold text-xl sm:text-2xl text-white">Vigencia</h2>
             </div>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed text-justify">
               La presente política de tratamiento y protección de datos personales iniciará su vigencia el día 1 de enero de 2022 y tendrá validez mientras BALKRAN ejerza su objeto social en Colombia, o hasta que la ley disponga asunto en contrario o diferente. La empresa se reserva el derecho de modificar esta política en cualquier momento; sin embargo, cualquier cambio de forma unilateral será informado y publicado oportunamente a través de la página web y se inscribirá la fecha de cambio.
             </p>
           </div>

@@ -62,7 +62,7 @@ export default function CertificacionesPage() {
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[44px] tracking-tight leading-[1.08]">
               Certificaciones que <span className="text-[#ff5a00]">nos respaldan</span>
             </h1>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl text-justify">
               En Balkran INC S.A.S. BIC estamos siempre comprometidos con la calidad y seguridad de nuestros productos; por esto trabajamos de la mano de los mejores y estas certificaciones nos respaldan.
             </p>
             <div className="flex flex-wrap gap-3 pt-1 text-xs">
@@ -96,7 +96,7 @@ export default function CertificacionesPage() {
 
                   <div className="space-y-1.5">
                     <h2 className="font-display font-extrabold text-xl sm:text-2xl text-[#111111]">{c.nombre}</h2>
-                    <p className="text-sm text-[#565e6e] leading-relaxed">{c.descripcion}</p>
+                    <p className="text-sm text-[#565e6e] leading-relaxed text-justify">{c.descripcion}</p>
                   </div>
 
                   <div className="pt-3 border-t border-gray-100 space-y-2">

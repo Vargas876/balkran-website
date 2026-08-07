@@ -41,6 +41,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    cpus: 2,
+  },
   images: {
     unoptimized: true,
   },

@@ -132,7 +132,7 @@ export default function EventosPage() {
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[44px] tracking-tight leading-[1.08]">
               Eventos y <span className="text-[#ff5a00]">Participación</span>
             </h1>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl text-justify">
               Conoce los eventos, ferias e informes de gestión en los que BALKRAN INC S.A.S BIC ha participado, reafirmando nuestro compromiso con el sector agropecuario y la sostenibilidad.
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function EventosPage() {
                   <h2 className="font-display font-extrabold text-lg sm:text-xl text-[#111111] leading-snug group-hover:text-[#ff5a00] transition-colors">
                     {e.titulo}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#565e6e] leading-relaxed flex-1 line-clamp-4">
+                  <p className="text-xs sm:text-sm text-[#565e6e] leading-relaxed flex-1 line-clamp-4 text-justify">
                     {e.resumen}
                   </p>
                   <div className="pt-1">
