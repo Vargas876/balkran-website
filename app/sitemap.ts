@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllProducts } from '@/lib/products';
 import { getSiteUrl } from '@/lib/site';
+import { eventos } from '@/lib/eventos';
 
 export const revalidate = 3600;
 
@@ -23,6 +24,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/politica-datos-personales`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
   ];
 
+  const eventoRoutes: MetadataRoute.Sitemap = eventos.map((e) => ({
+    url: `${base}/eventos/${e.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
   let productRoutes: MetadataRoute.Sitemap = [];
   try {
     const products = await getAllProducts();
@@ -36,5 +44,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generando sitemap de productos:', e);
   }
 
-  return [...staticRoutes, ...productRoutes];
+  return [...staticRoutes, ...eventoRoutes, ...productRoutes];
 }

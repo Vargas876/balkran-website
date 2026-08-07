@@ -101,7 +101,7 @@ export default function BannerForm({
               className={inputClass}
               value={form.imagen}
               onChange={(e) => setForm((p) => ({ ...p, imagen: e.target.value }))}
-              placeholder="/assets/images/... o URL de R2"
+              placeholder="URL de imagen en R2 o pega la URL"
             />
           </div>
           <label

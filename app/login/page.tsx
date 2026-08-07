@@ -51,7 +51,7 @@ function LoginContent() {
       {/* Background Image Layer using FondoLogin.png */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/FondoLogin.png"
+          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/FondoLogin.webp"
           alt="Balkran Login Background"
           fill
           priority
@@ -75,7 +75,7 @@ function LoginContent() {
           <div className="space-y-5">
             <div className="relative w-64 h-14">
               <Image
-                src="/assets/images/LogoBlanco.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
                 alt="BALKRAN Tecnología e Innovación"
                 fill
                 className="object-contain object-left"
@@ -141,7 +141,7 @@ function LoginContent() {
           <div className="text-center space-y-3 mb-7">
             <div className="relative w-44 h-11 mx-auto">
               <Image
-                src="/assets/images/LogoBlanco.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
                 alt="BALKRAN"
                 fill
                 className="object-contain"

@@ -6,55 +6,100 @@ import Link from 'next/link';
 import { 
   ShieldCheck, Award, Building2, Zap, 
   Target, Eye, FlaskConical, Cpu, Headphones,
-  Sparkles, Compass, Smile, Scale, ArrowRight, Heart
+  Sparkles, Compass, Smile, Scale, ArrowRight, Heart, Users
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer, viewport } from '@/lib/animations';
 
+const principios = [
+  {
+    titleKey: 'nosotros.p1Title',
+    descKey: 'nosotros.p1Desc',
+    icon: Heart,
+    bg: 'bg-rose-50 border-rose-200 text-rose-500',
+  },
+  {
+    titleKey: 'nosotros.p2Title',
+    descKey: 'nosotros.p2Desc',
+    icon: Sparkles,
+    bg: 'bg-amber-50 border-amber-200 text-amber-500',
+  },
+  {
+    titleKey: 'nosotros.p3Title',
+    descKey: 'nosotros.p3Desc',
+    icon: Smile,
+    bg: 'bg-cyan-50 border-cyan-200 text-cyan-600',
+  },
+  {
+    titleKey: 'nosotros.p4Title',
+    descKey: 'nosotros.p4Desc',
+    icon: Compass,
+    bg: 'bg-emerald-50 border-emerald-200 text-emerald-600',
+  },
+  {
+    titleKey: 'nosotros.p5Title',
+    descKey: 'nosotros.p5Desc',
+    icon: Scale,
+    bg: 'bg-indigo-50 border-indigo-200 text-indigo-600',
+  },
+];
+
+const objetivosCalidadKeys = [
+  'nosotros.obj1',
+  'nosotros.obj2',
+  'nosotros.obj3',
+  'nosotros.obj4',
+  'nosotros.obj5',
+];
+
+const valores = [
+  {
+    titleKey: 'nosotros.v1Title',
+    descKey: 'nosotros.v1Desc',
+    icon: Award,
+    bg: 'bg-rose-50 border-rose-200 text-rose-500',
+  },
+  {
+    titleKey: 'nosotros.v2Title',
+    descKey: 'nosotros.v2Desc',
+    icon: Zap,
+    bg: 'bg-amber-50 border-amber-200 text-amber-500',
+  },
+  {
+    titleKey: 'nosotros.v3Title',
+    descKey: 'nosotros.v3Desc',
+    icon: Users,
+    bg: 'bg-emerald-50 border-emerald-200 text-emerald-600',
+  },
+  {
+    titleKey: 'nosotros.v4Title',
+    descKey: 'nosotros.v4Desc',
+    icon: ShieldCheck,
+    bg: 'bg-blue-50 border-blue-200 text-blue-600',
+  },
+  {
+    titleKey: 'nosotros.v5Title',
+    descKey: 'nosotros.v5Desc',
+    icon: Building2,
+    bg: 'bg-purple-50 border-purple-200 text-purple-600',
+  },
+  {
+    titleKey: 'nosotros.v6Title',
+    descKey: 'nosotros.v6Desc',
+    icon: Cpu,
+    bg: 'bg-orange-50 border-orange-200 text-[#ff5a00]',
+  },
+  {
+    titleKey: 'nosotros.v7Title',
+    descKey: 'nosotros.v7Desc',
+    icon: Heart,
+    bg: 'bg-sky-50 border-sky-200 text-sky-600',
+  },
+];
+
 export default function NosotrosPage() {
   const { t } = useLanguage();
-
-  const principios = [
-    {
-      titleKey: 'nosotros.p1Title',
-      descKey: 'nosotros.p1Desc',
-      icon: Heart,
-      bg: 'bg-rose-50 border-rose-200 text-rose-500',
-    },
-    {
-      titleKey: 'nosotros.p2Title',
-      descKey: 'nosotros.p2Desc',
-      icon: Sparkles,
-      bg: 'bg-amber-50 border-amber-200 text-amber-500',
-    },
-    {
-      titleKey: 'nosotros.p3Title',
-      descKey: 'nosotros.p3Desc',
-      icon: Smile,
-      bg: 'bg-cyan-50 border-cyan-200 text-cyan-600',
-    },
-    {
-      titleKey: 'nosotros.p4Title',
-      descKey: 'nosotros.p4Desc',
-      icon: Compass,
-      bg: 'bg-emerald-50 border-emerald-200 text-emerald-600',
-    },
-    {
-      titleKey: 'nosotros.p5Title',
-      descKey: 'nosotros.p5Desc',
-      icon: Scale,
-      bg: 'bg-indigo-50 border-indigo-200 text-indigo-600',
-    },
-  ];
-
-  const objetivosCalidadKeys = [
-    'nosotros.obj1',
-    'nosotros.obj2',
-    'nosotros.obj3',
-    'nosotros.obj4',
-    'nosotros.obj5',
-  ];
 
   return (
     <main className="min-h-screen bg-[#f8fafc] text-[#1a2130] font-sans overflow-hidden">
@@ -64,7 +109,7 @@ export default function NosotrosPage() {
         
         <div className="absolute top-0 right-0 w-full lg:w-[58%] h-full z-0">
           <Image
-            src="/assets/images/7HdVerwkKK2fDdeCjvLSGTPJzdo.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/7HdVerwkKK2fDdeCjvLSGTPJzdo.webp"
             alt="BALKRAN INC S.A.S. BIC Campo y Colinas"
             fill
             className="object-cover object-left lg:object-center brightness-[1.02]"
@@ -171,7 +216,7 @@ export default function NosotrosPage() {
             <div className="lg:col-span-6 space-y-6">
               <div className="relative w-full h-[320px] sm:h-[380px] rounded-3xl overflow-hidden shadow-lg border border-gray-100">
                 <Image
-                  src="/assets/images/confecamaras_balkran.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/confecamaras_balkran.webp"
                   alt="Equipo BALKRAN en Evento Confecámaras Sociedades BIC"
                   fill
                   className="object-cover object-top"
@@ -180,7 +225,7 @@ export default function NosotrosPage() {
                   <div className="space-y-1">
                     <div className="relative w-36 h-8">
                       <Image
-                        src="/assets/images/U8LFRrUZtP2kBLhJTaqAU2t8sw.webp"
+                        src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/U8LFRrUZtP2kBLhJTaqAU2t8sw.webp"
                         alt="Balkran Logo Oficial"
                         fill
                         className="object-contain object-left"
@@ -190,7 +235,7 @@ export default function NosotrosPage() {
                   </div>
                   <div className="relative w-20 h-12 shrink-0">
                     <Image
-                      src="/assets/images/sociedades_bic.webp"
+                      src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/sociedades_bic.webp"
                       alt="Sociedad BIC Logo"
                       fill
                       className="object-contain"
@@ -212,17 +257,29 @@ export default function NosotrosPage() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-xs sm:text-sm text-[#565e6e] leading-relaxed">
               <div className="lg:col-span-6 space-y-2">
-                <p>{t('nosotros.histP1')}</p>
-                <p dangerouslySetInnerHTML={{ __html: t('nosotros.histP2') }} />
+                <p className="text-justify">{t('nosotros.histP1')}</p>
+                <p className="text-justify">{t('nosotros.histP2')}</p>
               </div>
               <div className="lg:col-span-6 space-y-2">
-                <p dangerouslySetInnerHTML={{ __html: t('nosotros.histP3') }} />
-                <div className="flex items-center gap-2 text-[#ff5a00] font-bold pt-1">
-                  <Award className="w-4 h-4" />
-                  <span>{t('nosotros.histPatent')}</span>
-                </div>
+                <p className="flex items-start gap-2.5 text-justify">
+                  <Award className="w-4 h-4 text-[#ff5a00] shrink-0 mt-0.5" />
+                  <span>{t('nosotros.histP3')}</span>
+                </p>
               </div>
             </div>
+          </div>
+
+          {/* Propósito de la empresa */}
+          <div className="bg-gradient-to-br from-[#111111] to-[#1e232d] text-white rounded-3xl p-6 sm:p-8 space-y-3 shadow-lg">
+            <div className="flex items-center gap-3">
+              <Zap className="w-5 h-5 text-[#ff5a00]" />
+              <h3 className="font-display font-extrabold text-xl sm:text-2xl text-white">
+                {t('nosotros.propositoTitle')}
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed text-justify">
+              {t('nosotros.propositoDesc')}
+            </p>
           </div>
 
         </div>
@@ -337,17 +394,60 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 5. PRINCIPIOS CORPORATIVOS */}
-      <section className="py-12 bg-[#f8fafc] border-t border-gray-200/60">
+      {/* 5. VALORES CORPORATIVOS */}
+      <section className="py-12 bg-white border-t border-gray-200/60">
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
           
           <div className="text-center space-y-1.5 max-w-2xl mx-auto">
+            <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">
+              {t('nosotros.valBadge')}
+            </span>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#111111]">
+              {t('nosotros.valTitle')}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {valores.map((v, idx) => {
+              const IconComp = v.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-[#fcfcfc] border border-gray-200/90 rounded-2xl p-5 space-y-3 hover:border-orange-300 hover:shadow-md transition-all flex flex-col"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-11 h-11 rounded-2xl ${v.bg} flex items-center justify-center shadow-xs shrink-0`}>
+                      <IconComp className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-display font-extrabold text-base text-[#111111]">
+                      {t(v.titleKey)}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-[#565e6e] leading-relaxed font-medium text-justify">
+                    {t(v.descKey)}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. PRINCIPIOS CORPORATIVOS */}
+      <section className="py-12 bg-[#f8fafc] border-t border-gray-200/60">
+        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
+          
+          <div className="text-center space-y-1.5 max-w-3xl mx-auto">
             <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">
               {t('nosotros.princBadge')}
             </span>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#111111]">
               {t('nosotros.princTitle')}
             </h2>
+            <p className="text-sm text-[#565e6e] leading-relaxed text-justify font-medium">
+              {t('nosotros.princIntro')}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -365,7 +465,7 @@ export default function NosotrosPage() {
                     <h3 className="font-display font-extrabold text-base text-[#111111]">
                       {t(p.titleKey)}
                     </h3>
-                    <p className="text-xs text-[#565e6e] leading-relaxed font-medium">
+                    <p className="text-xs text-[#565e6e] leading-relaxed font-medium text-justify">
                       {t(p.descKey)}
                     </p>
                   </div>
@@ -377,11 +477,11 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 6. TECNOLOGÍA QUE PROTEGE */}
+      {/* 7. TECNOLOGÍA QUE PROTEGE */}
       <section className="relative py-16 bg-[#111111] text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/ofbdQ7Cix9FTbmI48pL8kOH2SY.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/ofbdQ7Cix9FTbmI48pL8kOH2SY.webp"
             alt="Soluciones diseñadas para el campo"
             fill
             className="object-cover opacity-65 brightness-105"
@@ -472,7 +572,7 @@ export default function NosotrosPage() {
             <div className="lg:col-span-7">
               <div className="relative w-full h-[320px] sm:h-[400px] rounded-3xl overflow-hidden shadow-lg border border-gray-100">
                 <Image
-                  src="/assets/images/equipo_balkran.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/equipo_balkran.webp"
                   alt="Detrás de Balkran - Equipo de Trabajo Completo"
                   fill
                   className="object-cover object-center"
@@ -484,11 +584,11 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 8. CTA BANNER */}
+      {/* 9. CTA BANNER */}
       <section className="relative py-10 sm:py-12 bg-[#111111] text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/vacas_potrero.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/vacas_potrero.webp"
             alt="Ganado en potreros protegidos por Cercas Balkran"
             fill
             className="object-cover opacity-65 brightness-105"

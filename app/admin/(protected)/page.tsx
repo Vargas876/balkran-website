@@ -8,6 +8,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminDashboardPage() {
   const [
     productCount,
+    viewCount,
     inquiryCount,
     newInquiryCount,
     userCount,
@@ -18,6 +19,7 @@ export default async function AdminDashboardPage() {
     recentInquiries,
   ] = await Promise.all([
     prisma.product.count(),
+    prisma.pageView.count(),
     prisma.inquiry.count(),
     prisma.inquiry.count({ where: { status: 'NUEVO' } }),
     prisma.user.count(),
@@ -38,6 +40,7 @@ export default async function AdminDashboardPage() {
 
   const stats = [
     { label: 'Productos', value: productCount, icon: 'Package', accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
+    { label: 'Vistas de página', value: viewCount, icon: 'Eye', accent: 'from-pink-500/30 to-pink-500/5' },
     { label: 'Consultas totales', value: inquiryCount, icon: 'Inbox', accent: 'from-sky-500/30 to-sky-500/5' },
     { label: 'Consultas nuevas', value: newInquiryCount, icon: 'MessagesSquare', accent: 'from-emerald-500/30 to-emerald-500/5' },
     { label: 'Usuarios', value: userCount, icon: 'Users', accent: 'from-violet-500/30 to-violet-500/5' },

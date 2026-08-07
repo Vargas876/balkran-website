@@ -2,37 +2,32 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Cookie, X } from 'lucide-react';
+import { Cookie } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLanguage } from '@/context/LanguageContext';
 
 const COOKIE_KEY = 'balkran_cookie_consent';
 
-type Consent = 'accepted' | 'denied' | null;
-
 export default function CookieBanner() {
-  const { t } = useLanguage();
-  const [consent, setConsent] = useState<Consent>(null);
-  const [showDetails, setShowDetails] = useState(false);
+  const [consent, setConsent] = useState<boolean | null>(null);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(COOKIE_KEY);
-      if (saved === 'accepted' || saved === 'denied') {
-        setConsent(saved);
+      if (saved === 'accepted') {
+        setConsent(true);
       }
     } catch {
       // localStorage no disponible
     }
   }, []);
 
-  const save = (value: Exclude<Consent, null>) => {
+  const save = () => {
     try {
-      localStorage.setItem(COOKIE_KEY, value);
+      localStorage.setItem(COOKIE_KEY, 'accepted');
     } catch {
       // localStorage no disponible
     }
-    setConsent(value);
+    setConsent(true);
   };
 
   if (consent !== null) return null;
@@ -55,43 +50,26 @@ export default function CookieBanner() {
                 </div>
                 <div className="space-y-1.5">
                   <p className="text-sm text-[#1a2130] font-display font-bold">
-                    {t('cookies.title')}
+                    Gestionar el consentimiento de las cookies y políticas de privacidad.
                   </p>
                   <p className="text-xs text-[#565e6e] leading-relaxed">
-                    {t('cookies.description')}{' '}
-                    <Link href="/politica-datos-personales" className="text-[#ff5a00] font-semibold hover:underline">
-                      {t('cookies.policyLink')}
-                    </Link>
+                    Para ofrecer las mejores experiencias, utilizamos tecnologías como las cookies para almacenar y/o acceder a la información del dispositivo. El consentimiento de estas tecnologías nos permitirá procesar datos como el comportamiento de navegación o las identificaciones únicas en este sitio. No consentir o retirar el consentimiento, puede afectar negativamente a ciertas características y funciones.
                   </p>
-                  {showDetails && (
-                    <div className="space-y-1.5 pt-1 text-xs text-[#565e6e]">
-                      <p><span className="font-bold text-[#1a2130]">Funcional:</span> {t('cookies.functional')}</p>
-                      <p><span className="font-bold text-[#1a2130]">Preferencias:</span> {t('cookies.preferences')}</p>
-                      <p><span className="font-bold text-[#1a2130]">Estadísticas:</span> {t('cookies.stats')}</p>
-                      <p><span className="font-bold text-[#1a2130]">Marketing:</span> {t('cookies.marketing')}</p>
-                    </div>
-                  )}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 shrink-0">
+                <Link href="/politica-datos-personales" className="text-xs text-[#565e6e] hover:text-[#ff5a00] underline underline-offset-2 transition-colors">
+                  Políticas de protección de datos personales
+                </Link>
+                <Link href="/terminos-y-condiciones-tienda" className="text-xs text-[#565e6e] hover:text-[#ff5a00] underline underline-offset-2 transition-colors">
+                  Términos y condiciones
+                </Link>
                 <button
-                  onClick={() => setShowDetails(!showDetails)}
-                  className="px-4 py-2.5 text-xs font-bold font-display uppercase tracking-wider text-[#1a2130] border border-gray-200 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  {showDetails ? t('cookies.hidePrefs') : t('cookies.showPrefs')}
-                </button>
-                <button
-                  onClick={() => save('denied')}
-                  className="px-4 py-2.5 text-xs font-bold font-display uppercase tracking-wider text-[#1a2130] border border-gray-200 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  {t('cookies.deny')}
-                </button>
-                <button
-                  onClick={() => save('accepted')}
+                  onClick={save}
                   className="px-6 py-2.5 text-xs font-bold font-display uppercase tracking-wider text-white bg-[#ff5a00] rounded-full hover:bg-[#e04f00] transition-colors"
                 >
-                  {t('cookies.accept')}
+                  Acepto
                 </button>
               </div>
             </div>

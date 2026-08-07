@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Package, Inbox, MessagesSquare, Users, Bot } from 'lucide-react';
+import { Package, Inbox, MessagesSquare, Users, Bot, Eye } from 'lucide-react';
 
 const ICONS: Record<string, typeof Package> = {
   Package,
@@ -9,6 +9,7 @@ const ICONS: Record<string, typeof Package> = {
   MessagesSquare,
   Users,
   Bot,
+  Eye,
 };
 
 export default function StatCards({

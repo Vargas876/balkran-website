@@ -69,7 +69,7 @@ export default function AdminSidebar({
             {collapsed ? (
               <div className="w-10 h-10 rounded-xl bg-[#ff5a00]/20 flex items-center justify-center">
                 <Image
-                  src="/assets/images/LogoBlanco.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
                   alt="Balkran"
                   width={28}
                   height={28}
@@ -79,7 +79,7 @@ export default function AdminSidebar({
             ) : (
               <>
                 <Image
-                  src="/assets/images/LogoBlanco.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
                   alt="Balkran"
                   width={150}
                   height={38}
@@ -164,7 +164,7 @@ export default function AdminSidebar({
         <div className="p-5 border-b border-white/10 flex items-start justify-between">
           <Link href="/admin" onClick={onMobileClose}>
             <Image
-              src="/assets/images/LogoBlanco.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
               alt="Balkran"
               width={150}
               height={38}

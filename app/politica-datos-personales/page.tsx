@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 };
 
 const derechos = [
-  'Conocer, actualizar y rectificar sus datos personales frente a BALKRAN INC a través de los canales establecidos en estas políticas. Este derecho se podrá ejercer frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error o aquellos cuyo tratamiento esté expresamente prohibido o no haya sido autorizado.',
+  'Conocer, actualizar y rectificar sus datos personales frente a BALKRAN INC a través de los canales establecidos en estas políticas. Este derecho se podrá ejercer, frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error o aquellos cuyo tratamiento esté expresamente prohibido o no haya sido autorizado.',
   'Acceder en forma gratuita e ilimitada a los datos proporcionados que hayan sido objeto de tratamiento.',
-  'Solicitar a BALKRAN prueba de la autorización otorgada para el tratamiento de sus datos personales, salvo las excepciones previstas en la ley.',
-  'Ser informado por BALKRAN, previa solicitud presentada mediante los canales o medios dispuestos en estas políticas, sobre el uso que se le da a sus datos personales.',
-  'Presentar consultas ante la empresa y, asimismo, interponer quejas ante la Superintendencia de Industria y Comercio (SIC) por infracciones a lo dispuesto en la normatividad vigente.',
-  'Solicitar la revocatoria y supresión de sus datos personales cuando BALKRAN incurra en conductas contrarias a la ley o a la constitución política, a menos que exista un deber legal o contractual que haga imperativo conservar la información.',
+  'Solicitar a BALKRAN INC prueba de la autorización otorgada para el tratamiento de sus datos personales, salvo las excepciones previstas en la ley.',
+  'Ser informado por BALKRAN INC, previa solicitud presentada mediante los canales o medios dispuestos en estas políticas, sobre el uso que se les da a sus datos personales.',
+  'Presentar consultas ante la empresa y asimismo interponer quejas ante la Superintendencia de Industria y Comercio (SIC) por infracciones a lo dispuesto en la normatividad vigente.',
+  'Solicitar la revocatoria y supresión de sus datos personales cuando BALKRAN INC incurra en conductas contrarias a la ley o a la constitución política a menos que exista un deber legal o contractual que haga imperativo conservar la información.',
   'Abstenerse de responder las preguntas sobre datos sensibles o sobre datos de los niños y adolescentes.',
 ];
 
@@ -37,18 +37,15 @@ export default function PoliticaDatosPage() {
       {/* HERO */}
       <section className="relative bg-[#111111] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)', backgroundSize: '26px 26px' }} />
-        <div className="relative max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-24">
+        <div className="relative max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 pt-32 sm:pt-36 lg:pt-40 pb-16 sm:pb-20">
           <div className="max-w-3xl space-y-5">
             <span className="bg-orange-50 text-[#ff5a00] font-display text-xs font-extrabold uppercase px-3 py-1 rounded-full tracking-wider inline-flex items-center gap-2">
               <ShieldCheck className="w-3.5 h-3.5" />
               Habeas Data
             </span>
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[44px] tracking-tight leading-[1.08]">
-              Política de Tratamiento y Protección de <span className="text-[#ff5a00]">Datos Personales</span>
+              Políticas de Protección de <span className="text-[#ff5a00]">Datos Personales</span>
             </h1>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
-              Atendiendo a lo contemplado por la Ley 1581 de 2012, dentro de la cual se constituye el marco general de la protección de los datos personales y Habeas Data en Colombia, y el Decreto 1377 de 2013, la empresa BALKRAN INC. S.A.S – BIC pone a disposición de sus titulares la presente política.
-            </p>
             <div className="flex flex-wrap gap-3 pt-1 text-xs">
               <span className="bg-white/10 border border-white/20 px-3 py-1.5 rounded-lg flex items-center gap-2"><Scale className="w-3.5 h-3.5 text-[#ff5a00]" /> Ley 1581 de 2012</span>
               <span className="bg-white/10 border border-white/20 px-3 py-1.5 rounded-lg flex items-center gap-2"><FileText className="w-3.5 h-3.5 text-[#ff5a00]" /> Decreto 1377 de 2013</span>
@@ -57,23 +54,23 @@ export default function PoliticaDatosPage() {
         </div>
       </section>
 
-      {/* INTRODUCCIÓN */}
+      {/* INTRODUCCIÓN Y RESPONSABLE DEL TRATAMIENTO */}
       <section className="py-12 bg-white">
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-4">
-              <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">1 · Responsable del tratamiento</span>
+              <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">Responsable del tratamiento</span>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#111111] leading-tight mt-2">BALKRAN INC. S.A.S. BIC</h2>
             </div>
             <div className="lg:col-span-9 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
               <p>
-                Sociedad identificada con Nit 900.215.119-6 con domicilio legal en la ciudad de Duitama, departamento de Boyacá, Colombia, cuya dirección es Carrera 26 No. 24 – 17 y teléfono de contacto (+57) 3114508064, sitio web www.cercasbalkran.com. Como responsable del tratamiento de recolección, almacenamiento, uso, circulación y disposición de los datos personales, lleva a cabo en ejercicio natural de sus actividades derivadas de las relaciones comerciales con los respectivos clientes actuales y potenciales, proveedores, colaboradores y, en general, los terceros de quienes recolecta datos personales.
+                Atendiendo a lo contemplado por la Ley 1581 de 2012, dentro de la cual se constituye el marco general de la protección de los datos personales y Habeas Data en Colombia, y el Decreto 1377 de 2013 (donde se reglamenta parcialmente la ley en mención), la empresa BALKRAN INC. S.A.S – BIC, sociedad identificada con Nit 900.215.119-6 con domicilio legal en la ciudad de Duitama, departamento de Boyacá, Colombia, cuya dirección es Carrera 26 No. 24 – 17 y teléfono de contacto (+57) 3114508064, sitio web: https://www.cercasbalkran.com, correo electrónico: info@cercasbalkran.com, quien en adelante se denominará BALKRAN INC o la Empresa, como responsable del tratamiento recolección, almacenamiento, uso, circulación y disposición de los datos personales que en ejercicio natural de sus actividades derivadas de las relaciones comerciales llevadas a cabo con los respectivos clientes actuales y potenciales, proveedores, colaboradores y, en general, por los terceros de quienes BALKRAN INC recolecta datos personales.
               </p>
               <p>
-                La presente política tiene como finalidad dar a conocer los mecanismos y procedimientos para hacer efectivos los derechos de los titulares, informar quién es el encargado al interior de la empresa de darle trámite a las peticiones, quejas, reclamos y consultas, comunicando las finalidades y el tratamiento al cual se someterán los datos personales en el desarrollo de las actividades comerciales de la empresa.
+                Bajo la presente política de tratamiento y protección de datos personales, la cual tiene como finalidad dar a conocer los mecanismos y procedimientos para hacer efectivos los derechos, informar quien es el encargado al interior de la empresa de darle trámite a las peticiones, quejas, reclamos y consultas, comunicando las finalidades y el tratamiento a los cuales se someterán los datos personales en el desarrollo de las actividades comerciales de la empresa. La anterior política de tratamiento y protección de datos personales es utilizada por la empresa para el cumplimiento de los objetivos corporativos derivados de todo negocio jurídico.
               </p>
               <p>
-                BALKRAN siempre está a la vanguardia garantizando y fomentando los valores que se sujetan al respeto, honestidad, reserva, confidencialidad, disponibilidad y administración idónea de la información de datos personales, cumpliendo categóricamente lo contemplado por la constitución política, la ley y demás normas reglamentarias.
+                Cabe destacar que BALKRAN INC siempre está a la vanguardia, garantizando y fomentando los valores que se sujetan al respeto, honestidad, reserva, confidencialidad, disponibilidad y administración idónea de la información de datos personales, cumpliendo categóricamente lo contemplado por la constitución política, la ley y demás normas reglamentarias. Razón por la cual la empresa, podrá tratar los datos de sus clientes, empleados, ex empleados, proveedores, visitantes, invitados y personas que soliciten información sobre los servicios que presta, de acuerdo con los términos consagrados en la presente política de tratamiento y protección de datos personales. Nuestro régimen político aplica a toda recolección, almacenamiento, uso, transferencia, transmisión, y supresión de información que pueda asociarse o relacionarse a personas naturales determinadas o determinables que ocurra en el territorio de la República de Colombia, así como el tratamiento que realicen aquellos terceros con los que BALKRAN INC, acuerde realizar cualquier actividad relativa, o relacionada con el tratamiento de datos personales de los cuales la empresa es responsable.
               </p>
             </div>
           </div>
@@ -89,25 +86,17 @@ export default function PoliticaDatosPage() {
           </div>
           <div className="lg:col-span-9 space-y-4">
             <div className="bg-white rounded-3xl border border-gray-200/80 shadow-xs p-6 sm:p-8">
-              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed">
-                El régimen político aplica a toda recolección, almacenamiento, uso, transferencia, transmisión y supresión de información que pueda asociarse o relacionarse a personas naturales determinadas o determinables que ocurra en el territorio de la República de Colombia, así como el tratamiento que realicen terceros con los que BALKRAN acuerde realizar cualquier actividad relativa al tratamiento de datos personales de los cuales la empresa es responsable.
+              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
+                La Política se aplicará a los terceros con quienes BALKRAN INC, eventualmente suscriba contratos de transmisión, con el fin de que tales terceras personas conozcan las obligaciones que les aplicarán, las finalidades a las cuales se deben someter y los estándares de seguridad y confidencialidad que deben adoptar cuando realicen el tratamiento por cuenta de la Empresa.
               </p>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs p-6 sm:p-8">
-              <p className="text-sm sm:text-base text-[#1a2130] font-semibold mb-2">Terceros con los que se suscriben contratos</p>
-              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed">
-                La política se aplica a los terceros con quienes BALKRAN eventualmente suscriba contratos de transmisión, con el fin de que conozcan las obligaciones que les aplicarán, las finalidades a las que deben someterse y los estándares de seguridad y confidencialidad que deben adoptar cuando realicen el tratamiento por cuenta de la empresa.
+              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify mt-3">
+                Por otra parte, las anteriores políticas persiguen la salvaguarda del derecho fundamental a la intimidad personal, ya sea de la empresa, las personas naturales o jurídicas con las que BALKRAN INC tenga relación, bien sea de manera laboral, civil o comercial.
               </p>
-              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed mt-3">
-                Las políticas persiguen la salvaguarda del derecho fundamental a la intimidad personal, ya sea de la empresa, de las personas naturales o jurídicas con las que BALKRAN tenga relación, bien sea de manera laboral, civil o comercial.
+              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify mt-3">
+                La información que se recolecta en las bases de datos de la empresa se usará para poder iniciar, adelantar y mantener la relación contractual, comercial y laboral, o para recibir publicidad sobre las cuales los titulares del derecho hayan autorizado de manera libre y espontánea su tratamiento, así como para atender las peticiones y solicitudes que sean presentadas por los titulares del dato personal, se tramitarán bajo los horarios de atención al usuario, determinados por BALKRAN INC.
               </p>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs p-6 sm:p-8">
-              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed">
-                La información recolectada en las bases de datos de la empresa se usará para poder iniciar, adelantar y mantener la relación contractual, comercial y laboral, o para recibir publicidad sobre la cual los titulares del derecho hayan autorizado de manera libre y espontánea su tratamiento, así como para atender las peticiones y solicitudes presentadas por los titulares del dato personal, tramitadas bajo los horarios de atención al usuario determinados por BALKRAN.
-              </p>
-              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed mt-3">
-                Igualmente, los datos personales serán tratados o cedidos cuando un deber legal así lo imponga y para dar cumplimiento a una autoridad competente cuando esta formalmente lo requiera.
+              <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify mt-3">
+                Igualmente, los datos personales serán tratados o cedidos cuando un deber legal así lo imponga y para dar cumplimiento a una autoridad competente cuando ésta formalmente lo requiera.
               </p>
             </div>
           </div>
@@ -126,7 +115,10 @@ export default function PoliticaDatosPage() {
           </div>
 
           <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl text-justify">
-            Para los efectos de la presente política se entenderán como titulares de derecho todas las personas que aparezcan registradas en las bases de datos de BALKRAN INC. S.A.S – BIC: (I) Socios; (II) empleados; (III) proveedores; (IV) clientes; (V) aliados. El titular de los datos personales tendrá derecho a:
+            Para los efectos de la presente política de tratamiento y protección de datos personales, se entenderán como titulares de derecho todas las personas que aparezcan registradas en las bases de datos de BALKRAN INC. S.A.S – BIC: I) Socios; II) empleados III) Proveedores; IV) clientes; V) aliados.
+          </p>
+          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl text-justify">
+            El titular de los datos personales tendrá derecho a:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -150,6 +142,10 @@ export default function PoliticaDatosPage() {
               <Mail className="w-4 h-4" /> info@cercasbalkran.com
             </a>
           </div>
+
+          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-4xl text-justify">
+            Estos derechos los podrá ejercer el titular a través de los canales o medios dispuestos por BALKRAN INC para la atención al público, la línea de atención nacional (+57) 3112942523 y (+57) 311 4508064, el correo electrónico info@cercasbalkran.com y las oficinas de atención al cliente a nivel nacional, cuya información puede consultarse en https://www.cercasbalkran.com disponibles de lunes a viernes de 7:00 a.m. a 6:00 p.m., para la atención de requerimientos relacionados con el tratamiento de mis datos personales y el ejercicio de los derechos mencionados en esta autorización.
+          </p>
         </div>
       </section>
 
@@ -160,12 +156,12 @@ export default function PoliticaDatosPage() {
             <div className="w-11 h-12 rounded-xl bg-orange-50 text-[#ff5a00] flex items-center justify-center shrink-0"><PenLine className="w-5 h-5" /></div>
             <div>
               <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">Procedimiento</span>
-              <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#111111] leading-tight mt-1">Procedimiento para el ejercicio del derecho de Hábeas Data</h2>
+              <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#111111] leading-tight mt-1">Procedimiento para el ejercicio del derecho del HÁBEAS DATA</h2>
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-3xl text-justify">
-            En cumplimiento de las normas sobre protección de datos personales contempladas en la constitución política en su articulado N° 15 según la cual el hábeas data es el derecho que tienen todas las personas a conocer, actualizar y rectificar las informaciones que se hayan recogido sobre ellas en bases de datos o archivos, y de conformidad con la Ley 1581 de 2012 y el Decreto 1377 de 2013, BALKRAN INC. S.A.S – BIC presenta el procedimiento y requisitos mínimos para el ejercicio de sus derechos:
+          <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed max-w-4xl text-justify">
+            En cumplimiento de las normas sobre protección de datos personales las cuales están contempladas en la constitución política en su articulado N° 15 según la cual el hábeas data es el derecho que tienen todas las personas a conocer, actualizar y rectificar las informaciones que se hayan recogido sobre ellas en bases de datos o archivos. Razón por la cual el titular del derecho tiene la facultad de controlar la información que de sí mismo se ha recolectado, administrado ya sea por entidades públicas o privadas de conformidad con lo contemplado en la Ley 1581 de 2012 y el Decreto 1377 de 2013, BALKRAN INC. S.A.S – BIC, presenta el procedimiento y requisitos mínimos para el ejercicio de sus derechos:
           </p>
 
           <p className="text-sm sm:text-base text-[#1a2130] font-semibold">
@@ -192,7 +188,7 @@ export default function PoliticaDatosPage() {
               <h2 className="font-display font-extrabold text-xl sm:text-2xl text-white">Vigencia</h2>
             </div>
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed text-justify">
-              La presente política de tratamiento y protección de datos personales iniciará su vigencia el día 1 de enero de 2022 y tendrá validez mientras BALKRAN ejerza su objeto social en Colombia, o hasta que la ley disponga asunto en contrario o diferente. La empresa se reserva el derecho de modificar esta política en cualquier momento; sin embargo, cualquier cambio de forma unilateral será informado y publicado oportunamente a través de la página web y se inscribirá la fecha de cambio.
+              La presente política de tratamiento y protección de datos personales iniciará su vigencia el día 1 de enero de 2022 y tendrá validez mientras BALKRAN INC. S.A.S – BIC ejerza su objeto social en Colombia, o hasta que la ley disponga asunto en contrario o diferente. La Empresa se reserva el derecho de modificar esta política en cualquier momento, sin embargo, cualquier cambio de forma unilateral será informado y publicado oportunamente a través de la página https://www.cercasbalkran.com y se inscribirá allí su fecha de cambio. Las políticas, según instructivo que imparta la Superintendencia de Industria y Comercio (SIC) serán publicadas de acuerdo con lo establecido por dicha entidad.
             </p>
           </div>
         </div>

@@ -11,7 +11,7 @@ export default function NotFound() {
       {/* Background Image Layer using Fondo404.png */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/Fondo404.png"
+          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/Fondo404.webp"
           alt="Balkran 404 Background"
           fill
           priority

@@ -108,16 +108,32 @@ PREGUNTAS FRECUENTES:
 ${knowledge.faqs.map((f) => `Q: ${f.q}\nA: ${f.a}`).join('\n')}
 
 CATÁLOGO DE PRODUCTOS:
-${knowledge.products
-  .map((p) => `- ${p.nombre} (${p.categoria}, ${p.linea}) | Alcance: ${p.alcance || 'n/d'} | Precio: ${p.precio} | /productos/${p.slug}`)
-  .join('\n')}
+${productMatch
+  ? `- ${productMatch.nombre} (${knowledge.products.find((p) => p.slug === productMatch.slug)?.categoria || ''}, ${knowledge.products.find((p) => p.slug === productMatch.slug)?.linea || ''}) | Alcance: ${productMatch.alcance || 'n/d'} | Precio: ${productMatch.precio} | /productos/${productMatch.slug}`
+  : knowledge.products
+      .map((p) => `- ${p.nombre} (${p.categoria}, ${p.linea}) | Alcance: ${p.alcance || 'n/d'} | Precio: ${p.precio} | /productos/${p.slug}`)
+      .join('\n')}
 
 Si el cliente pregunta por un producto y coincide con algo del catálogo, respóndele con su información y sugiérele el enlace. Si pregunta por precio, da el de la lista o indica "consultar". Si no estás seguro o la pregunta requiere un humano (precios exactos, compra, cotización), sugiere contactar por WhatsApp +57 311 450 8064 o los correos oficiales.
+
+PÁGINAS DE LA WEB (usa SIEMPRE el enlace correspondiente cuando el tema de la pregunta coincida):
+- PQRS (peticiones, quejas y reclamos): /pqrs
+- Catálogo de productos: /productos
+- Términos y condiciones de la tienda: /terminos-y-condiciones-tienda
+- Garantías y devoluciones: /garantias-y-devoluciones
+- Protección de datos personales (Habeas Data): /politica-datos-personales
+- Preguntas frecuentes: /preguntas-frecuentes
+- Manuales de usuario: /manuales
+- Certificaciones: /certificaciones
+- Eventos: /eventos
+- Nosotros: /nosotros
+- Contacto: /contacto
 
 REGLAS OBLIGATORIAS SOBRE INFORMACIÓN (MUY IMPORTANTE):
 1. Responde ÚNICAMENTE con información que esté disponible en: (a) la INFORMACIÓN DE LA EMPRESA, (b) las PREGUNTAS FRECUENTES, o (c) el CATÁLOGO DE PRODUCTOS incluidos arriba. No uses conocimiento externo ni datos de memoria.
 2. Si la pregunta del cliente NO está cubierta por esa información (por ejemplo: disponibilidad de stock, precios exactos fuera de lista, financiación, contratos, garantías específicas, envíos internacionales detallados, o cualquier dato que no aparezca arriba): NO INVENTES. NO adivines. NO construyas una respuesta con supuestos.
 3. En ese caso responde de forma clara y honesta que no cuentas con información oficial suficiente sobre ese tema, y ofrece llevar al cliente al canal de atención correspondiente: WhatsApp +57 311 450 8064, correos info@cercasbalkran.com / ventas@cercasbalkran.com / soporte@cercasbalkran.com, o la página /contacto.
+4. Incluye SIEMPRE en tu respuesta el enlace de la página correspondiente al tema que pregunta el cliente (PQRS, productos, términos y condiciones, garantías, protección de datos, preguntas frecuentes, manuales, certificaciones, eventos, nosotros o contacto). Por ejemplo: si piden radicar una PQR indica el enlace /pqrs; si preguntan por garantías indica /garantias-y-devoluciones; si preguntan por términos indica /terminos-y-condiciones-tienda; si preguntan por protección de datos indica /politica-datos-personales; si preguntan por productos indica /productos.
 Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, números de contacto ni direcciones. Responde solo con información del catálogo o de las preguntas frecuentes proporcionadas.
 `;
 
@@ -126,7 +142,7 @@ Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, n�
     if (productMatch) {
       messages.push({
         role: 'system',
-        content: `[CONTEXTO ADICIONAL] El cliente probablemente pregunta por el producto "${productMatch.nombre}" (alcance ${productMatch.alcance || 'n/d'}, precio ${productMatch.precio}). Úsalo si es relevante.`,
+        content: `[CONTEXTO ADICIONAL] El cliente probablemente pregunta por el producto "${productMatch.nombre}" (alcance ${productMatch.alcance || 'n/d'}, precio ${productMatch.precio}). Úsalo si es relevante y respóndele con su información.`,
       });
     }
 
@@ -143,7 +159,7 @@ Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, n�
       const completion = await groq.chat.completions.create({
         model: GROQ_MODEL,
         messages,
-        temperature: 0.7,
+        temperature: 0.3,
         max_tokens: 700,
       });
       reply = completion.choices?.[0]?.message?.content || 'Lo siento, no pude generar una respuesta.';

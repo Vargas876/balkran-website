@@ -7,8 +7,8 @@ import { Loader2 } from 'lucide-react';
 const FIELDS = [
   { key: 'whatsapp', label: 'WhatsApp', placeholder: '573114508064' },
   { key: 'telefono', label: 'Teléfono', placeholder: '+57 311 450 8064' },
-  { key: 'email', label: 'Email de contacto', placeholder: 'ventas@balkran.com' },
-  { key: 'direccion', label: 'Dirección', placeholder: 'Medellín, Colombia' },
+  { key: 'email', label: 'Email de contacto', placeholder: 'info@cercasbalkran.com' },
+  { key: 'direccion', label: 'Dirección', placeholder: 'Carrera 26 # 24-17, Duitama - Boyacá, Colombia' },
   { key: 'instagram', label: 'Instagram', placeholder: 'https://instagram.com/...' },
   { key: 'facebook', label: 'Facebook', placeholder: 'https://facebook.com/...' },
   { key: 'tiktok', label: 'TikTok', placeholder: 'https://tiktok.com/@...' },

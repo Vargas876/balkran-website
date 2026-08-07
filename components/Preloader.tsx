@@ -46,7 +46,7 @@ export default function Preloader() {
               className="relative w-64 sm:w-84 h-16 sm:h-22 mb-3"
             >
               <Image
-                src="/assets/images/LogoBlanco.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
                 alt="BALKRAN Electric Fences"
                 fill
                 className="object-contain filter drop-shadow-[0_0_26px_rgba(255,90,0,0.6)]"

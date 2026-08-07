@@ -62,7 +62,7 @@ function KitSolarParallaxImage() {
         "
       >
         <Image
-          src="/assets/images/kit_solar_balkran.webp"
+          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/kit_solar_balkran.webp"
           alt="Kit Solar Balkran"
           width={1000}
           height={780}
@@ -291,7 +291,7 @@ export default function HomePage() {
         name: 'B4500H',
         tag: t('prodFaq.recTag1'),
         desc: t('prodFaq.recDesc1'),
-        img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
         price: '$ 628.000',
         slug: 'b4500h'
       }
@@ -305,7 +305,7 @@ export default function HomePage() {
         name: 'B9000H',
         tag: t('prodFaq.recTag2'),
         desc: t('prodFaq.recDesc2'),
-        img: '/assets/images/FOoiuEr2MaSvKg7dCeFbUlLOc2Q.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/FOoiuEr2MaSvKg7dCeFbUlLOc2Q.webp',
         price: '$ 732.000',
         slug: 'b9000h'
       }
@@ -319,7 +319,7 @@ export default function HomePage() {
         name: 'Kit Solar B1000S',
         tag: t('prodFaq.recTag3'),
         desc: t('prodFaq.recDesc3'),
-        img: '/assets/images/WbATsHs1kNRaUygDgAYoxSzSKI.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/WbATsHs1kNRaUygDgAYoxSzSKI.webp',
         price: '$ 1.250.000',
         slug: 'kit-solar-b1000s'
       }
@@ -333,7 +333,7 @@ export default function HomePage() {
         name: 'B1500',
         tag: t('prodFaq.recTag4'),
         desc: t('prodFaq.recDesc4'),
-        img: '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
         price: '$ 364.000',
         slug: 'b1500'
       }
@@ -347,7 +347,7 @@ export default function HomePage() {
         name: 'Garantía Balkran 2 Años',
         tag: t('prodFaq.recTag5'),
         desc: t('prodFaq.recDesc5'),
-        img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
         price: 'Garantizado',
         slug: 'b4500h'
       }
@@ -361,7 +361,7 @@ export default function HomePage() {
         name: 'Accesorios y Guías',
         tag: t('prodFaq.recTag6'),
         desc: t('prodFaq.recDesc6'),
-        img: '/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp',
         price: 'Ver catálogo',
         slug: 'cable-aislado-x-50-metros'
       }
@@ -386,7 +386,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.ganaderiaCardTitle'),
       subtitle: t('app.ganaderiaSubtitle'),
-      image: '/assets/images/bienestar-vacas-lecheras.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/bienestar-vacas-lecheras.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 -1 24 26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 0 0 C 0 2.485 2.015 4.5 4.5 4.5 L 9 4.5 C 11.485 4.5 13.5 2.485 13.5 0" transform="translate(5.25 2.25)" />
@@ -407,7 +407,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.equinosCardTitle'),
       subtitle: t('app.equinosSubtitle'),
-      image: '/assets/images/horses-in-the-spring-field-free-photo.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/horses-in-the-spring-field-free-photo.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 4.5 0 C 4.5 2.485 2.485 4.5 0 4.5" transform="translate(12 11.25)" />
@@ -422,7 +422,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.agriculturaCardTitle'),
       subtitle: t('app.agriculturaSubtitle'),
-      image: '/assets/images/Agricultura-en-Guatemala-Foto-La-hora-Zero-768x384.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/Agricultura-en-Guatemala-Foto-La-hora-Zero-768x384.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 0.988 9.512 C -2.005 4.523 1.985 -0.464 10.465 0.035 C 10.969 8.514 5.976 12.504 0.988 9.512 Z" transform="translate(12 4.5)" />
@@ -438,7 +438,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.pisciculturaCardTitle'),
       subtitle: t('app.pisciculturaSubtitle'),
-      image: '/assets/images/psicultura.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/psicultura.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="14.625" cy="7.125" r="1.125" fill="currentColor" />
@@ -453,7 +453,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.caprinosCardTitle'),
       subtitle: t('app.caprinosSubtitle'),
-      image: '/assets/images/Caprinos colombianos una especie con potencial de exportación.jpg.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/Caprinos colombianos una especie con potencial de exportación.jpg.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 7 9 C 4.5 6 3 3 5 2 C 7 1 8.5 3 9.5 6" />
@@ -473,7 +473,7 @@ export default function HomePage() {
       tag: 'APLICACIONES',
       cardTitle: t('app.aviculturaCardTitle'),
       subtitle: t('app.aviculturaSubtitle'),
-      image: '/assets/images/avicultura.webp',
+      image: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/avicultura.webp',
       icon: (
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="15.375" cy="6.375" r="1.125" fill="currentColor" />
@@ -486,25 +486,28 @@ export default function HomePage() {
 
   const testimonials = [
     {
+      slug: 'balcon-de-los-apaches',
       badgeKey: 'home.testBadge1',
       titleKey: 'home.testTitle1',
       locKey: 'home.testLoc1',
       descKey: 'home.testDesc1',
-      img: '/assets/images/historias-balkran-solar.webp'
+      img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/historias-balkran-solar.webp'
     },
     {
+      slug: 'san-francisco',
       badgeKey: 'home.testBadge2',
       titleKey: 'home.testTitle2',
       locKey: 'home.testLoc2',
       descKey: 'home.testDesc2',
-      img: '/assets/images/historias-agricultura-rd.webp'
+      img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/historias-agricultura-rd.webp'
     },
     {
+      slug: 'san-salvador',
       badgeKey: 'home.testBadge3',
       titleKey: 'home.testTitle3',
       locKey: 'home.testLoc3',
       descKey: 'home.testDesc3',
-      img: '/assets/images/historias-equinos-elsalvador.webp'
+      img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/historias-equinos-elsalvador.webp'
     }
   ];
 
@@ -518,7 +521,7 @@ export default function HomePage() {
             '@type': 'Organization',
             name: 'Balkran',
             url: 'https://balkran.com',
-            logo: 'https://balkran.com/assets/images/LogoBlanco.webp',
+            logo: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp',
             description:
               'BALKRAN INC S.A.S. BIC. Más de 25 años fabricando energizadores y cercas eléctricas para el sector agropecuario.',
             contactPoint: {
@@ -540,7 +543,7 @@ export default function HomePage() {
         {/* Background Image - Bright Warm Golden Sunset Field */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/PortadaHome.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/PortadaHome.webp"
             alt="Campo colombiano al amanecer — Balkran cerca eléctrica"
             fill
             sizes="100vw"
@@ -697,7 +700,7 @@ export default function HomePage() {
               {/* Diagram Illustration Image */}
               <div className="relative w-full h-36 sm:h-48 bg-transparent flex items-center justify-center px-1 sm:px-3">
                 <Image
-                  src="/assets/images/Dy0eGX5klXLtU2FfwT59escYpA0.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/Dy0eGX5klXLtU2FfwT59escYpA0.webp"
                   alt="Diagrama de funcionamiento de cerca eléctrica Balkran"
                   fill
                   sizes="(max-width: 768px) 100vw, 66vw"
@@ -789,7 +792,7 @@ export default function HomePage() {
                 </div>
                 <div className="w-[140px] sm:w-[160px] lg:w-[190px] h-[130px] sm:h-[160px] lg:h-[185px] shrink-0 relative flex items-center justify-center self-center sm:self-start">
                   <Image
-                    src="/assets/images/p318FkpBgqwUkQZmuEWVflzfDDc.webp"
+                    src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/p318FkpBgqwUkQZmuEWVflzfDDc.webp"
                     alt="Energizador 110V B1000"
                     width={190}
                     height={185}
@@ -834,7 +837,7 @@ export default function HomePage() {
                 </div>
                 <div className="w-[140px] sm:w-[160px] lg:w-[190px] h-[130px] sm:h-[160px] lg:h-[185px] shrink-0 relative flex items-center justify-center self-center sm:self-start">
                   <Image
-                    src="/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp"
+                    src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp"
                     alt="Energizador Dual 20"
                     width={190}
                     height={185}
@@ -878,7 +881,7 @@ export default function HomePage() {
                 </div>
                 <div className="w-[140px] sm:w-[160px] lg:w-[190px] h-[130px] sm:h-[160px] lg:h-[185px] shrink-0 relative flex items-center justify-center self-center sm:self-start">
                   <Image
-                    src="/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp"
+                    src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp"
                     alt="Energizador Solar 12V"
                     width={190}
                     height={185}
@@ -915,7 +918,7 @@ export default function HomePage() {
         {/* Real Framer Golden Field Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/YOsF32MJrYMkHvpwEhbYQGVixM.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/YOsF32MJrYMkHvpwEhbYQGVixM.webp"
             alt="Fondo Campo Balkran"
             fill
             className="object-cover object-center"
@@ -1033,27 +1036,27 @@ export default function HomePage() {
                 const rec = (() => {
                   if (advisorPower === 'Panel Solar' || advisorPower.includes('Solar')) {
                     if (advisorDistance === 'Más de 100 km') {
-                      return { name: 'B9000S', specs: '220 km • Panel Solar 12V', img: '/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'b9000s' };
+                      return { name: 'B9000S', specs: '220 km • Panel Solar 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'b9000s' };
                     } else if (advisorDistance === '30 - 100 km') {
-                      return { name: 'B4500S', specs: '100 km • Panel Solar 12V', img: '/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'b4500s' };
+                      return { name: 'B4500S', specs: '100 km • Panel Solar 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'b4500s' };
                     } else {
-                      return { name: 'Kit Solar B1000S', specs: '30 km • Panel Solar 12V', img: '/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'kit-solar-b1000s' };
+                      return { name: 'Kit Solar B1000S', specs: '30 km • Panel Solar 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/4tVyaEeyWOL5QpOgwC4G8xQkztI.webp', slug: 'kit-solar-b1000s' };
                     }
                   } else if (advisorPower.includes('Dual')) {
                     if (advisorDistance === 'Más de 100 km') {
-                      return { name: 'B9000D', specs: '220 km • Línea Dual 110V y 12V', img: '/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b9000d' };
+                      return { name: 'B9000D', specs: '220 km • Línea Dual 110V y 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b9000d' };
                     } else if (advisorDistance === '30 - 100 km') {
-                      return { name: 'B4500D', specs: '90 km • Línea Dual 110V y 12V', img: '/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b4500d' };
+                      return { name: 'B4500D', specs: '90 km • Línea Dual 110V y 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b4500d' };
                     } else {
-                      return { name: 'B2000D', specs: '30 km • Línea Dual 110V y 12V', img: '/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b2000d' };
+                      return { name: 'B2000D', specs: '30 km • Línea Dual 110V y 12V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/qFe52siOyQ1QQzeU7ZNCpEoVlQ.webp', slug: 'b2000d' };
                     }
                   } else {
                     if (advisorDistance === 'Más de 100 km') {
-                      return { name: 'B14000H', specs: '300 km • Línea 110V', img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp', slug: 'b14000h' };
+                      return { name: 'B14000H', specs: '300 km • Línea 110V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp', slug: 'b14000h' };
                     } else if (advisorDistance === '30 - 100 km') {
-                      return { name: 'B4500H', specs: '100 km • Línea 110V', img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp', slug: 'b4500h' };
+                      return { name: 'B4500H', specs: '100 km • Línea 110V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp', slug: 'b4500h' };
                     } else {
-                      return { name: 'B1000', specs: '30 km • Línea 110V', img: '/assets/images/p318FkpBgqwUkQZmuEWVflzfDDc.webp', slug: 'b1000' };
+                      return { name: 'B1000', specs: '30 km • Línea 110V', img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/p318FkpBgqwUkQZmuEWVflzfDDc.webp', slug: 'b1000' };
                     }
                   }
                 })();
@@ -1222,7 +1225,7 @@ export default function HomePage() {
               </p>
               <div className="pt-3">
                 <Link
-                  href="/nosotros"
+                  href="/historias"
                   className="text-[#ff5a00] hover:text-[#e05500] font-display font-bold text-[13px] uppercase tracking-wider inline-flex items-center gap-1.5 transition-all group"
                 >
                   <span>{t('home.testMore')}</span>
@@ -1236,17 +1239,17 @@ export default function HomePage() {
               {testimonials.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-[#FBFBFB] rounded-2xl border border-gray-100 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                  className="bg-[#FBFBFB] rounded-2xl border border-gray-100 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   {/* Card Image */}
-                  <div className="relative w-full h-[155px] bg-gray-100 overflow-hidden">
+                  <Link href={`/historias/${item.slug}`} className="relative w-full h-[155px] bg-gray-100 overflow-hidden block">
                     <Image
                       src={item.img}
                       alt={t(item.titleKey)}
                       fill
-                      className="object-cover transition-transform duration-500 hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                  </div>
+                  </Link>
 
                   {/* Card Content */}
                   <div className="p-4 sm:p-5 space-y-2.5 flex-grow flex flex-col justify-between">
@@ -1254,9 +1257,11 @@ export default function HomePage() {
                       <span className="text-[#ff5a00] font-display text-[11px] font-bold uppercase tracking-wider block">
                         {t(item.badgeKey)}
                       </span>
-                      <h3 className="font-display font-bold text-[17px] text-[#111111] leading-tight">
-                        {t(item.titleKey)}
-                      </h3>
+                      <Link href={`/historias/${item.slug}`} className="block">
+                        <h3 className="font-display font-bold text-[17px] text-[#111111] leading-tight group-hover:text-[#ff5a00] transition-colors">
+                          {t(item.titleKey)}
+                        </h3>
+                      </Link>
                       <span className="text-[12px] text-gray-400 block font-medium">
                         {t(item.locKey)}
                       </span>
@@ -1267,11 +1272,11 @@ export default function HomePage() {
 
                     <div className="pt-2">
                       <Link
-                        href="/nosotros"
+                        href={`/historias/${item.slug}`}
                         className="text-[#ff5a00] hover:underline text-[12px] font-bold inline-flex items-center gap-1"
                       >
                         <span>{t('home.testReadStory')}</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                       </Link>
                     </div>
                   </div>
@@ -1397,7 +1402,7 @@ export default function HomePage() {
 
                 {/* High Quality Geographic Latin America Image Map */}
                 <Image
-                  src="/assets/images/latam_map_image.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/latam_map_image.webp"
                   alt="Mapa de Latinoamérica - Proyectos Balkrann"
                   width={640}
                   height={730}
@@ -1470,7 +1475,7 @@ export default function HomePage() {
               opacity-30
             "
             style={{
-              backgroundImage: "url('/assets/images/solar-fence-background.webp')",
+              backgroundImage: "url('https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/solar-fence-background.webp')",
               backgroundSize: "cover",
               backgroundPosition: "center right",
               maskImage: "linear-gradient(to right, transparent 0%, black 48%, black 100%)",
@@ -1902,7 +1907,7 @@ export default function HomePage() {
                   {/* Product image */}
                   <div className="relative w-36 h-36 sm:w-40 sm:h-40 rounded-2xl bg-gray-50/80 overflow-hidden shrink-0 shadow-xs mx-auto sm:mx-0">
                     <Image
-                      src={faqList[activeFaq]?.recommended?.img || '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp'}
+                      src={faqList[activeFaq]?.recommended?.img || 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp'}
                       alt={faqList[activeFaq]?.recommended?.name || 'Producto'}
                       fill
                       className="object-contain p-2"
@@ -1946,7 +1951,7 @@ export default function HomePage() {
           {/* Background Lightning Effect Image matching Framer cc83iWPHU8aUafCMf2nUHGW0.webp */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/images/banner.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/banner.webp"
               alt="Balkran Asesoría y Cotización Banner"
               fill
               className="object-cover object-[60%_50%] brightness-[0.9]"

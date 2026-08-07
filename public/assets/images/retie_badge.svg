@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="retieBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#451a03" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield Base -->
+  <path d="M 100 12 C 145 12 178 28 182 75 C 182 130 135 175 100 190 C 65 175 18 130 18 75 C 22 28 55 12 100 12 Z" fill="url(#shieldGrad)" stroke="url(#amberGrad)" stroke-width="6"/>
+
+  <!-- Inner Safety Triangle -->
+  <polygon points="100,38 162,142 38,142" fill="#ea580c" stroke="#fef08a" stroke-width="3" />
+
+  <!-- Lightning Bolt -->
+  <path d="M 106 50 L 74 100 L 98 100 L 92 134 L 126 84 L 102 84 Z" fill="url(#amberGrad)" stroke="#7c2d12" stroke-width="1.5"/>
+
+  <!-- Text -->
+  <text x="100" y="162" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="1">RETIE</text>
+  <text x="100" y="177" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="9" fill="#fcd34d" text-anchor="middle" letter-spacing="1">SEGURIDAD ELÉCTRICA</text>
+</svg>

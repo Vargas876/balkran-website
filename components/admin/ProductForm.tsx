@@ -543,7 +543,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
                   className={inputClass}
                   value={form.imagen_local}
                   onChange={(e) => set('imagen_local', e.target.value)}
-                  placeholder="/assets/images/... o URL de R2"
+                  placeholder="URL de imagen en R2 o pega la URL"
                 />
               </div>
               <label

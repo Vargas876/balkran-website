@@ -40,7 +40,7 @@ function ForgotContent() {
     <div className="relative min-h-screen w-full bg-[#0a0d14] font-sans flex items-center justify-center px-4 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/FondoLogin.png"
+          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/FondoLogin.webp"
           alt="Balkran Login Background"
           fill
           priority
@@ -53,7 +53,7 @@ function ForgotContent() {
         <div className="text-center space-y-5 mb-7">
           <div className="relative w-44 h-11 mx-auto">
             <Image
-              src="/assets/images/LogoBlanco.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
               alt="BALKRAN"
               fill
               className="object-contain"

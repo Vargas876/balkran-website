@@ -67,7 +67,7 @@ export default function GarantiasPage() {
       {/* HERO */}
       <section className="relative bg-[#111111] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)', backgroundSize: '26px 26px' }} />
-        <div className="relative max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-24">
+        <div className="relative max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 pt-32 sm:pt-36 lg:pt-40 pb-16 sm:pb-20">
           <div className="max-w-3xl space-y-5">
             <span className="bg-orange-50 text-[#ff5a00] font-display text-xs font-extrabold uppercase px-3 py-1 rounded-full tracking-wider inline-flex items-center gap-2">
               <ShieldCheck className="w-3.5 h-3.5" />
@@ -77,7 +77,7 @@ export default function GarantiasPage() {
               Garantías y <span className="text-[#ff5a00]">Devoluciones</span>
             </h1>
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl text-justify">
-              Todos los energizadores que fabrica y comercializa BALKRAN INC S.A.S BIC cuentan con garantía y respaldo. Para poder hacer efectiva la garantía recomendamos tener claridad sobre el tiempo de cobertura que tiene cada uno de los productos; este tiempo cambia de acuerdo con el tipo de producto.
+              Todos los energizadores que fabrica y comercializa BALKRAN INC S.A.S BIC cuentan con garantía y respaldo.
             </p>
           </div>
         </div>
@@ -95,9 +95,6 @@ export default function GarantiasPage() {
               <p className="text-sm text-[#565e6e] font-semibold mt-2">Vigencia a partir de julio del 2025</p>
             </div>
             <div className="lg:col-span-8 space-y-4 text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
-              <p>
-                Todos los energizadores que fabrica y comercializa BALKRAN INC S.A.S BIC cuentan con garantía y respaldo.
-              </p>
               <p>
                 Para poder hacer efectiva la garantía recomendamos tener claridad sobre el tiempo de cobertura que tiene cada uno de los productos; este tiempo cambia de acuerdo con el tipo de producto.
               </p>
@@ -146,7 +143,7 @@ export default function GarantiasPage() {
             <p className="text-sm text-[#565e6e] font-semibold">Periodo de garantías según el tipo de componente:</p>
             <div className="relative w-full overflow-hidden rounded-2xl border border-gray-100">
               <Image
-                src="/assets/images/tabla_garantias.png"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/tabla_garantias.webp"
                 alt="Tabla del periodo de garantías según el tipo de componente del energizador"
                 width={1200}
                 height={900}

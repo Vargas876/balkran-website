@@ -234,7 +234,7 @@ const whatsapp = get('whatsapp');
         name: 'B4500H',
         tagKey: 'prodFaq.recTag1',
         descKey: 'prodFaq.recDesc1',
-        img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
         price: '$ 628.000',
         slug: 'b4500h'
       }
@@ -248,7 +248,7 @@ const whatsapp = get('whatsapp');
         name: 'B9000H',
         tagKey: 'prodFaq.recTag2',
         descKey: 'prodFaq.recDesc2',
-        img: '/assets/images/FOoiuEr2MaSvKg7dCeFbUlLOc2Q.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/FOoiuEr2MaSvKg7dCeFbUlLOc2Q.webp',
         price: '$ 732.000',
         slug: 'b9000h'
       }
@@ -262,7 +262,7 @@ const whatsapp = get('whatsapp');
         name: 'Kit Solar B1000S',
         tagKey: 'prodFaq.recTag3',
         descKey: 'prodFaq.recDesc3',
-        img: '/assets/images/WbATsHs1kNRaUygDgAYoxSzSKI.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/WbATsHs1kNRaUygDgAYoxSzSKI.webp',
         price: '$ 1.250.000',
         slug: 'kit-solar-b1000s'
       }
@@ -276,7 +276,7 @@ const whatsapp = get('whatsapp');
         name: 'B1500',
         tagKey: 'prodFaq.recTag4',
         descKey: 'prodFaq.recDesc4',
-        img: '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
         price: '$ 364.000',
         slug: 'b1500'
       }
@@ -291,7 +291,7 @@ const whatsapp = get('whatsapp');
         nameKey: 'prodFaq.recName5',
         tagKey: 'prodFaq.recTag5',
         descKey: 'prodFaq.recDesc5',
-        img: '/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/oYaPStv6SsxbDeqxTQ9FyV054.webp',
         price: '$ 628.000',
         slug: 'b4500h'
       }
@@ -306,7 +306,7 @@ const whatsapp = get('whatsapp');
         nameKey: 'prodFaq.recName6',
         tagKey: 'prodFaq.recTag6',
         descKey: 'prodFaq.recDesc6',
-        img: '/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp',
         price: '$ 628.000',
         slug: 'cable-aislado-x-50-metros'
       }
@@ -321,7 +321,7 @@ const whatsapp = get('whatsapp');
         nameKey: 'prodFaq.recName7',
         tagKey: 'prodFaq.recTag7',
         descKey: 'prodFaq.recDesc7',
-        img: '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+        img: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
         price: '$ 0',
         slug: 'b4500h'
       }
@@ -336,7 +336,7 @@ const whatsapp = get('whatsapp');
         {/* Background Image Overlay - Pure Natural Bright Sunset */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/Portadaproductos.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/Portadaproductos.webp"
             alt="Balkran Energizador B9000H en Atardecer"
             fill
             className="object-cover object-center opacity-100 brightness-105"
@@ -396,7 +396,7 @@ const whatsapp = get('whatsapp');
           >
             <div className="relative w-32 h-32 sm:w-36 sm:h-32 shrink-0">
               <Image
-                src="/assets/images/d2GBw8LiGeW4Ys9M2h9YWCaw2H0.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/d2GBw8LiGeW4Ys9M2h9YWCaw2H0.webp"
                 alt="Energizadores Balkran"
                 fill
                 className="object-contain p-1 group-hover:scale-105 transition-transform"
@@ -421,7 +421,7 @@ const whatsapp = get('whatsapp');
           >
             <div className="relative w-32 h-32 sm:w-36 sm:h-32 shrink-0">
               <Image
-                src="/assets/images/AVMEESMszhj9sqKQFK5naPSAAk.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/AVMEESMszhj9sqKQFK5naPSAAk.webp"
                 alt="Kits Solares Balkran"
                 fill
                 className="object-contain p-1 group-hover:scale-105 transition-transform"
@@ -446,7 +446,7 @@ const whatsapp = get('whatsapp');
           >
             <div className="relative w-32 h-32 sm:w-36 sm:h-32 shrink-0">
               <Image
-                src="/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp"
+                src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/cmdjt1TwD1Wv8UHkCpi5AG6iA.webp"
                 alt="Accesorios Balkran"
                 fill
                 className="object-contain p-1 group-hover:scale-105 transition-transform"
@@ -983,7 +983,7 @@ const whatsapp = get('whatsapp');
           {/* Background Image Overlay */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/images/2AXdVQLVyiQsvAIF9KS4qkir0Tw.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/2AXdVQLVyiQsvAIF9KS4qkir0Tw.webp"
               alt="Asesoría Balkran Atardecer"
               fill
               className="object-cover object-center brightness-95"
@@ -1412,7 +1412,7 @@ const whatsapp = get('whatsapp');
           {/* Background Lightning Effect Image matching Framer cc83iWPHU8aUafCMf2nUHGW0.webp */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/images/cc83iWPHU8aUafCMf2nUHGW0.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/cc83iWPHU8aUafCMf2nUHGW0.webp"
               alt="Balkran Asesoría y Cotización Banner"
               fill
               className="object-cover object-[85%_18%] sm:object-[80%_15%] brightness-110 saturate-105"

@@ -42,6 +42,7 @@ export default function Navbar() {
     '/pqrs',
     '/certificaciones',
     '/eventos',
+    '/historias',
   ];
   const isLightHeaderPage = lightPages.some((p) => pathname === p || pathname.startsWith(p + '/'));
 
@@ -52,12 +53,18 @@ export default function Navbar() {
     { name: t('nav.contacto'), href: '/contacto' },
   ];
 
+  const sobreBalkranLinks = [
+    { name: t('footer.nosotros'), href: '/nosotros' },
+    { name: t('footer.eventos'), href: '/eventos' },
+    { name: 'HISTORIAS DE ÉXITO', href: '/historias' },
+  ];
+
   const ayudaLinks = [
     { name: 'PREGUNTAS FRECUENTES', href: '/preguntas-frecuentes' },
     { name: 'MANUALES', href: '/manuales' },
     { name: 'GARANTÍAS Y DEVOLUCIONES', href: '/garantias-y-devoluciones' },
     { name: 'PQRS', href: '/pqrs' },
-    { name: t('nav.contacto'), href: '/contacto' },
+    { name: 'INFORME SOCIEDADES BIC', href: '/eventos/informe-sociedades-bic-2025' },
   ];
 
   const isActive = (path: string) => {
@@ -90,7 +97,7 @@ export default function Navbar() {
                 }`}
               >
                 <Image
-                  src={mobileMenuOpen ? '/assets/images/LogoBlanco.webp' : (scrolled || isLightHeaderPage) ? '/assets/images/LogoGris.webp' : '/assets/images/LogoBlanco.webp'}
+                  src={mobileMenuOpen ? 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp' : (scrolled || isLightHeaderPage) ? 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoGris.webp' : 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp'}
                   alt="BALKRAN Electric Fences"
                   fill
                   className="object-contain object-left transition-opacity duration-300"
@@ -101,7 +108,7 @@ export default function Navbar() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-10">
-              {navLinks.slice(0, 3).map((link) => (
+              {navLinks.slice(0, 2).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -115,11 +122,42 @@ export default function Navbar() {
                 </Link>
               ))}
 
+              {/* Sobre Balkran Dropdown */}
+              <div className="relative group">
+                <button
+                  type="button"
+                  className={`font-display text-xs font-bold tracking-widest uppercase transition-colors hover:text-[#ff5a00] flex items-center gap-1.5 rounded-sm ${
+                    ['/nosotros', '/eventos', '/historias'].some((p) => pathname && pathname.startsWith(p))
+                      ? 'text-[#ff5a00] font-extrabold border-b-2 border-[#ff5a00] pb-1'
+                      : scrolled || isLightHeaderPage ? 'text-[#1a2130]' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]'
+                  }`}
+                  aria-label={t('nav.nosotros')}
+                >
+                  {t('nav.nosotros')}
+                  <svg className="w-3 h-3 fill-current opacity-70" viewBox="0 0 24 24"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+                </button>
+                <div className="absolute left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
+                  <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden min-w-[200px] py-2">
+                    {sobreBalkranLinks.map((l) => (
+                      <Link
+                        key={l.href}
+                        href={l.href}
+                        className={`block px-5 py-2.5 font-display text-[11px] font-bold tracking-widest uppercase transition-colors hover:bg-orange-50 hover:text-[#ff5a00] ${
+                          isActive(l.href) ? 'text-[#ff5a00]' : 'text-[#1a2130]'
+                        }`}
+                      >
+                        {l.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               {/* Ayuda Dropdown */}
               <div className="relative group">
                 <button
                   className={`font-display text-xs font-bold tracking-widest uppercase transition-colors hover:text-[#ff5a00] flex items-center gap-1.5 rounded-sm ${
-                    ['/preguntas-frecuentes', '/manuales', '/garantias-y-devoluciones', '/pqrs'].some((p) => pathname.startsWith(p))
+                    ['/preguntas-frecuentes', '/manuales', '/garantias-y-devoluciones', '/pqrs', '/eventos/informe-sociedades-bic-2025'].some((p) => pathname.startsWith(p))
                       ? 'text-[#ff5a00] font-extrabold border-b-2 border-[#ff5a00] pb-1'
                       : scrolled || isLightHeaderPage ? 'text-[#1a2130]' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]'
                   }`}
@@ -275,7 +313,7 @@ export default function Navbar() {
               className="md:hidden bg-[#141824] text-white border-b border-white/10 px-5 pt-3 pb-7 space-y-4 shadow-2xl"
             >
               <div className="flex flex-col space-y-2 pt-2">
-                {navLinks.map((link) => (
+                {navLinks.slice(0, 2).map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -289,6 +327,37 @@ export default function Navbar() {
                     {link.name}
                   </Link>
                 ))}
+
+                <span className="font-display text-[11px] font-bold uppercase tracking-widest px-4 pt-3 pb-1 text-[#ff5a00]">
+                  {t('nav.nosotros')}
+                </span>
+                {sobreBalkranLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`font-display text-[11px] font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all ml-3 ${
+                      isActive(l.href)
+                        ? 'bg-[#ff5a00] text-white shadow-md shadow-[#ff5a00]/30'
+                        : 'text-white/80 hover:text-[#ff5a00] hover:bg-white/10'
+                    }`}
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+
+                <Link
+                  key={navLinks[3].href}
+                  href={navLinks[3].href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all ${
+                    isActive(navLinks[3].href)
+                      ? 'bg-[#ff5a00] text-white shadow-md shadow-[#ff5a00]/30'
+                      : 'text-white hover:text-[#ff5a00] hover:bg-white/10'
+                  }`}
+                >
+                  {navLinks[3].name}
+                </Link>
 
                 <span className="font-display text-[11px] font-bold uppercase tracking-widest px-4 pt-3 pb-1 text-[#ff5a00]">
                   {t('nav.ayuda')}

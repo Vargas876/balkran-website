@@ -46,7 +46,7 @@ export async function POST(request: Request) {
       precioNumerico: data.precioNumerico,
       subtitulo: data.subtitulo ?? null,
       descripcion: data.descripcion ?? null,
-      imagen_local: data.imagen_local || '/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
+      imagen_local: data.imagen_local || 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/5EhnHXmkuevVY6EM06Dnfjw5Bes.webp',
       alcance: data.alcance ?? null,
       joules: data.joules ?? null,
       voltaje: data.voltaje ?? null,

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -30,7 +30,7 @@ export default function ContactoPage() {
       nombre: 'José Agustín González',
       cargo: 'contacto.roleSales',
       zona: 'contacto.advisor1Zone',
-      foto: '/assets/images/tgs1xz6VEadCARlFtXBgVos6Y0.webp',
+      foto: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/profile.webp',
       whatsappNum: '573204114484',
       tel: '573204114484',
       emailAsesor: 'jose.gonzalez@cercasbalkran.com',
@@ -39,7 +39,7 @@ export default function ContactoPage() {
       nombre: 'Alejandro Alarcón',
       cargo: 'contacto.roleSales',
       zona: 'contacto.advisor2Zone',
-      foto: '/assets/images/WK9jcmGEhfsoxbpzkBeiw38l2Uc.webp',
+      foto: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/profile.webp',
       whatsappNum: '573112276195',
       tel: '573112276195',
       emailAsesor: 'alejandro.alarcon@cercasbalkran.com',
@@ -48,7 +48,7 @@ export default function ContactoPage() {
       nombre: 'Jorge Iván Hernández',
       cargo: 'contacto.roleSales',
       zona: 'contacto.advisor3Zone',
-      foto: '/assets/images/F5smyks6PLeyEoYue5fdEFY114.webp',
+      foto: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/profile.webp',
       whatsappNum: '573112258679',
       tel: '573112258679',
       emailAsesor: 'ivan.ferrucho@cercasbalkran.com',
@@ -57,7 +57,7 @@ export default function ContactoPage() {
       nombre: 'Fabian Vega',
       cargo: 'contacto.roleDirector',
       zona: 'contacto.advisor4Zone',
-      foto: '/assets/images/vq39pTRjk3KbeBLS9e5PGfn2OIs.webp',
+      foto: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/profile.webp',
       whatsappNum: '573114508064',
       tel: '573114508064',
       emailAsesor: 'ventas@cercasbalkran.com',
@@ -66,7 +66,7 @@ export default function ContactoPage() {
       nombre: 'Harold Vargas',
       cargo: 'contacto.roleSales',
       zona: 'contacto.advisor5Zone',
-      foto: '/assets/images/asesor_harold_vargas.webp',
+      foto: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/profile.webp',
       whatsappNum: '573118988057',
       tel: '573118988057',
       emailAsesor: 'harold.vargas@cercasbalkran.com',
@@ -81,7 +81,7 @@ export default function ContactoPage() {
         {/* Background Image - Clean, Golden & Bright */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/PortadaContacto.webp"
+            src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/PortadaContacto.webp"
             alt="Sede Balkran Electric Fences"
             fill
             className="object-cover object-center brightness-105 contrast-105"
@@ -163,12 +163,12 @@ export default function ContactoPage() {
                   className="bg-[#fafafa] hover:bg-white border border-gray-200/80 hover:border-[#ff5a00] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-between group cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 border border-gray-200 shadow-sm">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 border border-gray-200 shadow-sm bg-orange-50 p-2">
                       <Image
-                        src="/assets/images/TtmJyb7HeqNzBHneJs4oEjSj3kY.webp"
+                        src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/colombia.webp"
                         alt="Colombia"
                         fill
-                        className="object-cover"
+                        className="object-contain p-1"
                       />
                     </div>
                     <div>
@@ -191,12 +191,12 @@ export default function ContactoPage() {
                   className="bg-[#fafafa] hover:bg-white border border-gray-200/80 hover:border-[#ff5a00] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-between group cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 border border-gray-200 shadow-sm">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 border border-gray-200 shadow-sm bg-orange-50 p-2">
                       <Image
-                        src="/assets/images/QRgETZvcyxTLIX4QZpIIxjInLo.webp"
+                        src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/globo.webp"
                         alt="Internacional"
                         fill
-                        className="object-cover"
+                        className="object-contain p-1"
                       />
                     </div>
                     <div>
@@ -312,8 +312,13 @@ export default function ContactoPage() {
                 {/* Service 1 */}
                 <div className="bg-[#141a26] border border-gray-800 rounded-2xl p-6 flex flex-col justify-between space-y-6 hover:border-[#ff5a00]/50 transition-all">
                   <div className="flex gap-4 items-start">
-                    <div className="w-16 h-16 rounded-full border-2 border-[#ff5a00] text-[#ff5a00] bg-[#ff5a00]/10 flex items-center justify-center shrink-0">
-                      <Wrench className="w-7 h-7" />
+                    <div className="relative w-14 h-14 rounded-2xl bg-[#ff5a00]/10 border border-[#ff5a00]/30 p-2 shrink-0">
+                      <Image
+                        src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/tickets.webp"
+                        alt="Servicio Técnico"
+                        fill
+                        className="object-contain p-1.5"
+                      />
                     </div>
                     <div className="space-y-2">
                       <h3 className="font-display font-bold text-base text-white leading-snug">
@@ -338,8 +343,13 @@ export default function ContactoPage() {
                 {/* Service 2 */}
                 <div className="bg-[#141a26] border border-gray-800 rounded-2xl p-6 flex flex-col justify-between space-y-6 hover:border-[#ff5a00]/50 transition-all">
                   <div className="flex gap-4 items-start">
-                    <div className="w-16 h-16 rounded-full border-2 border-[#ff5a00] text-[#ff5a00] bg-[#ff5a00]/10 flex items-center justify-center shrink-0">
-                      <Headphones className="w-7 h-7" />
+                    <div className="relative w-14 h-14 rounded-2xl bg-[#ff5a00]/10 border border-[#ff5a00]/30 p-2 shrink-0">
+                      <Image
+                        src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/soporteremoto.webp"
+                        alt="Atención Telefónica"
+                        fill
+                        className="object-contain p-1.5"
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <h3 className="font-display font-bold text-base text-white leading-snug">

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description: 'Protección con toda la energía. Más de 25 años fabricando energizadores y cercas eléctricas en Colombia para el sector agropecuario.',
     images: [
       {
-        url: '/assets/images/LogoBlanco.webp',
+        url: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp',
         width: 512,
         height: 512,
         alt: 'Balkran Tecnología e Innovación',
@@ -57,15 +57,15 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Balkran – Electric Fences & Energizadores para Fincas',
     description: 'Protección con toda la energía. Más de 25 años fabricando energizadores y cercas eléctricas en Colombia.',
-    images: ['/assets/images/LogoBlanco.webp'],
+    images: ['https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp'],
   },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/assets/images/IsotipoBlanco.png', type: 'image/png' },
+      { url: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/IsotipoBlanco.webp', type: 'image/png' },
     ],
     shortcut: '/favicon.svg',
-    apple: '/assets/images/IsotipoBlanco.png',
+    apple: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/IsotipoBlanco.webp',
   },
   robots: {
     index: true,

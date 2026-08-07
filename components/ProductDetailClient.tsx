@@ -144,20 +144,20 @@ const whatsapp = get('whatsapp');
 
   // Official Balkran animal icons ("Recomendado para")
   const animalIcon: Record<string, string> = {
-    Caballo: '/assets/images/animales/CaballoAjustado.svg',
-    Vaca: '/assets/images/animales/VacaAjustada.svg',
-    Cerdo: '/assets/images/animales/CerdoAjustado.svg',
-    Perro: '/assets/images/animales/PerroAjustado.svg',
-    Toro: '/assets/images/animales/ToroAjustado.svg',
-    Oveja: '/assets/images/animales/OvejaAjustada.svg',
-    Cabra: '/assets/images/animales/CabraAjustada.svg',
-    Caballos: '/assets/images/animales/CaballoAjustado.svg',
-    Vacas: '/assets/images/animales/VacaAjustada.svg',
-    Cerdos: '/assets/images/animales/CerdoAjustado.svg',
-    Perros: '/assets/images/animales/PerroAjustado.svg',
-    Toros: '/assets/images/animales/ToroAjustado.svg',
-    Ovejas: '/assets/images/animales/OvejaAjustada.svg',
-    Cabras: '/assets/images/animales/CabraAjustada.svg',
+    Caballo: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CaballoAjustado.svg',
+    Vaca: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/VacaAjustada.svg',
+    Cerdo: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CerdoAjustado.svg',
+    Perro: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/PerroAjustado.svg',
+    Toro: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/ToroAjustado.svg',
+    Oveja: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/OvejaAjustada.svg',
+    Cabra: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CabraAjustada.svg',
+    Caballos: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CaballoAjustado.svg',
+    Vacas: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/VacaAjustada.svg',
+    Cerdos: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CerdoAjustado.svg',
+    Perros: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/PerroAjustado.svg',
+    Toros: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/ToroAjustado.svg',
+    Ovejas: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/OvejaAjustada.svg',
+    Cabras: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CabraAjustada.svg',
   };
 
   // Local manuals (downloaded to /assets/pdf)
@@ -200,9 +200,9 @@ const whatsapp = get('whatsapp');
     ? [product.imagen_local, ...product.imagenes]
     : [
         product.imagen_local,
-        '/assets/images/09P0SGmGDpn291FCF2VooQ3BRLE.webp',
-        '/assets/images/1qGLo1NIVhFclbgu6nVpbs9coG4.webp',
-        '/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp',
+        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/09P0SGmGDpn291FCF2VooQ3BRLE.webp',
+        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/1qGLo1NIVhFclbgu6nVpbs9coG4.webp',
+        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp',
       ]
   ).filter((src): src is string => !!src);
 
@@ -930,7 +930,7 @@ const whatsapp = get('whatsapp');
               {/* Box Content Image */}
               <div className="relative rounded-xl overflow-hidden bg-white p-2 h-[260px] flex items-center justify-center border border-gray-100 shadow-xs">
                 <Image
-                  src="/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp"
                   alt="Contenido de la caja Balkran"
                   fill
                   className="object-contain object-center"
@@ -1395,7 +1395,7 @@ const whatsapp = get('whatsapp');
                       <p className="pt-1">{t('detail.instDistDesc')}</p>
                       <div className="mt-4 rounded-2xl border border-gray-200/90 bg-white p-4 flex justify-center">
                         <Image
-                          src="/assets/images/numeroLineas.webp"
+                          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/numeroLineas.webp"
                           alt="Figura de conexión recomendada para el cercado eléctrico Balkran"
                           width={886}
                           height={467}
@@ -1420,7 +1420,7 @@ const whatsapp = get('whatsapp');
                       </ul>
                       <div className="mt-4 rounded-2xl border border-gray-200/90 bg-white p-4 flex justify-center">
                         <Image
-                          src="/assets/images/tablaFichaTecnica.webp"
+                          src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/tablaFichaTecnica.webp"
                           alt="Tabla de distancia de separación mínima para cerca eléctrica Balkran"
                           width={680}
                           height={232}
@@ -1550,7 +1550,7 @@ const whatsapp = get('whatsapp');
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
               <div className="border border-gray-200 rounded-2xl p-6 text-center space-y-2">
                 <CertLogo
-                  src="/assets/images/logo-retie.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/logo-retie.webp"
                   alt="RETIE"
                   fallback={<ShieldCheck className="w-8 h-8 text-[#ff5a00] mx-auto" />}
                 />
@@ -1566,7 +1566,7 @@ const whatsapp = get('whatsapp');
               </div>
               <div className="border border-gray-200 rounded-2xl p-6 text-center space-y-2">
                 <CertLogo
-                  src="/assets/images/logos/logo-iso9001.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/logos/logo-iso9001.webp"
                   alt="ISO 9001:2015"
                   fallback={<Award className="w-8 h-8 text-[#ff5a00] mx-auto" />}
                 />
@@ -1582,7 +1582,7 @@ const whatsapp = get('whatsapp');
               </div>
               <div className="border border-gray-200 rounded-2xl p-6 text-center space-y-2">
                 <CertLogo
-                  src="/assets/images/logos/logo-bic.webp"
+                  src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/logos/logo-bic.webp"
                   alt="Sociedades BIC"
                   fallback={<Lock className="w-8 h-8 text-[#ff5a00] mx-auto" />}
                 />
@@ -1798,7 +1798,7 @@ const whatsapp = get('whatsapp');
           {/* Background Lightning Effect Image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/images/MaTJDeNim7BwReSBMd1ZWKVrEk.webp"
+              src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/MaTJDeNim7BwReSBMd1ZWKVrEk.webp"
               alt="Balkran Asesoría y Cotización Banner"
               fill
               className="object-cover object-center brightness-125 saturate-110"

@@ -92,13 +92,137 @@ export async function buildKnowledge(): Promise<KnowledgeContext> {
   };
 }
 
+function levenshtein(a: string, b: string): number {
+  const m = a.length;
+  const n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  let prev = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i++) {
+    const curr = [i];
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+    }
+    prev = curr;
+  }
+  return prev[n];
+}
+
+function similarity(a: string, b: string): number {
+  const maxLen = Math.max(a.length, b.length);
+  if (maxLen === 0) return 1;
+  return 1 - levenshtein(a, b) / maxLen;
+}
+
+const STOPWORDS = new Set([
+  'el', 'la', 'los', 'las', 'de', 'del', 'y', 'o', 'u', 'a', 'al', 'con', 'por', 'para', 'que', 'cuanto', 'cuanta',
+  'cuantos', 'cuantas', 'cual', 'cuales', 'como', 'cual es', 'hay', 'tienen', 'tiene', 'me', 'mi', 'un', 'una', 'unos',
+  'unas', 'en', 'es', 'son', 'producto', 'precio', 'modelo', 'hasta', 'necesito', 'me', 'dame', 'muestrame', 'ver',
+  'comprar', 'informacion', 'info', 'kms', 'km',
+]);
+
+const CODE_RE = /b\s*\d{2,6}[a-z]{0,3}/i;
+
+function codeOf(name: string): string | null {
+  const m = name.match(CODE_RE);
+  return m ? m[0].replace(/\s+/g, '').toLowerCase() : null;
+}
+
+function modelNumber(name: string): number | null {
+  const base = name.replace(/[^0-9a-z]/gi, '').toLowerCase();
+  const m = base.match(/^b(\d{3,6})/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
 export async function getProductByName(query: string): Promise<{ nombre: string; slug: string; precio: string; alcance: string } | null> {
   const products = await getAllProducts();
-  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const q = norm(query);
-  return (
-    products
-      .map((p) => ({ nombre: p.nombre, slug: p.slug, precio: p.precio, alcance: p.alcance || '' }))
-      .find((p) => q.includes(norm(p.nombre)) || norm(p.nombre).includes(q)) || null
-  );
+  const norm = (s: string) =>
+    String(s || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  const raw = query.replace(/\s+/g, ' ').trim();
+  const q = norm(raw);
+  if (!q) return null;
+
+  const qCode = codeOf(query.replace(/\s+/g, ''));
+
+  const km = (s: string) => (s.match(/\d+([.,]\d+)?/g) || []).map((n) => parseFloat(n.replace(',', '.')));
+  const qKm = km(q);
+
+  const qNums = (qKm || []).filter((n) => n >= 500 && n <= 20000 && Number.isInteger(n));
+  let exactCodeMatch: (typeof products)[number] | null = null;
+
+  for (const p of products) {
+    const pCode = codeOf(norm(p.nombre));
+    if (qCode && pCode && qCode === pCode) {
+      exactCodeMatch = p;
+      break;
+    }
+  }
+  if (exactCodeMatch) {
+    return { nombre: exactCodeMatch.nombre, slug: exactCodeMatch.slug, precio: exactCodeMatch.precio, alcance: exactCodeMatch.alcance || '' };
+  }
+
+  let best: { product: (typeof products)[number]; score: number } | null = null;
+
+  for (const p of products) {
+    const nombre = norm(p.nombre);
+    const linea = norm(p.linea || '');
+    const categoria = norm(p.categoria || '');
+    const alcance = norm(p.alcance || '');
+    const texto = `${nombre} ${linea} ${categoria} ${alcance}`;
+
+    let score = 0;
+
+    // 1) Número de modelo desnudo ("3000" -> B3000)
+    for (const n of qNums) {
+      if (modelNumber(nombre) === n) {
+        score = Math.max(score, 0.95);
+      }
+    }
+
+    // 2) Tokens descriptivos (nombre, línea, categoría)
+    const qTokens = q.split(' ').filter((t) => t.length >= 2 && !STOPWORDS.has(t) && !/^\d/.test(t));
+    const matched = qTokens.filter((t) => texto.includes(t)).length;
+    if (matched > 0) {
+      score = Math.max(score, Math.min(1, 0.55 * matched));
+    }
+
+    // 3) km de alcance
+    if (qKm.length > 0) {
+      const pKm = km(p.alcance || '');
+      const exact = qKm.some((a) => pKm.some((b) => b === a));
+      const close = qKm.some((a) => pKm.some((b) => Math.abs(b - a) <= Math.max(2, b * 0.1)));
+      if (exact) score = Math.max(score, 0.9);
+      else if (close) score = Math.max(score, 0.7);
+    }
+
+    if (score > 0.5 && (!best || score > best.score)) {
+      best = { product: p, score };
+    }
+  }
+
+  if (best) {
+    return { nombre: best.product.nombre, slug: best.product.slug, precio: best.product.precio, alcance: best.product.alcance || '' };
+  }
+
+  // Fallback final: similitud por nombre para frases descriptivas
+  if (q.length >= 8) {
+    let fuzzyBest: { product: (typeof products)[number]; score: number } | null = null;
+    for (const p of products) {
+      const s = similarity(q, norm(p.nombre));
+      if (s >= 0.8 && (!fuzzyBest || s > fuzzyBest.score)) fuzzyBest = { product: p, score: s };
+    }
+    if (fuzzyBest) {
+      const fp = fuzzyBest.product;
+      return { nombre: fp.nombre, slug: fp.slug, precio: fp.precio, alcance: fp.alcance || '' };
+    }
+  }
+
+  return null;
 }
