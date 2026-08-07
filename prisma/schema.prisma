@@ -124,6 +124,7 @@ model Inquiry {
   email     String
   phone     String?
   message   String
+  tipo      String?
   status    InquiryStatus @default(NUEVO)
   createdAt DateTime      @default(now())
 }

@@ -88,16 +88,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: RECURSOS */}
+          {/* Col 4: LEGAL */}
           <div>
             <h3 className="font-display text-[#1a2130] text-xs font-bold tracking-wider uppercase mb-3">
-              {t('footer.recursos')}
+              {t('footer.legal')}
             </h3>
             <ul className="space-y-2 text-xs">
-              <li><a href="#" className="hover:text-[#ff5a00] transition-colors">{t('footer.guias')}</a></li>
-              <li><a href="#" className="hover:text-[#ff5a00] transition-colors">{t('footer.videos')}</a></li>
-              <li><a href="#" className="hover:text-[#ff5a00] transition-colors">{t('footer.blog')}</a></li>
-              <li><Link href="/#faq" className="hover:text-[#ff5a00] transition-colors">{t('footer.faq')}</Link></li>
+              <li><Link href="/politica-datos-personales" className="hover:text-[#ff5a00] transition-colors">{t('footer.politicaDatos')}</Link></li>
+              <li><Link href="/garantias-y-devoluciones" className="hover:text-[#ff5a00] transition-colors">{t('footer.garantias')}</Link></li>
+              <li><Link href="/terminos-y-condiciones-tienda" className="hover:text-[#ff5a00] transition-colors">{t('footer.terminosTienda')}</Link></li>
+              <li><Link href="/pqrs" className="hover:text-[#ff5a00] transition-colors">{t('footer.pqrs')}</Link></li>
             </ul>
           </div>
 
@@ -108,9 +108,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/nosotros" className="hover:text-[#ff5a00] transition-colors">{t('footer.nosotros')}</Link></li>
+              <li><Link href="/eventos" className="hover:text-[#ff5a00] transition-colors">{t('footer.eventos')}</Link></li>
+              <li><Link href="/certificaciones" className="hover:text-[#ff5a00] transition-colors">{t('footer.certificaciones')}</Link></li>
               <li><Link href="/#tecnologia" className="hover:text-[#ff5a00] transition-colors">{t('footer.tecnologia')}</Link></li>
-              <li><Link href="/contacto" className="hover:text-[#ff5a00] transition-colors">{t('footer.distribuidores')}</Link></li>
-              <li><Link href="/contacto" className="hover:text-[#ff5a00] transition-colors">{t('footer.contactFooter')}</Link></li>
             </ul>
           </div>
 
@@ -168,8 +168,9 @@ export default function Footer() {
         <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
           <p>{t('footer.rights')}</p>
           <div className="flex items-center space-x-6">
-            <a href="#" className="hover:text-gray-600 transition-colors">{t('footer.privacy')}</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">{t('footer.terms')}</a>
+            <Link href="/politica-datos-personales" className="hover:text-gray-600 transition-colors">{t('footer.privacy')}</Link>
+            <Link href="/terminos-y-condiciones-tienda" className="hover:text-gray-600 transition-colors">{t('footer.terms')}</Link>
+            <Link href="/garantias-y-devoluciones" className="hover:text-gray-600 transition-colors">{t('footer.garantias')}</Link>
           </div>
         </div>
 

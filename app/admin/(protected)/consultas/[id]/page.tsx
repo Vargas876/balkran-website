@@ -26,6 +26,10 @@ export default async function ConsultaDetallePage({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
+            <p className="text-white/50 text-xs mb-1">Tipo</p>
+            <p className="text-white/90 font-semibold">{inquiry.tipo ?? 'Consulta de contacto'}</p>
+          </div>
+          <div>
             <p className="text-white/50 text-xs mb-1">Email</p>
             <a
               href={`mailto:${inquiry.email}`}
@@ -38,7 +42,7 @@ export default async function ConsultaDetallePage({
             <p className="text-white/50 text-xs mb-1">Teléfono</p>
             <p>{inquiry.phone ?? '—'}</p>
           </div>
-          <div className="sm:col-span-2">
+          <div>
             <p className="text-white/50 text-xs mb-1">Fecha</p>
             <p>
               {new Date(inquiry.createdAt).toLocaleString('es-CO', {

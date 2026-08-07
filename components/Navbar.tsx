@@ -34,7 +34,16 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isLightHeaderPage = pathname === '/nosotros';
+  const lightPages = [
+    '/nosotros',
+    '/politica-datos-personales',
+    '/garantias-y-devoluciones',
+    '/terminos-y-condiciones-tienda',
+    '/pqrs',
+    '/certificaciones',
+    '/eventos',
+  ];
+  const isLightHeaderPage = lightPages.some((p) => pathname === p || pathname.startsWith(p + '/'));
 
   const navLinks = [
     { name: t('nav.inicio'), href: '/' },

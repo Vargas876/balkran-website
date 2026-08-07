@@ -24,6 +24,7 @@ export default async function AdminConsultasPage() {
             <tr className="border-b border-white/10 text-left text-white/50 text-xs uppercase tracking-wide">
               <th className="px-4 py-3">Fecha</th>
               <th className="px-4 py-3">Nombre</th>
+              <th className="px-4 py-3">Tipo</th>
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Teléfono</th>
               <th className="px-4 py-3">Mensaje</th>
@@ -45,6 +46,15 @@ export default async function AdminConsultasPage() {
                   })}
                 </td>
                 <td className="px-4 py-3 font-medium">{inq.name}</td>
+                <td className="px-4 py-3">
+                  {inq.tipo ? (
+                    <span className="inline-flex px-2 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/30 text-[#ff5a00] text-xs font-semibold">
+                      {inq.tipo}
+                    </span>
+                  ) : (
+                    <span className="text-white/40">—</span>
+                  )}
+                </td>
                 <td className="px-4 py-3 text-white/60">{inq.email}</td>
                 <td className="px-4 py-3 text-white/60">{inq.phone ?? '—'}</td>
                 <td className="px-4 py-3 text-white/60 max-w-[240px] truncate">
