@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { MessageSquareText, Clock, Phone, Mail, Globe, MapPin, Headphones } from 'lucide-react';
+import { MessageSquareText, Phone, Mail, Globe, Headphones } from 'lucide-react';
 import PqrsForm from './PqrsForm';
 
 export const metadata: Metadata = {
   title: 'PQRS – Peticiones, Quejas, Reclamos y Solicitudes',
   description:
-    'Radica tu petición, queja, reclamo o solicitud ante BALKRAN INC S.A.S BIC. Conoce los canales de atención, tiempos de respuesta y el formulario de PQRS.',
+    'Radica tu petición, queja, reclamo o solicitud ante BALKRAN INC S.A.S BIC. Conoce los canales de atención y el formulario de PQRS.',
   alternates: { canonical: '/pqrs' },
   openGraph: {
     title: 'PQRS | Balkran',
@@ -13,14 +13,6 @@ export const metadata: Metadata = {
     url: '/pqrs',
   },
 };
-
-const tiempos = [
-  { tipo: 'Peticiones genéricas', dias: '15 días', detalle: 'Respuesta en un máximo de 15 días hábiles.' },
-  { tipo: 'Recursos de reposición y apelación', dias: '5 + 5 días', detalle: 'Reposición dentro de los 5 días siguientes y apelación en otros 5 días.' },
-  { tipo: 'Quejas', dias: '15 días', detalle: 'Respuesta en un máximo de 15 días hábiles.' },
-  { tipo: 'Reclamos', dias: '15 días', detalle: 'Respuesta en un máximo de 15 días hábiles.' },
-  { tipo: 'Sugerencias', dias: 'Respuesta ágil', detalle: 'Tramitadas a través de los canales de atención.' },
-];
 
 export default function PqrsPage() {
   return (
@@ -39,28 +31,8 @@ export default function PqrsPage() {
               Peticiones, Quejas, <span className="text-[#ff5a00]">Reclamos y Solicitudes</span>
             </h1>
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl text-justify">
-              En BALKRAN INC S.A.S BIC ponemos a tu disposición el formulario de peticiones, quejas, reclamos y solicitudes (PQRS) junto con los canales de atención y los tiempos de respuesta establecidos.
+              En BALKRAN INC S.A.S BIC ponemos a tu disposición el formulario de peticiones, quejas, reclamos y solicitudes (PQRS) junto con los canales de atención establecidos.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* TIEMPOS DE RESPUESTA */}
-      <section className="py-12 bg-white">
-        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
-          <div className="text-center space-y-1.5 max-w-2xl mx-auto">
-            <span className="text-[#ff5a00] font-display text-xs font-bold uppercase tracking-wider block">Tiempos de respuesta</span>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#111111]">¿En cuánto tiempo respondemos?</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {tiempos.map((t, i) => (
-              <div key={i} className="bg-[#fcfcfc] border border-gray-200/90 rounded-2xl p-5 space-y-2 text-center hover:border-orange-300 transition-colors">
-                <Clock className="w-5 h-5 text-[#ff5a00] mx-auto" />
-                <h3 className="font-display font-extrabold text-sm text-[#111111]">{t.tipo}</h3>
-                <p className="font-display font-extrabold text-xl text-[#ff5a00]">{t.dias}</p>
-                <p className="text-[11px] text-[#565e6e] font-medium leading-snug">{t.detalle}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -113,13 +85,6 @@ export default function PqrsPage() {
                   <div>
                     <p className="text-gray-400 text-xs">Sitio web</p>
                     <p className="text-white font-semibold">www.cercasbalkran.com</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-[#ff5a00] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-gray-400 text-xs">Correo postal</p>
-                    <p className="text-white font-semibold leading-snug">Calle 53 #35-113 Bodega 10, Parque Empresarial La Aurora, Sabaneta</p>
                   </div>
                 </li>
               </ul>
