@@ -75,6 +75,7 @@ function getSessionId(): string {
 export default function VoltChatWidget() {
   const { language } = useLanguage();
   const [hasCookieConsent, setHasCookieConsent] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState('');
@@ -99,6 +100,17 @@ export default function VoltChatWidget() {
     window.addEventListener('balkran_cookie_consent_accepted', handleConsent);
     return () => {
       window.removeEventListener('balkran_cookie_consent_accepted', handleConsent);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMobileMenu = (e: CustomEvent<boolean> | Event) => {
+      const isOpen = (e as CustomEvent<boolean>).detail ?? false;
+      setIsMobileMenuOpen(isOpen);
+    };
+    window.addEventListener('balkran_mobile_menu_toggle', handleMobileMenu as EventListener);
+    return () => {
+      window.removeEventListener('balkran_mobile_menu_toggle', handleMobileMenu as EventListener);
     };
   }, []);
 
@@ -169,10 +181,10 @@ export default function VoltChatWidget() {
       .replace(/\n/g, '<br/>');
   }
 
-  if (!hasCookieConsent) return null;
+  if (!hasCookieConsent || isMobileMenuOpen) return null;
 
   return (
-    <>
+    <div className="volt-chat-widget">
       {/* Botón flotante */}
       <button
         onClick={() => setOpen((v) => !v)}
@@ -301,6 +313,6 @@ export default function VoltChatWidget() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -7,6 +7,7 @@ import { ChevronUp } from 'lucide-react';
 export default function LanguageSwitcher() {
   const { language, setLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const langOptions: { code: Language; label: string; flag: string; nativeName: string }[] = [
@@ -27,8 +28,21 @@ export default function LanguageSwitcher() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleMobileMenu = (e: CustomEvent<boolean> | Event) => {
+      const isOpen = (e as CustomEvent<boolean>).detail ?? false;
+      setIsMobileMenuOpen(isOpen);
+    };
+    window.addEventListener('balkran_mobile_menu_toggle', handleMobileMenu as EventListener);
+    return () => {
+      window.removeEventListener('balkran_mobile_menu_toggle', handleMobileMenu as EventListener);
+    };
+  }, []);
+
+  if (isMobileMenuOpen) return null;
+
   return (
-    <div ref={dropdownRef} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none">
+    <div ref={dropdownRef} className="language-switcher-widget fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none">
       
       {/* Dropdown Menu */}
       {isOpen && (

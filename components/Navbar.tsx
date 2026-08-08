@@ -41,17 +41,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const lightPages = [
-    '/nosotros',
-    '/politica-datos-personales',
-    '/garantias-y-devoluciones',
-    '/terminos-y-condiciones-tienda',
-    '/pqrs',
-    '/certificaciones',
-    '/eventos',
-    '/historias',
-  ];
-  const isLightHeaderPage = lightPages.some((p) => pathname === p || pathname.startsWith(p + '/'));
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (mobileMenuOpen) {
+        document.body.setAttribute('data-mobile-menu-open', 'true');
+        window.dispatchEvent(new CustomEvent('balkran_mobile_menu_toggle', { detail: true }));
+      } else {
+        document.body.removeAttribute('data-mobile-menu-open');
+        window.dispatchEvent(new CustomEvent('balkran_mobile_menu_toggle', { detail: false }));
+      }
+    }
+  }, [mobileMenuOpen]);
+
+  const isLightHeaderPage = pathname !== '/';
 
   const navLinks = [
     { name: t('nav.inicio'), href: '/' },
@@ -264,10 +266,10 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/registro"
-                    className={`hidden lg:inline-flex text-xs font-display font-bold uppercase tracking-wider rounded-full px-4 py-2.5 border transition-all ${
+                    className={`hidden md:inline-flex items-center text-xs font-display font-bold uppercase tracking-wider rounded-full px-4 py-2.5 border transition-all ${
                       scrolled || isLightHeaderPage
-                        ? 'text-[#1a2130] hover:text-[#ff5a00] border-gray-200/80'
-                        : 'text-white hover:text-[#ff5a00] border-white/20'
+                        ? 'text-[#1a2130] bg-gray-100/90 hover:bg-[#ff5a00] hover:text-white border-gray-200 shadow-sm'
+                        : 'text-white bg-black/40 backdrop-blur-md hover:bg-[#ff5a00] border-white/20 shadow-md'
                     }`}
                   >
                     {t('nav.createAccount')}

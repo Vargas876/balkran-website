@@ -75,3 +75,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #ff5a00;
 }
+
+/* Hide Language Switcher and VoltChatWidget on mobile when mobile menu drawer is open */
+@media (max-width: 767px) {
+  body[data-mobile-menu-open="true"] .language-switcher-widget,
+  body[data-mobile-menu-open="true"] .volt-chat-widget {
+    display: none !important;
+  }
+}
+
