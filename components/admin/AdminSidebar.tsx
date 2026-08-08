@@ -21,12 +21,12 @@ import {
 } from 'lucide-react';
 
 const links = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin', label: 'Panel', icon: LayoutDashboard },
   { href: '/admin/productos', label: 'Productos', icon: Package },
   { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
   { href: '/admin/consultas', label: 'Consultas', icon: Inbox },
   { href: '/admin/usuarios', label: 'Usuarios', icon: Users },
-  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/admin/analytics', label: 'Analíticas', icon: BarChart3 },
   { href: '/admin/knowledge', label: 'Volt IA', icon: Bot },
   { href: '/admin/configuracion', label: 'Configuración', icon: Settings },
 ];

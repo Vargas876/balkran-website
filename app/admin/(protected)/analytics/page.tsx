@@ -70,17 +70,17 @@ export default async function AdminAnalyticsPage() {
   const maxPath = Math.max(1, ...topPaths.map((p) => p.value));
 
   const stats = [
-    { label: 'Vistas totales', value: totalViews, accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
-    { label: 'Vistas hoy', value: todayViews, accent: 'from-emerald-500/30 to-emerald-500/5' },
-    { label: 'Últimos 7 días', value: weekViews, accent: 'from-sky-500/30 to-sky-500/5' },
-    { label: 'Páginas distintas', value: totalPagesCount, accent: 'from-violet-500/30 to-violet-500/5' },
+    { label: 'Vistas totales', value: totalViews },
+    { label: 'Vistas hoy', value: todayViews },
+    { label: 'Últimos 7 días', value: weekViews },
+    { label: 'Páginas distintas', value: totalPagesCount },
   ];
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-1">Analytics de vistas</h1>
+      <h1 className="text-2xl font-bold mb-1">Analíticas de visitas</h1>
       <p className="text-white/50 text-sm mb-8">
-        Tráfico registrado en el sitio público. Data desde el tracker de vistas.
+        Tráfico registrado en el sitio público. Datos desde el rastreador de vistas.
       </p>
 
       {/* Stats */}
@@ -93,7 +93,7 @@ export default async function AdminAnalyticsPage() {
             <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 mb-5">
               {s.label}
             </span>
-            <p className={`text-4xl font-extrabold leading-none tracking-tight bg-gradient-to-br ${s.accent} bg-clip-text text-transparent`}>
+            <p className="text-4xl font-extrabold leading-none tracking-tight text-white">
               {s.value}
             </p>
           </div>
@@ -153,7 +153,7 @@ export default async function AdminAnalyticsPage() {
           <thead>
             <tr className="border-b border-white/10 text-left text-white/50 text-xs uppercase tracking-wide">
               <th className="px-6 py-3">Página</th>
-              <th className="px-6 py-3">Referrer</th>
+              <th className="px-6 py-3">Origen</th>
               <th className="px-6 py-3">Fecha</th>
             </tr>
           </thead>
@@ -162,7 +162,7 @@ export default async function AdminAnalyticsPage() {
               <tr key={v.id} className="border-b border-white/5 last:border-0 hover:bg-white/5">
                 <td className="px-6 py-3 font-medium">{v.path}</td>
                 <td className="px-6 py-3 text-white/50 truncate max-w-[260px]">
-                  {v.referrer ?? '—'}
+                  {v.referrer ?? 'Directo'}
                 </td>
                 <td className="px-6 py-3 text-white/50">
                   {v.createdAt.toLocaleString('es-CO')}

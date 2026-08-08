@@ -1,4 +1,4 @@
-import { Package, Inbox, MessagesSquare, Users, Bot } from 'lucide-react';
+import { Package, Inbox, Users, Bot } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import DashboardCharts from '@/components/admin/DashboardCharts';
 import StatCards from '@/components/admin/StatCards';
@@ -10,7 +10,6 @@ export default async function AdminDashboardPage() {
     productCount,
     viewCount,
     inquiryCount,
-    newInquiryCount,
     userCount,
     chatCount,
     byCategory,
@@ -21,7 +20,6 @@ export default async function AdminDashboardPage() {
     prisma.product.count(),
     prisma.pageView.count(),
     prisma.inquiry.count(),
-    prisma.inquiry.count({ where: { status: 'NUEVO' } }),
     prisma.user.count(),
     prisma.chatMessage.count(),
     prisma.product.groupBy({ by: ['categoria'], _count: true }),
@@ -39,11 +37,10 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { label: 'Productos', value: productCount, icon: 'Package', accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5' },
-    { label: 'Vistas de página', value: viewCount, icon: 'Eye', accent: 'from-pink-500/30 to-pink-500/5' },
-    { label: 'Consultas totales', value: inquiryCount, icon: 'Inbox', accent: 'from-sky-500/30 to-sky-500/5' },
-    { label: 'Consultas nuevas', value: newInquiryCount, icon: 'MessagesSquare', accent: 'from-emerald-500/30 to-emerald-500/5' },
-    { label: 'Usuarios', value: userCount, icon: 'Users', accent: 'from-violet-500/30 to-violet-500/5' },
+    { label: 'Productos', value: productCount, icon: 'Package', accent: 'from-[#ff5a00]/30 to-[#ff5a00]/5', href: '/admin/productos' },
+    { label: 'Vistas de página', value: viewCount, icon: 'Eye', accent: 'from-pink-500/30 to-pink-500/5', href: '/admin/analytics' },
+    { label: 'Consultas totales', value: inquiryCount, icon: 'Inbox', accent: 'from-sky-500/30 to-sky-500/5', href: '/admin/consultas' },
+    { label: 'Usuarios', value: userCount, icon: 'Users', accent: 'from-violet-500/30 to-violet-500/5', href: '/admin/usuarios' },
     { label: 'Mensajes de chat', value: chatCount, icon: 'Bot', accent: 'from-amber-500/30 to-amber-500/5' },
   ];
 
@@ -76,7 +73,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="text-2xl font-bold">Panel de control</h1>
       <p className="text-white/50 text-sm mt-1 mb-8">
         Resumen general de la tienda Balkran.
       </p>
