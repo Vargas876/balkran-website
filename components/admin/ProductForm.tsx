@@ -280,27 +280,32 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
   }
 
   async function handleUploadGallery(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-    e.target.value = '';
+    const rawFiles = e.target.files;
+    if (!rawFiles || rawFiles.length === 0) return;
+    const fileList = Array.from(rawFiles);
+    const targetInput = e.target;
+
     const current = (form.imagenes ?? []).length;
     if (current >= MAX_GALLERY) {
       const msg = `La galería ya alcanzó el máximo de ${MAX_GALLERY} imágenes. Quita algunas para subir más.`;
       setError(msg);
       alert(`⚠️ ${msg}`);
+      targetInput.value = '';
       return;
     }
-    if (current + files.length > MAX_GALLERY) {
-      const msg = `La galería permite máximo ${MAX_GALLERY} imágenes. Tienes ${current} y seleccionaste ${files.length}; sube solo ${MAX_GALLERY - current}.`;
+    if (current + fileList.length > MAX_GALLERY) {
+      const msg = `La galería permite máximo ${MAX_GALLERY} imágenes. Tienes ${current} y seleccionaste ${fileList.length}; sube solo ${MAX_GALLERY - current}.`;
       setError(msg);
       alert(`⚠️ ${msg}`);
+      targetInput.value = '';
       return;
     }
-    for (const file of Array.from(files)) {
+    for (const file of fileList) {
       const invalid = validateImageFile(file);
       if (invalid) {
         setError(invalid);
         alert(`⚠️ ${invalid}`);
+        targetInput.value = '';
         return;
       }
     }
@@ -308,7 +313,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
     setError(null);
     try {
       const urls: string[] = [];
-      for (const file of Array.from(files)) {
+      for (const file of fileList) {
         const url = await uploadToR2(file, 'productos');
         urls.push(url);
       }
@@ -319,6 +324,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       alert(`⚠️ Error al subir galería:\n\n${msg}`);
     } finally {
       setUploadingGallery(false);
+      targetInput.value = '';
     }
   }
 
