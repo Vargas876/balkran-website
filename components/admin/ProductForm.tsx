@@ -194,7 +194,11 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
   }
 
   function validateImageFile(file: File): string | null {
-    if (!IMAGE_TYPES.includes(file.type)) {
+    const ext = file.name.split('.').pop()?.toLowerCase() || '';
+    const validExts = ['webp', 'png', 'jpg', 'jpeg', 'gif', 'avif'];
+    const isImage = file.type.startsWith('image/') || validExts.includes(ext);
+
+    if (!isImage) {
       return `Formato no permitido (${file.name}). Usa webp, png, jpg, gif o avif.`;
     }
     if (file.size > MAX_IMAGE_SIZE) {
@@ -204,7 +208,11 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
   }
 
   function validateVideoFile(file: File): string | null {
-    if (!VIDEO_TYPES.includes(file.type)) {
+    const ext = file.name.split('.').pop()?.toLowerCase() || '';
+    const validExts = ['mp4', 'webm', 'mov', 'm4v', 'mpeg'];
+    const isVideo = file.type.startsWith('video/') || validExts.includes(ext);
+
+    if (!isVideo) {
       return `Formato no permitido (${file.name}). Usa mp4, webm, mov o m4v.`;
     }
     if (file.size > MAX_VIDEO_SIZE) {
@@ -215,7 +223,9 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
 
   async function uploadToR2(file: File, folder: string): Promise<string> {
     let fileToUpload = file;
-    if (file.type.startsWith('image/')) {
+    const ext = file.name.split('.').pop()?.toLowerCase() || '';
+    const isRasterImage = file.type.startsWith('image/') || ['jpg', 'jpeg', 'png', 'webp', 'avif'].includes(ext);
+    if (isRasterImage && !file.type.includes('gif') && ext !== 'gif') {
       fileToUpload = await compressImageClient(file);
     }
 
@@ -252,6 +262,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
     const invalid = validateImageFile(file);
     if (invalid) {
       setError(invalid);
+      alert(`⚠️ ${invalid}`);
       return;
     }
     setUploading(true);
@@ -260,7 +271,9 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       const url = await uploadToR2(file, 'productos');
       set('imagen_local', url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error subiendo la imagen.');
+      const msg = err instanceof Error ? err.message : 'Error subiendo la imagen.';
+      setError(msg);
+      alert(`⚠️ Error al subir imagen:\n\n${msg}`);
     } finally {
       setUploading(false);
     }
@@ -272,17 +285,22 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
     e.target.value = '';
     const current = (form.imagenes ?? []).length;
     if (current >= MAX_GALLERY) {
-      setError(`La galería ya alcanzó el máximo de ${MAX_GALLERY} imágenes. Quita algunas para subir más.`);
+      const msg = `La galería ya alcanzó el máximo de ${MAX_GALLERY} imágenes. Quita algunas para subir más.`;
+      setError(msg);
+      alert(`⚠️ ${msg}`);
       return;
     }
     if (current + files.length > MAX_GALLERY) {
-      setError(`La galería permite máximo ${MAX_GALLERY} imágenes. Tienes ${current} y seleccionaste ${files.length}; sube solo ${MAX_GALLERY - current}.`);
+      const msg = `La galería permite máximo ${MAX_GALLERY} imágenes. Tienes ${current} y seleccionaste ${files.length}; sube solo ${MAX_GALLERY - current}.`;
+      setError(msg);
+      alert(`⚠️ ${msg}`);
       return;
     }
     for (const file of Array.from(files)) {
       const invalid = validateImageFile(file);
       if (invalid) {
         setError(invalid);
+        alert(`⚠️ ${invalid}`);
         return;
       }
     }
@@ -296,7 +314,9 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       }
       set('imagenes', [...(form.imagenes ?? []), ...urls]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error subiendo la galería.');
+      const msg = err instanceof Error ? err.message : 'Error subiendo la galería.';
+      setError(msg);
+      alert(`⚠️ Error al subir galería:\n\n${msg}`);
     } finally {
       setUploadingGallery(false);
     }
@@ -309,6 +329,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
     const invalid = validateVideoFile(file);
     if (invalid) {
       setError(invalid);
+      alert(`⚠️ ${invalid}`);
       return;
     }
     setUploadingVideo(true);
@@ -317,7 +338,9 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
       const url = await uploadToR2(file, 'videos');
       set('video', url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error subiendo el video.');
+      const msg = err instanceof Error ? err.message : 'Error subiendo el video.';
+      setError(msg);
+      alert(`⚠️ Error al subir video:\n\n${msg}`);
     } finally {
       setUploadingVideo(false);
     }

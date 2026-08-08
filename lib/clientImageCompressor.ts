@@ -8,8 +8,13 @@ export async function compressImageClient(
   maxHeight = 1920,
   quality = 0.82
 ): Promise<File> {
-  // Only compress raster images; pass videos, gifs, or non-images as-is
-  if (!file.type.startsWith('image/') || file.type.includes('gif') || file.type.includes('svg')) {
+  const ext = file.name.split('.').pop()?.toLowerCase() || '';
+  const isRasterImage =
+    file.type.startsWith('image/') ||
+    ['jpg', 'jpeg', 'png', 'webp', 'avif'].includes(ext);
+
+  // Skip videos, gifs, svgs, or non-raster images
+  if (!isRasterImage || ext === 'gif' || ext === 'svg' || file.type.includes('gif') || file.type.includes('svg')) {
     return file;
   }
 
