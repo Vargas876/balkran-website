@@ -160,13 +160,13 @@ const whatsapp = get('whatsapp');
     Cabras: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/animales/CabraAjustada.svg',
   };
 
-  // Local manuals (downloaded to /assets/pdf)
+  // R2 manuals (PDFs)
   const manualPdf =
     isEnergizador &&
     (product.linea.includes('DUAL') || product.linea.includes('BD') || product.linea.includes('BHD') || product.linea.includes('12V') || product.linea.includes('S (') || product.linea.includes('KITS'))
-      ? '/assets/pdf/manual_dual_12v.pdf'
+      ? 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/pdf/manual_dual_12v.pdf'
       : isEnergizador
-      ? '/assets/pdf/manual_110v.pdf'
+      ? 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/pdf/manual_110v.pdf'
       : null;
 
   // Real technical specifications (from the official WooCommerce store data)
@@ -1554,7 +1554,7 @@ const whatsapp = get('whatsapp');
                 <h4 className="font-bold text-sm text-[#111111]">{t('detail.cert1Title')}</h4>
                 <p className="text-xs text-gray-500">{t('detail.cert1Desc')}</p>
                 <a
-                  href="/assets/pdf/certificado_retie.pdf"
+                  href="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/pdf/certificado_retie.pdf"
                   download
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff5a00] hover:underline pt-1"
                 >
@@ -1570,7 +1570,7 @@ const whatsapp = get('whatsapp');
                 <h4 className="font-bold text-sm text-[#111111]">{t('detail.cert2Title')}</h4>
                 <p className="text-xs text-gray-500">{t('detail.cert2Desc')}</p>
                 <a
-                  href="/assets/pdf/certificado_iso9001.pdf"
+                  href="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/pdf/certificado_iso9001.pdf"
                   download
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff5a00] hover:underline pt-1"
                 >

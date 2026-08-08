@@ -29,12 +29,15 @@ const client = new S3Client({
   credentials: { accessKeyId, secretAccessKey },
 });
 
-const SRC = 'public/assets/images';
+const SRC = 'public/assets';
 const RASTER = /\.(png|jpe?g|gif)$/i;
 const K_TO_MIME: Record<string, string> = {
   webp: 'image/webp',
   svg: 'image/svg+xml',
   pdf: 'application/pdf',
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
 };
 
 function walk(dir: string): string[] {

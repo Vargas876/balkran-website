@@ -73,13 +73,13 @@ const manuales = [
       en: 'Official step-by-step guide for the installation and operation of Dual (D), Heavy-Duty Dual (HD) and Solar (S) references: BD1000 to BD9000, BHD4500 to BHD9000 and the Solar line (B800S to B9000S).',
       fr: 'Guide officiel pas à pas pour l’installation et l’utilisation des références Duales (D), Duales hautes (HD) et Solaires (S) : BD1000 à BD9000, BHD4500 à BHD9000 et gamme Solaire (B800S à B9000S).',
     },
-    archivo: '/assets/manuales/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf',
+    archivo: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/manuales/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf',
     label: {
       es: 'Descargar Manual DUAL y 12V (PDF)',
       en: 'Download DUAL and 12V Manual (PDF)',
       fr: 'Télécharger le manuel DUAL et 12V (PDF)',
     },
-    preview: '/assets/manuales/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf',
+    preview: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/manuales/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf',
   },
   {
     icon: Sun,
@@ -94,13 +94,13 @@ const manuales = [
       en: 'Complete guide on electrical connection and grounding for energizers with fixed 110V AC connection: Basic Line (B500 to B18000) and High Basic (BH4500 to BH18000).',
       fr: 'Guide complet de connexion électrique et de mise à terre pour les énergiseurs à raccordement fixe sur réseau 110V : Gamme de base (B500 à B18000) et Gamme de base haute (BH4500 à BH18000).',
     },
-    archivo: '/assets/manuales/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf',
+    archivo: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/manuales/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf',
     label: {
       es: 'Descargar Manual 110V (PDF)',
       en: 'Download 110V Manual (PDF)',
       fr: 'Télécharger le manuel 110V (PDF)',
     },
-    preview: '/assets/manuales/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf',
+    preview: 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/manuales/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf',
   },
 ];
 
