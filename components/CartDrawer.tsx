@@ -7,6 +7,7 @@ import { X, Trash2, ShoppingCart, Plus, Minus, ArrowRight, ShieldCheck, Truck } 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
 import { useSiteConfig } from '@/context/SiteConfigContext';
+import { useCanSeePrices } from '@/lib/useCanSeePrices';
 
 export default function CartDrawer() {
   const {
@@ -20,6 +21,7 @@ export default function CartDrawer() {
     totalPrice,
   } = useCart();
   const { get } = useSiteConfig();
+  const canSeePrices = useCanSeePrices();
   const whatsapp = get('whatsapp');
 
   const [nombre, setNombre] = useState('');
@@ -51,16 +53,25 @@ export default function CartDrawer() {
     message += `📦 *PRODUCTOS SELECCIONADOS:* (${totalItems} unidad${totalItems > 1 ? 'es' : ''})\n\n`;
 
     items.forEach((item, index) => {
-      const lineSubtotal = formatCOP(item.precioNumerico * item.cantidad);
       message += `${index + 1}. *${item.nombre}*\n`;
       if (item.linea) message += `   Línea: ${item.linea}\n`;
-      message += `   Cantidad: ${item.cantidad} x ${item.precio}\n`;
-      message += `   Subtotal: *${lineSubtotal}*\n\n`;
+      message += `   Cantidad: ${item.cantidad}\n`;
+      if (canSeePrices) {
+        const lineSubtotal = formatCOP(item.precioNumerico * item.cantidad);
+        message += `   Precio unitario: ${item.precio}\n`;
+        message += `   Subtotal: *${lineSubtotal}*\n`;
+      }
+      message += `\n`;
     });
 
     message += `----------------------------------------\n`;
-    message += `💰 *TOTAL DE COMPRA:* *${formatCOP(totalPrice)} COP*\n`;
-    message += `----------------------------------------\n`;
+    if (canSeePrices) {
+      message += `💰 *TOTAL DE COMPRA:* *${formatCOP(totalPrice)} COP*\n`;
+      message += `----------------------------------------\n`;
+    } else {
+      message += `Por favor indíquenme el valor de los productos seleccionados.\n`;
+      message += `----------------------------------------\n`;
+    }
     message += `¡Hola Balkran! Quisiera finalizar la compra de estos productos. Quedo atento a la disponibilidad y métodos de pago.`;
 
     const encodedMessage = encodeURIComponent(message);
@@ -202,7 +213,7 @@ export default function CartDrawer() {
 
                         <div className="flex items-center justify-between pt-1">
                           <p className="text-xs font-semibold text-gray-500">
-                            {item.precio}
+                            {canSeePrices ? item.precio : 'Consultar'}
                           </p>
 
                           {/* Quantity Controls */}
@@ -280,23 +291,32 @@ export default function CartDrawer() {
               <div className="p-6 border-t border-gray-200 bg-white space-y-4 shadow-lg">
                 {/* Total Calculations */}
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between text-gray-500">
-                    <span>Subtotal de productos:</span>
-                    <span className="font-semibold text-[#1a2130]">{formatCOP(totalPrice)}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-500">
-                    <span className="flex items-center gap-1">
-                      <Truck className="w-3.5 h-3.5 text-[#ff5a00]" />
-                      <span>Envío a todo Colombia:</span>
-                    </span>
-                    <span className="text-emerald-600 font-semibold">Por coordinar</span>
-                  </div>
-                  <div className="border-t border-gray-100 pt-2 flex justify-between items-baseline">
-                    <span className="text-xs sm:text-sm font-bold text-[#1a2130] uppercase tracking-wider">TOTAL DE COMPRA:</span>
-                    <span className="text-xl sm:text-2xl font-black text-[#ff5a00] tracking-tight">
-                      {formatCOP(totalPrice)}
-                    </span>
-                  </div>
+                  {canSeePrices ? (
+                    <>
+                      <div className="flex justify-between text-gray-500">
+                        <span>Subtotal de productos:</span>
+                        <span className="font-semibold text-[#1a2130]">{formatCOP(totalPrice)}</span>
+                      </div>
+                      <div className="flex justify-between text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Truck className="w-3.5 h-3.5 text-[#ff5a00]" />
+                          <span>Envío a todo Colombia:</span>
+                        </span>
+                        <span className="text-emerald-600 font-semibold">Por coordinar</span>
+                      </div>
+                      <div className="border-t border-gray-100 pt-2 flex justify-between items-baseline">
+                        <span className="text-xs sm:text-sm font-bold text-[#1a2130] uppercase tracking-wider">TOTAL DE COMPRA:</span>
+                        <span className="text-xl sm:text-2xl font-black text-[#ff5a00] tracking-tight">
+                          {formatCOP(totalPrice)}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="border-t border-gray-100 pt-2 flex justify-between items-baseline">
+                      <span className="text-xs sm:text-sm font-bold text-[#1a2130] uppercase tracking-wider">TOTAL DE COMPRA:</span>
+                      <span className="text-lg sm:text-xl font-black text-[#ff5a00] tracking-tight">Consultar</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* WhatsApp Checkout Button */}

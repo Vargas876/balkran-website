@@ -36,6 +36,8 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
     googleAlert: 'El acceso con Google se habilitará próximamente. Usa tu correo y contraseña.',
     msAlert: 'El acceso con Microsoft se habilitará próximamente. Usa tu correo y contraseña.',
     invalidCred: 'Credenciales inválidas. Verifica tu correo y contraseña.',
+    pendingApproval: 'Tu cuenta está pendiente de aprobación por un administrador.',
+    createAccount: '¿No tienes cuenta? Regístrate',
     rights: '© 2026 BALKRAN. Todos los derechos reservados.',
   },
   en: {
@@ -63,6 +65,8 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
     googleAlert: 'Google access will be enabled soon. Use your email and password.',
     msAlert: 'Microsoft access will be enabled soon. Use your email and password.',
     invalidCred: 'Invalid credentials. Check your email and password.',
+    pendingApproval: 'Your account is pending approval by an administrator.',
+    createAccount: 'Don\'t have an account? Sign up',
     rights: '© 2026 BALKRAN. All rights reserved.',
   },
   fr: {
@@ -90,6 +94,8 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
     googleAlert: 'L\'accès Google sera bientôt disponible. Utilisez votre e-mail et votre mot de passe.',
     msAlert: 'L\'accès Microsoft sera bientôt disponible. Utilisez votre e-mail et votre mot de passe.',
     invalidCred: 'Identifiants invalides. Vérifiez votre e-mail et votre mot de passe.',
+    pendingApproval: 'Votre compte est en attente d\'approbation par un administrateur.',
+    createAccount: 'Pas encore de compte ? Inscrivez-vous',
     rights: '© 2026 BALKRAN. Tous droits réservés.',
   },
 };
@@ -125,12 +131,26 @@ function LoginContent() {
 
     setLoading(false);
 
-if (res?.error) {
-      setError(l('invalidCred'));
+    if (res?.error) {
+      if (res.code === 'PENDING_APPROVAL') {
+        setError(l('pendingApproval'));
+      } else {
+        setError(l('invalidCred'));
+      }
       return;
     }
 
-    router.push(callbackUrl);
+    // Redirigir según rol: CUSTOMER no debe caer en /admin.
+    const sessionRes = await fetch('/api/auth/session');
+    const session = await sessionRes.json().catch(() => null);
+    const role = session?.user?.role as string | undefined;
+    const isAdmin = role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'EDITOR';
+
+    let destination = callbackUrl;
+    if (isAdmin && destination.startsWith('/login')) destination = '/admin';
+    if (!isAdmin) destination = destination.startsWith('/admin') ? '/' : destination;
+
+    router.push(destination);
     router.refresh();
   };
 
@@ -333,6 +353,11 @@ if (res?.error) {
               <span>{loading ? l('verifying') : l('login')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
+            <p className="text-center text-xs text-gray-400 pt-2">
+              <Link href="/registro" className="text-[#ff5a00] font-semibold hover:underline">
+                {l('createAccount')}
+              </Link>
+            </p>
           </form>
 
           {/* Social Divider */}

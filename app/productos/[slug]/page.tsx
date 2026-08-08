@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   const url = `${getSiteUrl()}/productos/${product.slug}`;
   const title = `${product.nombre} (${product.linea}) – Cercas Eléctricas | Balkran`;
-  const description = `Conoce las especificaciones técnicas, precio y beneficios de ${product.nombre} (${product.linea}). Alcance: ${product.alcance || 'Hasta 40 km'}. Garantía oficial Balkran.`;
+  const description = `Conoce las especificaciones técnicas y beneficios de ${product.nombre} (${product.linea}). Alcance: ${product.alcance || 'Hasta 40 km'}. Garantía oficial Balkran.`;
 
   return {
     title,
@@ -81,8 +81,6 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     sku: product.slug,
     offers: {
       '@type': 'Offer',
-      price: product.precioNumerico > 0 ? String(product.precioNumerico) : undefined,
-      priceCurrency: 'COP',
       availability: 'https://schema.org/InStock',
       url: `${getSiteUrl()}/productos/${product.slug}`,
     },

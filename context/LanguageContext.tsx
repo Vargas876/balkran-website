@@ -13,6 +13,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.ayuda': 'AYUDA',
     'nav.contacto': 'CONTACTO',
     'nav.cta': 'HABLA CON UN EXPERTO',
+    'nav.createAccount': 'CREAR CUENTA',
+    'nav.signOut': 'CERRAR SESIÓN',
 
     // Nosotros / Sobre Balkran
     'nosotros.badge': 'SOBRE BALKRAN',
@@ -265,6 +267,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'productos.sortNameAZ': 'Nombre A - Z',
     'productos.noResults': 'No se encontraron productos que coincidan con los filtros seleccionados.',
     'productos.badgeBestSeller': 'MÁS VENDIDO',
+    'productos.consultar': 'CONSULTAR',
     'productos.btnViewDetails': 'VER DETALLES',
     'productos.titleCompare': 'Añadir a comparación',
     'productos.titleCart': 'Agregar al Carrito',
@@ -795,6 +798,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.ayuda': 'HELP',
     'nav.contacto': 'CONTACT',
     'nav.cta': 'TALK TO AN EXPERT',
+    'nav.createAccount': 'CREATE ACCOUNT',
+    'nav.signOut': 'SIGN OUT',
 
     // Nosotros / Sobre Balkran
     'nosotros.badge': 'ABOUT BALKRAN',
@@ -1041,6 +1046,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'productos.sortNameAZ': 'Name A - Z',
     'productos.noResults': 'No products found matching the selected filters.',
     'productos.badgeBestSeller': 'BEST SELLER',
+    'productos.consultar': 'REQUEST PRICE',
     'productos.btnViewDetails': 'VIEW DETAILS',
     'productos.titleCompare': 'Add to comparison',
     'productos.titleCart': 'Quote on WhatsApp',
@@ -1582,6 +1588,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.ayuda': 'AIDE',
     'nav.contacto': 'CONTACT',
     'nav.cta': 'PARLER À UN EXPERT',
+    'nav.createAccount': 'CRÉER UN COMPTE',
+    'nav.signOut': 'SE DÉCONNECTER',
 
     // Nosotros / Sobre Balkran
     'nosotros.stat1Val': '2000',
@@ -1828,6 +1836,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'productos.sortNameAZ': 'Nom A - Z',
     'productos.noResults': 'Aucun produit trouvé correspondant aux filtres sélectionnés.',
     'productos.badgeBestSeller': 'MEILLEURE VENTE',
+    'productos.consultar': 'DEMANDER LE PRIX',
     'productos.btnViewDetails': 'VOIR DÉTAILS',
     'productos.titleCompare': 'Ajouter au comparateur',
     'productos.titleCart': 'Demander un devis',

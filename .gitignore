@@ -16,3 +16,5 @@ tsconfig.tsbuildinfo
 /.claude/
 /.windsurf/
 skills-lock.json
+
+dev-server.log

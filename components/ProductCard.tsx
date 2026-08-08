@@ -5,6 +5,7 @@ import { Product } from '@/lib/types';
 import { ShoppingCart } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useCanSeePrices } from '@/lib/useCanSeePrices';
 import { formatLinea, formatSubtitulo, formatNombreProducto } from '@/lib/i18nHelpers';
 
 interface ProductCardProps {
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { t, language } = useLanguage();
   const { addItem } = useCart();
+  const canSeePrices = useCanSeePrices();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -71,11 +73,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Price */}
           <div className="pt-1">
             <span className="font-display font-black text-lg text-[#1a2130] leading-none block">
-              {product.precio}
+              {canSeePrices ? product.precio : t('productos.consultar')}
             </span>
-            <span className="text-[10px] text-gray-400 font-semibold leading-none">
-              {t('detail.vatIncluded')}
-            </span>
+            {canSeePrices && (
+              <span className="text-[10px] text-gray-400 font-semibold leading-none">
+                {t('detail.vatIncluded')}
+              </span>
+            )}
           </div>
         </div>
       </div>

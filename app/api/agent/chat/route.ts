@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { readFileSync, existsSync } from 'node:fs';
 import Groq from 'groq-sdk';
 import { prisma } from '@/lib/prisma';
+import { auth } from '@/auth';
 import { buildKnowledge, getProductByName } from '@/lib/knowledge';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 import { sanitizeReply } from '@/lib/sanitize';
@@ -112,6 +113,11 @@ export async function POST(request: Request) {
 
     const sessionId = String(body.sessionId || 'anon').slice(0, MAX_SESSION_ID_LENGTH);
 
+    const session = await auth();
+    const includePrices = !!session?.user;
+    const knowledge = await buildKnowledge(includePrices);
+    const productMatch = await getProductByName(message, includePrices);
+
     // Solo exige Turnstile en el PRIMER mensaje de la sesión (evita fricción
     // en conversaciones largas, pero bloquea bots que comienzan a chatear).
     const firstMessage = (await prisma.chatMessage.count({ where: { sessionId } })) === 0;
@@ -124,9 +130,6 @@ export async function POST(request: Request) {
         );
       }
     }
-
-    const knowledge = await buildKnowledge();
-    const productMatch = await getProductByName(message);
 
     const recent = await prisma.chatMessage.findMany({
       where: { sessionId },
@@ -160,6 +163,7 @@ ${productMatch
       .join('\n')}
 
 Si el cliente pregunta por un producto y coincide con algo del catálogo, respóndele con su información y sugiérele el enlace. Si pregunta por precio, da el de la lista o indica "consultar". Si no estás seguro o la pregunta requiere un humano (precios exactos, compra, cotización), sugiere contactar por WhatsApp +57 311 450 8064 o los correos oficiales.
+${includePrices ? '' : 'IMPORTANTE: El cliente NO está registrado, por lo que NO debes revelar precios bajo ninguna circunstancia. Si te pregunta por el precio de un producto, respóndele que los precios están disponibles para clientes registrados, e invítalo a crear una cuenta en /registro o a contactar por WhatsApp +57 311 450 8064 para una cotización.'}
 
 PÁGINAS DE LA WEB (usa SIEMPRE el enlace correspondiente cuando el tema de la pregunta coincida):
 - PQRS (peticiones, quejas y reclamos): /pqrs

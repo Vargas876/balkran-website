@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, User, ShoppingCart } from 'lucide-react';
+import { Menu, X, User, ShoppingCart, LogOut } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
 import { useSiteConfig } from '@/context/SiteConfigContext';
@@ -18,7 +19,13 @@ export default function Navbar() {
   const { t } = useLanguage();
   const { totalItems, openCart } = useCart();
   const { get } = useSiteConfig();
+  const { status, data: session } = useSession();
   const whatsapp = get('whatsapp');
+
+  const isLoggedIn = status === 'authenticated';
+  const role = session?.user?.role;
+  const isAdmin = role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'EDITOR';
+  const userName = session?.user?.name || session?.user?.email;
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -218,18 +225,67 @@ export default function Navbar() {
                 )}
               </button>
 
-              <Link
-                href="/login"
-                className={`p-2.5 rounded-full transition-all flex items-center justify-center border ${
-                  scrolled || isLightHeaderPage
-                    ? 'bg-gray-100 text-[#1a2130] hover:bg-[#ff5a00] hover:text-white border-gray-200/80 shadow-sm'
-                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-[#ff5a00] hover:border-[#ff5a00] shadow-md'
-                }`}
-                title="Iniciar Sesión"
-                aria-label="Iniciar Sesión"
-              >
-                <User className="w-5 h-5" />
-              </Link>
+              {isLoggedIn ? (
+                <div
+                  className={`flex items-center gap-2 rounded-full px-3 py-1.5 ${
+                    scrolled || isLightHeaderPage
+                      ? 'bg-gray-100 text-[#1a2130] border border-gray-200/80'
+                      : 'bg-black/40 backdrop-blur-md text-white border border-white/20'
+                  }`}
+                >
+                  {isAdmin ? (
+                    <Link
+                      href="/admin"
+                      title="Panel de administración"
+                      aria-label="Panel de administración"
+                      className="flex items-center gap-1.5 hover:text-[#ff5a00] transition-colors"
+                    >
+                      <User className="w-4 h-4" />
+                      <span className="hidden lg:inline text-xs font-bold uppercase tracking-wider max-w-[120px] truncate">
+                        {userName}
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className="hidden lg:inline text-xs font-bold uppercase tracking-wider max-w-[120px] truncate">
+                      {userName}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    title="Cerrar sesión"
+                    aria-label="Cerrar sesión"
+                    className="p-1 rounded-full hover:bg-[#ff5a00] hover:text-white transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/registro"
+                    className={`hidden lg:inline-flex text-xs font-display font-bold uppercase tracking-wider rounded-full px-4 py-2.5 border transition-all ${
+                      scrolled || isLightHeaderPage
+                        ? 'text-[#1a2130] hover:text-[#ff5a00] border-gray-200/80'
+                        : 'text-white hover:text-[#ff5a00] border-white/20'
+                    }`}
+                  >
+                    {t('nav.createAccount')}
+                  </Link>
+                  <Link
+                    href="/login"
+                    className={`p-2.5 rounded-full transition-all flex items-center justify-center border ${
+                      scrolled || isLightHeaderPage
+                        ? 'bg-gray-100 text-[#1a2130] hover:bg-[#ff5a00] hover:text-white border-gray-200/80 shadow-sm'
+                        : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-[#ff5a00] hover:border-[#ff5a00] shadow-md'
+                    }`}
+                    title="Iniciar Sesión"
+                    aria-label="Iniciar Sesión"
+                  >
+                    <User className="w-5 h-5" />
+                  </Link>
+                </>
+              )}
 
               <a
                 href={`https://wa.me/${whatsapp}?text=Hola%20Balkran%2C%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20sus%20energizadores`}
@@ -266,20 +322,38 @@ export default function Navbar() {
                 )}
               </button>
 
-              <Link
-                href="/login"
-                className={`p-2.5 rounded-xl transition-all flex items-center justify-center border ${
-                  mobileMenuOpen
-                    ? 'bg-white/10 text-white border-white/20'
-                    : scrolled || isLightHeaderPage
-                    ? 'bg-gray-100 text-[#1a2130] border-gray-200/80 hover:bg-gray-200'
-                    : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-black/60 shadow-md'
-                }`}
-                title="Iniciar Sesión"
-                aria-label="Iniciar Sesión"
-              >
-                <User className="w-5 h-5 text-[#ff5a00]" />
-              </Link>
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className={`p-2.5 rounded-xl transition-all flex items-center justify-center border ${
+                    mobileMenuOpen
+                      ? 'bg-white/10 text-white border-white/20'
+                      : scrolled || isLightHeaderPage
+                      ? 'bg-gray-100 text-[#1a2130] border-gray-200/80 hover:bg-gray-200'
+                      : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-black/60 shadow-md'
+                  }`}
+                  title="Cerrar sesión"
+                  aria-label="Cerrar sesión"
+                >
+                  <LogOut className="w-5 h-5 text-[#ff5a00]" />
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className={`p-2.5 rounded-xl transition-all flex items-center justify-center border ${
+                    mobileMenuOpen
+                      ? 'bg-white/10 text-white border-white/20'
+                      : scrolled || isLightHeaderPage
+                      ? 'bg-gray-100 text-[#1a2130] border-gray-200/80 hover:bg-gray-200'
+                      : 'bg-black/40 backdrop-blur-md text-white border-white/20 hover:bg-black/60 shadow-md'
+                  }`}
+                  title="Iniciar Sesión"
+                  aria-label="Iniciar Sesión"
+                >
+                  <User className="w-5 h-5 text-[#ff5a00]" />
+                </Link>
+              )}
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -377,14 +451,53 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all text-[#ff5a00] bg-white/5 border border-white/10 hover:bg-white/10"
-                >
-                  <User className="w-4 h-4" />
-                  <span>INICIAR SESIÓN</span>
-                </Link>
+                {isLoggedIn ? (
+                  <div className="px-4 pt-2 flex items-center justify-between gap-3">
+                    <span className="font-display text-xs font-bold uppercase tracking-wider text-white/80 truncate">
+                      {userName}
+                    </span>
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-wider px-3 py-2 rounded-xl transition-all text-white/80 hover:text-[#ff5a00] hover:bg-white/10"
+                      >
+                        <User className="w-4 h-4" />
+                        <span>Admin</span>
+                      </Link>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        signOut({ callbackUrl: '/' });
+                      }}
+                      className="flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-wider px-3 py-2 rounded-xl transition-all text-[#ff5a00] bg-white/5 border border-white/10 hover:bg-white/10"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>{t('nav.signOut')}</span>
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all text-[#ff5a00] bg-white/5 border border-white/10 hover:bg-white/10"
+                    >
+                      <User className="w-4 h-4" />
+                      <span>INICIAR SESIÓN</span>
+                    </Link>
+                    <Link
+                      href="/registro"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 font-display text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl transition-all text-white/80 bg-white/5 border border-white/10 hover:bg-white/10"
+                    >
+                      <User className="w-4 h-4" />
+                      <span>{t('nav.createAccount')}</span>
+                    </Link>
+                  </>
+                )}
 
                 <div className="pt-2">
                   <a

@@ -13,12 +13,14 @@ import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
 import { useSiteConfig } from '@/context/SiteConfigContext';
+import { useCanSeePrices } from '@/lib/useCanSeePrices';
 import { formatLinea, formatCategoria, formatSubtitulo } from '@/lib/i18nHelpers';
 
 export default function ProductosListClient({ initialProducts }: { initialProducts: Product[] }) {
 const { t, language } = useLanguage();
 const { addItem } = useCart();
 const { get } = useSiteConfig();
+const canSeePrices = useCanSeePrices();
 const whatsapp = get('whatsapp');
   const allProducts = useMemo(() => initialProducts, [initialProducts]);
 
@@ -874,11 +876,13 @@ const whatsapp = get('whatsapp');
                           <div className="min-h-[1.4rem]" />
                         )}
                         <p className="font-display font-extrabold text-base sm:text-lg text-[#1a2130] pt-0.5 leading-none">
-                          {product.precio}
+                          {canSeePrices ? product.precio : t('productos.consultar')}
                         </p>
-                        <span className="text-[10px] text-gray-400 font-semibold leading-none block">
-                          {t('detail.vatIncluded')}
-                        </span>
+                        {canSeePrices && (
+                          <span className="text-[10px] text-gray-400 font-semibold leading-none block">
+                            {t('detail.vatIncluded')}
+                          </span>
+                        )}
                       </div>
 
                       {/* Actions */}

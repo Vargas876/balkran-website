@@ -8,6 +8,7 @@ import { Product } from '@/lib/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
 import { useSiteConfig } from '@/context/SiteConfigContext';
+import { useCanSeePrices } from '@/lib/useCanSeePrices';
 import { formatLinea, formatCategoria, formatSubtitulo, formatNombreProducto, formatDescripcionProducto } from '@/lib/i18nHelpers';
 import {
   Zap,
@@ -56,6 +57,7 @@ export default function ProductDetailClient({
 const { t, language } = useLanguage();
 const { addItem } = useCart();
 const { get } = useSiteConfig();
+const canSeePrices = useCanSeePrices();
 const whatsapp = get('whatsapp');
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -215,12 +217,13 @@ const whatsapp = get('whatsapp');
     setTimeout(() => setAddedToCart(false), 3000);
   };
 
+  const pricePart = canSeePrices ? ` - ${product.precio}` : '';
   const whatsappMsgText =
     language === 'en'
-      ? `Hello Balkran, I am interested in buying ${quantity} unit(s) of ${product.nombre} (${formatLinea(product.linea, language)}) - ${product.precio}. Can you provide advice and a quotation?`
+      ? `Hello Balkran, I am interested in buying ${quantity} unit(s) of ${product.nombre} (${formatLinea(product.linea, language)})${pricePart}. Can you provide advice and a quotation?`
       : language === 'fr'
-      ? `Bonjour Balkran, je souhaite acheter ${quantity} unité(s) de ${product.nombre} (${formatLinea(product.linea, language)}) - ${product.precio}. Pouvez-vous me conseiller et établir un devis?`
-      : `Hola Balkran, estoy interesado en comprar ${quantity} unidad(es) de ${product.nombre} (${product.linea}) - ${product.precio}. ¿Me pueden brindar asesoría y cotización?`;
+      ? `Bonjour Balkran, je souhaite acheter ${quantity} unité(s) de ${product.nombre} (${formatLinea(product.linea, language)})${pricePart}. Pouvez-vous me conseiller et établir un devis?`
+      : `Hola Balkran, estoy interesado en comprar ${quantity} unidad(es) de ${product.nombre} (${product.linea})${pricePart}. ¿Me pueden brindar asesoría y cotización?`;
   const whatsappMessage = encodeURIComponent(whatsappMsgText);
   const whatsappUrl = `https://wa.me/${whatsapp}?text=${whatsappMessage}`;
 
@@ -416,12 +419,14 @@ const whatsapp = get('whatsapp');
             <div className="space-y-0.5 pt-1">
               <div className="flex items-baseline gap-3">
                 <span className="font-display font-extrabold text-3xl sm:text-4xl text-[#111111]">
-                  {product.precio}
+                  {canSeePrices ? product.precio : t('productos.consultar')}
                 </span>
               </div>
-              <p className="text-xs text-gray-400 font-medium">
-                {t('detail.vatIncluded')}
-              </p>
+              {canSeePrices && (
+                <p className="text-xs text-gray-400 font-medium">
+                  {t('detail.vatIncluded')}
+                </p>
+              )}
             </div>
 
             {/* Key Advantages Checklist (real product data) */}
@@ -1695,11 +1700,13 @@ const whatsapp = get('whatsapp');
 
                             <div className="pt-1">
                               <span className="font-display font-extrabold text-base text-[#ff5a00]">
-                                {relProduct.precio}
+                                {canSeePrices ? relProduct.precio : t('productos.consultar')}
                               </span>
-                              <span className="text-[10px] text-gray-400 font-semibold block">
-                                {t('detail.vatIncluded')}
-                              </span>
+                              {canSeePrices && (
+                                <span className="text-[10px] text-gray-400 font-semibold block">
+                                  {t('detail.vatIncluded')}
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>

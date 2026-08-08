@@ -74,7 +74,7 @@ export async function getVoltConfig(): Promise<{ company: string; faqs: { q: str
   }
 }
 
-export async function buildKnowledge(): Promise<KnowledgeContext> {
+export async function buildKnowledge(includePrices = true): Promise<KnowledgeContext> {
   const products = await getAllProducts();
   const { company, faqs } = await getVoltConfig();
 
@@ -84,7 +84,7 @@ export async function buildKnowledge(): Promise<KnowledgeContext> {
     products: products.map((p) => ({
       nombre: p.nombre,
       slug: p.slug,
-      precio: p.precio,
+      precio: includePrices ? p.precio : 'Consultar',
       alcance: p.alcance || '',
       linea: p.linea,
       categoria: p.categoria,
@@ -135,7 +135,7 @@ function modelNumber(name: string): number | null {
   return m ? parseInt(m[1], 10) : null;
 }
 
-export async function getProductByName(query: string): Promise<{ nombre: string; slug: string; precio: string; alcance: string } | null> {
+export async function getProductByName(query: string, includePrices = true): Promise<{ nombre: string; slug: string; precio: string; alcance: string } | null> {
   const products = await getAllProducts();
   const norm = (s: string) =>
     String(s || '')
@@ -165,7 +165,7 @@ export async function getProductByName(query: string): Promise<{ nombre: string;
     }
   }
   if (exactCodeMatch) {
-    return { nombre: exactCodeMatch.nombre, slug: exactCodeMatch.slug, precio: exactCodeMatch.precio, alcance: exactCodeMatch.alcance || '' };
+    return { nombre: exactCodeMatch.nombre, slug: exactCodeMatch.slug, precio: includePrices ? exactCodeMatch.precio : 'Consultar', alcance: exactCodeMatch.alcance || '' };
   }
 
   let best: { product: (typeof products)[number]; score: number } | null = null;
@@ -208,7 +208,7 @@ export async function getProductByName(query: string): Promise<{ nombre: string;
   }
 
   if (best) {
-    return { nombre: best.product.nombre, slug: best.product.slug, precio: best.product.precio, alcance: best.product.alcance || '' };
+    return { nombre: best.product.nombre, slug: best.product.slug, precio: includePrices ? best.product.precio : 'Consultar', alcance: best.product.alcance || '' };
   }
 
   // Fallback final: similitud por nombre para frases descriptivas
@@ -220,7 +220,7 @@ export async function getProductByName(query: string): Promise<{ nombre: string;
     }
     if (fuzzyBest) {
       const fp = fuzzyBest.product;
-      return { nombre: fp.nombre, slug: fp.slug, precio: fp.precio, alcance: fp.alcance || '' };
+      return { nombre: fp.nombre, slug: fp.slug, precio: includePrices ? fp.precio : 'Consultar', alcance: fp.alcance || '' };
     }
   }
 

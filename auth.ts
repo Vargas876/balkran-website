@@ -1,10 +1,14 @@
-import NextAuth from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 import { z } from 'zod';
 import { authConfig } from '@/auth.config';
 import { prisma } from '@/lib/prisma';
 import { verifyTurnstileToken } from '@/lib/turnstile';
+
+class PendingApprovalError extends CredentialsSignin {
+  code = 'PENDING_APPROVAL';
+}
 
 const credentialsSchema = z.object({
   email: z.string().email().max(254),
@@ -81,9 +85,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           ? await compare(password, user.passwordHash)
           : await compare(password, DUMMY_HASH);
 
-        if (!user || !user.isActive || !valid) {
+        if (!user || !valid) {
           await recordLoginAttempt(normalizedEmail, ip, false);
           return null;
+        }
+
+        if (!user.isActive) {
+          await recordLoginAttempt(normalizedEmail, ip, false);
+          throw new PendingApprovalError('Cuenta pendiente de aprobación.');
         }
 
         await recordLoginAttempt(normalizedEmail, ip, true);
