@@ -615,7 +615,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
                 )}
                 <input
                   type="file"
-                  accept="image/webp,image/png,image/jpeg,image/gif,image/avif"
+                  accept="image/*"
                   className="hidden"
                   onChange={handleUploadMain}
                 />
@@ -672,7 +672,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
               <input
                 type="file"
                 multiple
-                accept="image/webp,image/png,image/jpeg,image/gif,image/avif"
+                accept="image/*"
                 className="hidden"
                 onChange={handleUploadGallery}
               />
@@ -765,7 +765,7 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
                 )}
                 <input
                   type="file"
-                  accept="video/mp4,video/webm,video/quicktime"
+                  accept="video/*"
                   className="hidden"
                   onChange={handleUploadVideo}
                 />

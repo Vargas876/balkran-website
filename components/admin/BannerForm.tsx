@@ -144,7 +144,7 @@ export default function BannerForm({
             )}
             <input
               type="file"
-              accept="image/webp,image/png,image/jpeg,image/gif,image/avif"
+              accept="image/*"
               className="hidden"
               onChange={handleUpload}
             />
