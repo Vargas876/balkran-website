@@ -79,7 +79,7 @@ const manuales = [
       en: 'Download DUAL and 12V Manual (PDF)',
       fr: 'Télécharger le manuel DUAL et 12V (PDF)',
     },
-    preview: 'https://docs.google.com/gview?url=https://www.cercasbalkran.com/wp-content/uploads/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf&embedded=true',
+    preview: '/assets/manuales/Balkran-Manual-Dual-12V-V1-Noviembre-2022-WEB.pdf',
   },
   {
     icon: Sun,
@@ -100,7 +100,7 @@ const manuales = [
       en: 'Download 110V Manual (PDF)',
       fr: 'Télécharger le manuel 110V (PDF)',
     },
-    preview: 'https://docs.google.com/gview?url=https://www.cercasbalkran.com/wp-content/uploads/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf&embedded=true',
+    preview: '/assets/manuales/Balkran-Manual-110V-V1-Noviembre-2022-WEB.pdf',
   },
 ];
 
