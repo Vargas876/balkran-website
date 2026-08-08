@@ -197,8 +197,12 @@ const whatsapp = get('whatsapp');
   if (product.peso) techRows.push({ label: t('detail.tableWeight'), value: product.peso });
   techRows.push({ label: t('detail.tableWarranty'), value: t('detail.warranty3') });
 
-  // Gallery image list (Original product image)
-  const galleryImages = [product.imagen_local].filter((src): src is string => !!src);
+  // Gallery image list (Main image + gallery images uploaded from admin)
+  const rawGallery = Array.isArray(product.imagenes) ? product.imagenes : [];
+  const allImages = [product.imagen_local, ...rawGallery].filter(
+    (src): src is string => typeof src === 'string' && src.trim().length > 0
+  );
+  const galleryImages = Array.from(new Set(allImages));
 
   const handleAddToCart = () => {
     setAddedToCart(true);
