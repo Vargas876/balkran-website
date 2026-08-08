@@ -145,11 +145,11 @@ export default async function AdminAnalyticsPage() {
       </div>
 
       {/* Vistas recientes */}
-      <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/10">
+      <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-x-auto">
+        <div className="px-6 py-4 border-b border-white/10 min-w-[600px]">
           <h3 className="text-sm font-bold text-white/80">Visitas recientes</h3>
         </div>
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[600px] text-sm">
           <thead>
             <tr className="border-b border-white/10 text-left text-white/50 text-xs uppercase tracking-wide">
               <th className="px-6 py-3">Página</th>

@@ -61,8 +61,8 @@ export default async function AdminProductosPage({
 
       <ProductSearchBar categorias={categorias as any} />
 
-      <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-x-auto">
+        <table className="w-full min-w-[700px] text-sm">
           <thead>
             <tr className="border-b border-white/10 text-left text-white/50 text-xs uppercase tracking-wide">
               <th className="px-4 py-3">Producto</th>
