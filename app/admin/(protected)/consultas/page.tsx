@@ -18,7 +18,7 @@ export default async function AdminConsultasPage() {
         Mensajes recibidos desde el formulario de contacto.
       </p>
 
-      <div className="bg-[#14161d] border border-white/10 rounded-2xl overflow-hidden">
+      <div className="bg-[#14161d] border border-white/10 rounded-2xl">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-white/10 text-left text-white/50 text-xs uppercase tracking-wide">
