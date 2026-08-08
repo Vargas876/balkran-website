@@ -24,6 +24,9 @@ export default function CookieBanner() {
   const save = () => {
     try {
       localStorage.setItem(COOKIE_KEY, 'accepted');
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('balkran_cookie_consent_accepted'));
+      }
     } catch {
       // localStorage no disponible
     }

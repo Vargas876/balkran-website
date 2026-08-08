@@ -74,6 +74,7 @@ function getSessionId(): string {
 
 export default function VoltChatWidget() {
   const { language } = useLanguage();
+  const [hasCookieConsent, setHasCookieConsent] = useState(false);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState('');
@@ -84,6 +85,22 @@ export default function VoltChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const langKey = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('balkran_cookie_consent') === 'accepted') {
+        setHasCookieConsent(true);
+      }
+    } catch {
+      // localStorage no disponible
+    }
+
+    const handleConsent = () => setHasCookieConsent(true);
+    window.addEventListener('balkran_cookie_consent_accepted', handleConsent);
+    return () => {
+      window.removeEventListener('balkran_cookie_consent_accepted', handleConsent);
+    };
+  }, []);
 
   useEffect(() => {
     if (!open) {
@@ -151,6 +168,8 @@ export default function VoltChatWidget() {
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n/g, '<br/>');
   }
+
+  if (!hasCookieConsent) return null;
 
   return (
     <>
