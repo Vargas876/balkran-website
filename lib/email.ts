@@ -11,7 +11,11 @@ function loadEnvValue(key: string): string | undefined {
 
 const RESEND_API_KEY = loadEnvValue('RESEND_API_KEY');
 const EMAIL_FROM = loadEnvValue('EMAIL_FROM') ?? 'Balkran <no-reply@balkran.com>';
-const APP_BASE_URL = loadEnvValue('AUTH_URL') ?? loadEnvValue('NEXTAUTH_URL') ?? 'http://localhost:3000';
+const APP_BASE_URL =
+  loadEnvValue('AUTH_URL') ||
+  loadEnvValue('NEXTAUTH_URL') ||
+  loadEnvValue('NEXT_PUBLIC_SITE_URL') ||
+  'http://localhost:3000';
 
 export function isEmailConfigured(): boolean {
   return !!RESEND_API_KEY;
