@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -6,21 +7,96 @@ import {
   CheckCircle2, ChevronRight, Award, Zap, Quote
 } from 'lucide-react';
 import { historias } from '@/lib/historias';
+import { useLanguage } from '@/context/LanguageContext';
+import { pick } from '@/lib/i18n';
 
-export const metadata: Metadata = {
-  title: 'Historias de Éxito | Balkran',
-  description:
-    'Conoce casos reales de éxito de ganaderos y agricultores en Colombia, Ecuador, El Salvador y República Dominicana que protegen sus fincas con cercas eléctricas Balkran.',
-  alternates: { canonical: '/historias' },
-  openGraph: {
-    title: 'Historias de Éxito | Balkran',
-    description:
-      'Historias reales, resultados reales: cómo la tecnología solar y dual de Balkran transforma la seguridad del campo en Latinoamérica.',
-    url: '/historias',
+const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
+  es: {
+    heroBadge: 'Confianza que viene del campo',
+    heroTitle1: 'Historias reales,',
+    heroTitle2: 'resultados reales',
+    heroSub:
+      'Descubre cómo productores agrícolas y ganaderos de toda Latinoamérica confían en la potencia y durabilidad de los energizadores Balkran para proteger su patrimonio, ganado y cosechas.',
+    heroStat1V: '450+ ha',
+    heroStat1Label: 'Áreas en rotación continua',
+    heroStat2V: '100%',
+    heroStat2Label: 'Autonomía solar 24/7',
+    heroStat3V: '+12 Países',
+    heroStat3Label: 'Presencia en Latinoamérica',
+    heroStat4V: '0',
+    heroStat4Label: 'Incidentes o lesiones registradas',
+    sectionTag: 'Casos de éxito destacados',
+    sectionTitle: 'Experiencias de nuestros productores',
+    sectionSub:
+      'Cada terreno tiene un desafío único. Conoce la solución Balkran aplicada a cada tipo de suelo y ganado.',
+    clienteLabel: 'Cliente:',
+    readMore: 'Leer historia completa',
+    ctaBadge: '¿Quieres la misma seguridad para tu finca?',
+    ctaTitle: 'Recibe asesoría técnica personalizada para tu proyecto perimetral',
+    ctaSub:
+      'Nuestros asesores expertos dimensionan la potencia exacta de tu energizador Balkran de acuerdo a tus hectáreas, tipo de suelo y ganado.',
+    ctaBtn: 'Habla con un experto',
+    ctaBtnProducts: 'Ver catálogo de productos',
+  },
+  en: {
+    heroBadge: 'Trust that comes from the field',
+    heroTitle1: 'Real stories,',
+    heroTitle2: 'real results',
+    heroSub:
+      'Discover how agricultural producers and ranchers across Latin America trust the power and durability of Balkran energizers to protect their assets, livestock and crops.',
+    stat1Val: '450+ ha',
+    stat1Label: 'Areas in continuous rotation',
+    stat2Val: '100%',
+    stat2Label: '24/7 solar autonomy',
+    stat3Val: '+12 Countries',
+    stat3Label: 'Presence across Latin America',
+    stat4Val: '0',
+    stat4Label: 'Incidents or recorded injuries',
+    sectionTag: 'Featured success stories',
+    sectionTitle: 'Experiences of our producers',
+    sectionSub:
+      'Every piece of land faces a unique challenge. Discover the Balkran solution applied to each type of soil and livestock.',
+    clienteLabel: 'Client:',
+    readMore: 'Read the full story',
+    ctaBadge: 'Want the same security for your farm?',
+    ctaTitle: 'Get personalized technical advice for your perimeter project',
+    ctaSub:
+      'Our expert advisors size the exact power of your Balkran energizer according to your hectares, soil type and livestock.',
+    ctaBtn: 'Talk to an expert',
+    ctaBtnProducts: 'View product catalog',
+  },
+  fr: {
+    heroBadge: 'Une confiance qui vient du terrain',
+    heroTitle1: 'Des histoires réelles,',
+    heroTitle2: 'des résultats réels',
+    heroSub:
+      'Découvrez comment les producteurs agricoles et les éleveurs de toute l’Amérique latine font confiance à la puissance et à la durabilité des énergiseurs Balkran pour protéger leur patrimoine, leur bétail et leurs cultures.',
+    heroStat1V: '450+ ha',
+    heroStat1L: 'Zones en rotation continue',
+    heroStat2V: '100%',
+    heroStat2L: 'Autonomie solaire 24/7',
+    heroStat3V: '+12 Pays',
+    heroStat3L: 'Présence en Amérique latine',
+    heroStat4V: '0',
+    heroStat4L: 'Incident ou blessure signalé',
+    sectionTag: 'Histoires de réussite à la une',
+    sectionTitle: 'Les expériences de nos producteurs',
+    sectionSub:
+      'Chaque terrain présente un défi unique. Découvrez la solution Balkran appliquée à chaque type de sol et de bétail.',
+    ctaBadge: 'Vous voulez la même sécurité pour votre propriété ?',
+    ctaTitle: 'Recevez des conseils techniques personnalisés pour votre projet périmétrique',
+    ctaSub:
+      'Nos conseillers experts dimensionnent la puissance exacte de votre énergiseur Balkran selon vos hectares, le type de sol et votre bétail.',
+    ctaBtn: 'Parler à un expert',
+    ctaBtnProducts: 'Voir le catalogue de produits',
   },
 };
 
 export default function HistoriasPage() {
+  const { language } = useLanguage();
+  const lang = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
+  const l = (key: string): string => L[lang][key] || L.es[key] || key;
+
   return (
     <main className="min-h-screen bg-[#f8fafc] text-[#1a2130] font-sans">
 
@@ -42,34 +118,34 @@ export default function HistoriasPage() {
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 bg-[#ff5a00]/15 text-[#ff7a1a] border border-[#ff5a00]/30 text-xs font-extrabold uppercase px-3.5 py-1.5 rounded-full tracking-wider shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-[#ff5a00]" />
-              Confianza que viene del campo
+              {l('heroBadge')}
             </div>
             
             <h1 className="font-display font-extrabold text-3xl sm:text-5xl lg:text-[54px] tracking-tight leading-[1.06] text-white">
-              Historias reales, <span className="text-[#ff5a00]">resultados reales</span>
+              {l('heroTitle1')} <span className="text-[#ff5a00]">{l('heroTitle2')}</span>
             </h1>
             
             <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl text-justify font-sans">
-              Descubre cómo productores agrícolas y ganaderos de toda Latinoamérica confían en la potencia y durabilidad de los energizadores Balkran para proteger su patrimonio, ganado y cosechas.
+              {l('heroSub')}
             </p>
 
             {/* Impact Metric Strip */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
               <div className="space-y-1">
-                <span className="font-display font-extrabold text-2xl sm:text-3xl text-white">450+ ha</span>
-                <p className="text-xs text-gray-400 font-medium">Áreas en rotación continua</p>
+                <span className="font-display font-extrabold text-2xl sm:text-3xl text-white">{l('heroStat1V')}</span>
+                <p className="text-xs text-gray-400 font-medium">{l('heroStat1Label')}</p>
               </div>
               <div className="space-y-1">
-                <span className="font-display font-extrabold text-2xl sm:text-3xl text-[#ff5a00]">100%</span>
-                <p className="text-xs text-gray-400 font-medium">Autonomía solar 24/7</p>
+                <span className="font-display font-extrabold text-2xl sm:text-3xl text-[#ff5a00]">{l('heroStat2V')}</span>
+                <p className="text-xs text-gray-400 font-medium">{l('heroStat2Label')}</p>
               </div>
               <div className="space-y-1">
-                <span className="font-display font-extrabold text-2xl sm:text-3xl text-white">+12 Países</span>
-                <p className="text-xs text-gray-400 font-medium">Presencia en Latinoamérica</p>
+                <span className="font-display font-extrabold text-2xl sm:text-3xl text-white">{l('heroStat3V')}</span>
+                <p className="text-xs text-gray-400 font-medium">{l('heroStat3Label')}</p>
               </div>
               <div className="space-y-1">
-                <span className="font-display font-extrabold text-2xl sm:text-3xl text-[#ff5a00]">0</span>
-                <p className="text-xs text-gray-400 font-medium">Incidentes o lesiones registradas</p>
+                <span className="font-display font-extrabold text-2xl sm:text-3xl text-[#ff5a00]">{l('heroStat4V')}</span>
+                <p className="text-xs text-gray-400 font-medium">{l('heroStat4Label')}</p>
               </div>
             </div>
           </div>
@@ -84,14 +160,14 @@ export default function HistoriasPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-200/80 pb-6">
             <div className="space-y-2">
               <span className="text-[#ff5a00] font-display text-xs font-extrabold uppercase tracking-widest block">
-                Casos de éxito destacados
+                {l('sectionTag')}
               </span>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#111111] tracking-tight">
-                Experiencias de nuestros productores
+                {l('sectionTitle')}
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-[#565e6e] max-w-md">
-              Cada terreno tiene un desafío único. Conoce la solución Balkran aplicada a cada tipo de suelo y ganado.
+              {l('sectionSub')}
             </p>
           </div>
 
@@ -107,7 +183,7 @@ export default function HistoriasPage() {
                   <div className="relative w-full h-64 sm:h-72 lg:h-80 overflow-hidden bg-gray-900">
                     <Image
                       src={item.imagen}
-                      alt={item.titulo}
+                      alt={pick(lang, item.titulo)}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -117,21 +193,21 @@ export default function HistoriasPage() {
                     {/* Badges superiores */}
                     <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
                       <span className="bg-[#ff5a00] text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full shadow">
-                        {item.categoria}
+                        {pick(lang, item.categoria)}
                       </span>
                       <span className="bg-white/90 backdrop-blur-md text-[#1a2130] text-[11px] font-bold px-3 py-1 rounded-full shadow flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5 text-[#ff5a00]" />
-                        {item.ubicacion}
+                        {pick(lang, item.ubicacion)}
                       </span>
                     </div>
 
                     {/* Titulo sobre la imagen inferior */}
                     <div className="absolute bottom-4 left-6 right-6 text-white">
                       <h3 className="font-display font-extrabold text-2xl sm:text-3xl drop-shadow-md leading-tight">
-                        {item.titulo}
+                        {pick(lang, item.titulo)}
                       </h3>
                       <p className="text-xs text-gray-200 font-medium pt-1">
-                        Cliente: <span className="text-white font-bold">{item.cliente}</span> ({item.pais})
+                        {l('clienteLabel')} <span className="text-white font-bold">{pick(lang, item.cliente)}</span> ({pick(lang, item.pais)})
                       </p>
                     </div>
                   </div>
@@ -139,14 +215,14 @@ export default function HistoriasPage() {
                   {/* Cuerpo del Card */}
                   <div className="p-6 sm:p-8 space-y-6">
                     <p className="text-sm sm:text-base text-[#565e6e] leading-relaxed text-justify">
-                      {item.resumen}
+                      {pick(lang, item.resumen)}
                     </p>
 
                     {/* Cita del cliente */}
                     <div className="bg-orange-50/80 border-l-4 border-[#ff5a00] rounded-r-2xl p-4 sm:p-5">
                       <Quote className="w-4 h-4 text-[#ff5a00] mb-1.5" />
                       <p className="text-xs sm:text-sm italic text-[#1a2130] leading-relaxed font-medium">
-                        {`"${item.cita}"`}
+                        {`"${pick(lang, item.cita)}"`}
                       </p>
                     </div>
 
@@ -155,10 +231,10 @@ export default function HistoriasPage() {
                       {item.metricas.map((m, mi) => (
                         <div key={mi} className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
                           <span className="block font-display font-extrabold text-sm sm:text-base text-[#111111]">
-                            {m.valor}
+                            {pick(lang, m.valor)}
                           </span>
                           <span className="block text-[10px] text-gray-500 leading-tight mt-0.5">
-                            {m.label}
+                            {pick(lang, m.label)}
                           </span>
                         </div>
                       ))}
@@ -172,7 +248,7 @@ export default function HistoriasPage() {
                     href={`/historias/${item.slug}`}
                     className="w-full bg-[#111111] hover:bg-[#ff5a00] text-white font-display text-xs font-extrabold uppercase tracking-wider py-3.5 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md hover:shadow-lg hover:shadow-[#ff5a00]/20"
                   >
-                    <span>Leer historia completa</span>
+                    <span>{l('readMore')}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1.5" />
                   </Link>
                 </div>
@@ -188,15 +264,15 @@ export default function HistoriasPage() {
         <div className="relative max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 text-center space-y-6">
           <span className="bg-[#ff5a00]/15 text-[#ff7a1a] border border-[#ff5a00]/30 font-display text-xs font-extrabold uppercase px-4 py-1.5 rounded-full tracking-wider inline-flex items-center gap-2">
             <Zap className="w-4 h-4 text-[#ff5a00]" />
-            ¿Quieres la misma seguridad para tu finca?
+            {l('ctaBadge')}
           </span>
           
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight max-w-3xl mx-auto">
-            Recibe asesoría técnica personalizada para tu proyecto perimetral
+            {l('ctaTitle')}
           </h2>
           
           <p className="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Nuestros asesores expertos dimensionan la potencia exacta de tu energizador Balkran de acuerdo a tus hectáreas, tipo de suelo y ganado.
+            {l('ctaSub')}
           </p>
 
           <div className="pt-4 flex flex-wrap justify-center items-center gap-4">
@@ -204,7 +280,7 @@ export default function HistoriasPage() {
               href="/contacto"
               className="bg-[#ff5a00] hover:bg-[#e04f00] text-white font-display text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center gap-2.5 hover:-translate-y-0.5"
             >
-              <span>Habla con un experto</span>
+              <span>{l('ctaBtn')}</span>
               <ChevronRight className="w-4 h-4" />
             </Link>
             
@@ -212,7 +288,7 @@ export default function HistoriasPage() {
               href="/productos"
               className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-display text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full transition-all"
             >
-              Ver catálogo de productos
+              {l('ctaBtnProducts')}
             </Link>
           </div>
         </div>

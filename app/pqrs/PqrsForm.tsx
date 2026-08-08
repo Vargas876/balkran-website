@@ -5,19 +5,118 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Loader2, Send } from 'lucide-react';
 import Turnstile from '@/components/Turnstile';
+import { useLanguage } from '@/context/LanguageContext';
 
-const TIPOS = ['Petición', 'Queja', 'Reclamo', 'Solicitud'];
+type TipoOption = { id: string; key: string };
+
+const TIPOS: TipoOption[] = [
+  { id: 'Petición', key: 'peticion' },
+  { id: 'Queja', key: 'queja' },
+  { id: 'Reclamo', key: 'reclamo' },
+  { id: 'Solicitud', key: 'solicitud' },
+];
 
 const inputCls =
   'w-full bg-white border border-gray-200 focus:border-[#ff5a00] rounded-xl text-[#1a2130] text-sm px-4 py-3 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all';
 
+const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
+  es: {
+    'lblName': 'Nombre cliente o empresa *',
+    'phName': 'Nombre del cliente o empresa',
+    'lblFecha': 'Fecha',
+    'lblEmail': 'Correo electrónico *',
+    'phEmail': 'tucorreo@ejemplo.com',
+    'lblPhone': 'Teléfono',
+    'phPhone': '+57 300 000 0000',
+    'lblTipo': 'Tipo de recurso *',
+    'peticion': 'Petición',
+    'queja': 'Queja',
+    'reclamo': 'Reclamo',
+    'solicitud': 'Solicitud',
+    'lblMensaje': 'Mensaje *',
+    'phMensaje': 'Describe tu petición, queja, reclamo o solicitud…',
+    'consentPre': 'Autorización de uso de datos personales. Acepto las ',
+    'linkUso': 'políticas de uso',
+    'linkProteccion': 'políticas de protección de datos',
+    'linkCondiciones': 'condiciones de uso',
+    'consentAnd': 'y',
+    'consentPost': ' de la página. *',
+    'successTitle': '¡Solicitud radicada con éxito!',
+    'successDesc': 'Nuestro equipo te dará respuesta por los canales que indicaste.',
+    'errSubmit': 'No se pudo enviar la solicitud. Intenta de nuevo.',
+    'errConn': 'Ocurrió un error de conexión. Intenta de nuevo.',
+    'sending': 'ENVIANDO…',
+    'sendBtn': 'Enviar formulario',
+  },
+  en: {
+    'lblName': 'Customer or company name *',
+    'phName': 'Customer or company name',
+    'lblFecha': 'Date',
+    'lblEmail': 'Email *',
+    'phEmail': 'you@example.com',
+    'lblPhone': 'Phone',
+    'phPhone': '+57 300 000 0000',
+    'lblTipo': 'Type of request *',
+    'peticion': 'Request',
+    'queja': 'Complaint',
+    'reclamo': 'Claim',
+    'solicitud': 'Application',
+    'lblMensaje': 'Message *',
+    'phMensaje': 'Describe your request, complaint, claim or application…',
+    'consentPre': 'Authorization for the use of personal data. I accept the ',
+    'linkUso': 'use policies',
+    'linkProteccion': 'data protection policies',
+    'linkCondiciones': 'conditions of use',
+    'consentAnd': 'and',
+    'consentPost': ' of the website. *',
+    'successTitle': 'Request successfully filed!',
+    'successDesc': 'Our team will respond through the channels you indicated.',
+    'errSubmit': 'Could not send the request. Please try again.',
+    'errConn': 'A connection error occurred. Please try again.',
+    'sending': 'SENDING…',
+    'sendBtn': 'Submit form',
+  },
+  fr: {
+    'lblName': 'Nom du client ou de l\u2019entreprise *',
+    'phName': 'Nom du client ou de l\u2019entreprise',
+    'lblFecha': 'Date',
+    'lblEmail': 'Courriel *',
+    'phEmail': 'vous@exemple.com',
+    'lblPhone': 'Téléphone',
+    'phPhone': '+57 300 000 0000',
+    'lblTipo': 'Type de demande *',
+    'peticion': 'Demande',
+    'queja': 'Plainte',
+    'reclamo': 'Réclamation',
+    'solicitud': 'Requête',
+    'lblMensaje': 'Message *',
+    'phMensaje': 'Décrivez votre demande, plainte, réclamation ou sollicitation…',
+    'consentPre': 'Autorisation d\u2019utilisation des données personnelles. J\u2019accepte les ',
+    'linkUso': 'politiques d\u2019utilisation',
+    'linkProteccion': 'politiques de protection des données',
+    'linkCondiciones': 'conditions d\u2019utilisation',
+    'consentAnd': 'et',
+    'consentPost': ' de la page. *',
+    'successTitle': 'Demande déposée avec succès !',
+    'successDesc': 'Notre équipe vous répondra par les canaux que vous avez indiqués.',
+    'errSubmit': 'La demande n\u2019a pas pu être envoyée. Réessayez.',
+    'errConn': 'Une erreur de connexion est survenue. Réessayez.',
+    'sending': 'ENVOI EN COURS…',
+    'sendBtn': 'Envoyer',
+  },
+};
+
 export default function PqrsForm() {
+  const { language } = useLanguage();
+  const lang = (language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es');
+  const l = (key: string) => L[lang][key] || L.es[key] || key;
+
   const [form, setForm] = useState({
     name: '',
     fecha: '',
     email: '',
     phone: '',
-    tipo: 'Petición',
+    tipo: 'Petición' as string,
     message: '',
     aceptaDatos: false,
   });
@@ -53,7 +152,7 @@ export default function PqrsForm() {
       const data = await res.json().catch(() => null);
 
       if (!res.ok) {
-        setError(data?.error ?? 'No se pudo enviar la solicitud. Intenta de nuevo.');
+        setError(data?.error ?? l('errSubmit'));
         return;
       }
 
@@ -61,7 +160,7 @@ export default function PqrsForm() {
       setForm({ name: '', fecha: '', email: '', phone: '', tipo: 'Petición', message: '', aceptaDatos: false });
       setTurnstileToken(null);
     } catch {
-      setError('Ocurrió un error de conexión. Intenta de nuevo.');
+      setError(l('errConn'));
     } finally {
       setLoading(false);
     }
@@ -79,9 +178,9 @@ export default function PqrsForm() {
           >
             <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
             <div className="text-sm">
-              <p className="font-bold text-emerald-800">¡Solicitud radicada con éxito!</p>
+              <p className="font-bold text-emerald-800">{l('successTitle')}</p>
               <p className="text-emerald-700 text-xs mt-0.5">
-                Nuestro equipo te dará respuesta por los canales que indicaste.
+                {l('successDesc')}
               </p>
             </div>
           </motion.div>
@@ -103,7 +202,7 @@ export default function PqrsForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="space-y-1.5">
             <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-              Nombre cliente o empresa *
+              {l('lblName')}
             </label>
             <input
               type="text"
@@ -111,14 +210,14 @@ export default function PqrsForm() {
               minLength={2}
               value={form.name}
               onChange={(e) => update('name', e.target.value)}
-              placeholder="Nombre del cliente o empresa"
+              placeholder={l('phName')}
               className={inputCls}
             />
           </div>
 
           <div className="space-y-1.5">
             <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-              Fecha
+              {l('lblFecha')}
             </label>
             <input
               type="date"
@@ -130,27 +229,27 @@ export default function PqrsForm() {
 
           <div className="space-y-1.5">
             <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-              Correo electrónico *
+              {l('lblEmail')}
             </label>
             <input
               type="email"
               required
               value={form.email}
               onChange={(e) => update('email', e.target.value)}
-              placeholder="tucorreo@ejemplo.com"
+              placeholder={l('phEmail')}
               className={inputCls}
             />
           </div>
 
           <div className="space-y-1.5">
             <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-              Teléfono
+              {l('lblPhone')}
             </label>
             <input
               type="tel"
               value={form.phone}
               onChange={(e) => update('phone', e.target.value)}
-              placeholder="+57 300 000 0000"
+              placeholder={l('phPhone')}
               className={inputCls}
             />
           </div>
@@ -158,21 +257,21 @@ export default function PqrsForm() {
 
         <div className="space-y-1.5">
           <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-            Tipo de recurso *
+            {l('lblTipo')}
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {TIPOS.map((tipo) => (
               <button
-                key={tipo}
+                key={tipo.id}
                 type="button"
-                onClick={() => update('tipo', tipo)}
+                onClick={() => update('tipo', tipo.id)}
                 className={`text-sm font-semibold px-4 py-3 rounded-xl border transition-all ${
-                  form.tipo === tipo
+                  form.tipo === tipo.id
                     ? 'bg-[#ff5a00] text-white border-[#ff5a00] shadow-md shadow-[#ff5a00]/30'
                     : 'bg-white text-[#565e6e] border-gray-200 hover:border-[#ff5a00] hover:text-[#ff5a00]'
                 }`}
               >
-                {tipo}
+                {l(tipo.key)}
               </button>
             ))}
           </div>
@@ -180,7 +279,7 @@ export default function PqrsForm() {
 
         <div className="space-y-1.5">
           <label className="block text-xs font-bold text-[#1a2130] uppercase tracking-wide">
-            Mensaje *
+            {l('lblMensaje')}
           </label>
           <textarea
             required
@@ -189,7 +288,7 @@ export default function PqrsForm() {
             rows={6}
             value={form.message}
             onChange={(e) => update('message', e.target.value)}
-            placeholder="Describe tu petición, queja, reclamo o solicitud…"
+            placeholder={l('phMensaje')}
             className={`${inputCls} resize-y`}
           />
         </div>
@@ -203,19 +302,19 @@ export default function PqrsForm() {
             className="w-5 h-5 rounded border-gray-300 text-[#ff5a00] accent-[#ff5a00] mt-0.5 cursor-pointer shrink-0"
           />
           <span className="text-xs text-[#565e6e] leading-relaxed">
-            Autorización de uso de datos personales. Acepto las{' '}
+            {l('consentPre')}{' '}
             <Link href="/politica-datos-personales" className="text-[#ff5a00] font-semibold hover:underline">
-              políticas de uso
+              {l('linkUso')}
             </Link>
             ,{' '}
             <Link href="/politica-datos-personales" className="text-[#ff5a00] font-semibold hover:underline">
-              políticas de protección de datos
+              {l('linkProteccion')}
             </Link>{' '}
-            y{' '}
+            {l('consentAnd')}{' '}
             <Link href="/terminos-y-condiciones-tienda" className="text-[#ff5a00] font-semibold hover:underline">
-              condiciones de uso
+              {l('linkCondiciones')}
             </Link>{' '}
-            de la página. *
+            {l('consentPost')}
           </span>
         </label>
 
@@ -228,11 +327,11 @@ export default function PqrsForm() {
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" /> ENVIANDO…
+              <Loader2 className="w-4 h-4 animate-spin" /> {l('sending')}
             </>
           ) : (
             <>
-              <Send className="w-4 h-4" /> Enviar formulario
+              <Send className="w-4 h-4" /> {l('sendBtn')}
             </>
           )}
         </button>

@@ -6,10 +6,96 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { Suspense, useState } from 'react';
+import { Suspense, useState } from 'react';
 import Turnstile from '@/components/Turnstile';
+import { useLanguage } from '@/context/LanguageContext';
+
+const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
+  es: {
+    sloganA: 'Energía',
+    sloganB: 'que protege,',
+    sloganC: 'tecnología que',
+    sloganD: 'conecta',
+    secTitle: 'SEGURIDAD', secSub: 'Confiable',
+    tecnoTitle: 'TECNOLOGÍA', tecnoSub: 'Avanzada',
+    innovTitle: 'INNOVACIÓN', innovSub: 'Sostenible',
+    logoAlt: 'BALKRAN Tecnología e Innovación',
+    cardLogoAlt: 'BALKRAN',
+    welcome: 'Bienvenido de nuevo',
+    subtitle: 'Inicia sesión para continuar',
+    emailLabel: 'Correo electrónico',
+    emailPh: 'Ingresa tu correo electrónico',
+    passLabel: 'Contraseña',
+    passPh: 'Ingresa tu contraseña',
+    pwVisibility: 'Toggle password visibility',
+    remember: 'Recordarme',
+    forgot: '¿Olvidaste tu clave?',
+    verifying: 'VERIFICANDO…',
+    login: 'INICIAR SESIÓN',
+    orContinue: 'o continúa con',
+    googleAlert: 'El acceso con Google se habilitará próximamente. Usa tu correo y contraseña.',
+    msAlert: 'El acceso con Microsoft se habilitará próximamente. Usa tu correo y contraseña.',
+    invalidCred: 'Credenciales inválidas. Verifica tu correo y contraseña.',
+    rights: '© 2026 BALKRAN. Todos los derechos reservados.',
+  },
+  en: {
+    sloganA: 'Energy',
+    sloganB: 'that protects,',
+    sloganC: 'technology that',
+    sloganD: 'connects',
+    secTitle: 'SECURITY', secSub: 'Reliable',
+    tecnoTitle: 'TECHNOLOGY', tecnoSub: 'Advanced',
+    innovTitle: 'INNOVATION', innovSub: 'Sustainable',
+    logoAlt: 'BALKRAN Technology and Innovation',
+    cardLogoAlt: 'BALKRAN',
+    welcome: 'Welcome back',
+    subtitle: 'Sign in to continue',
+    emailLabel: 'Email address',
+    emailPh: 'Enter your email address',
+    passLabel: 'Password',
+    passPh: 'Enter your password',
+    pwVisibility: 'Toggle password visibility',
+    remember: 'Remember me',
+    forgot: 'Forgot your password?',
+    verifying: 'VERIFYING…',
+    login: 'SIGN IN',
+    orContinue: 'or continue with',
+    googleAlert: 'Google access will be enabled soon. Use your email and password.',
+    msAlert: 'Microsoft access will be enabled soon. Use your email and password.',
+    invalidCred: 'Invalid credentials. Check your email and password.',
+    rights: '© 2026 BALKRAN. All rights reserved.',
+  },
+  fr: {
+    sloganA: 'Énergie',
+    sloganB: 'qui protège,',
+    sloganC: 'la technologie qui',
+    sloganD: 'connecte',
+    secTitle: 'SÉCURITÉ', secSub: 'Fiable',
+    tecnoTitle: 'TECHNOLOGIE', tecnoSub: 'Avancée',
+    innovTitle: 'INNOVATION', innovSub: 'Durable',
+    logoAlt: 'BALKRAN Technologie et Innovation',
+    cardLogoAlt: 'BALKRAN',
+    welcome: 'Bienvenue',
+    subtitle: 'Connectez-vous pour continuer',
+    emailLabel: 'Adresse e-mail',
+    emailPh: 'Entrez votre adresse e-mail',
+    passLabel: 'Mot de passe',
+    passPh: 'Entrez votre mot de passe',
+    pwVisibility: 'Basculer la visibilité du mot de passe',
+    remember: 'Se souvenir de moi',
+    forgot: 'Mot de passe oublié ?',
+    verifying: 'VÉRIFICATION…',
+    login: 'SE CONNECTER',
+    orContinue: 'ou continuer avec',
+    googleAlert: 'L\'accès Google sera bientôt disponible. Utilisez votre e-mail et votre mot de passe.',
+    msAlert: 'L\'accès Microsoft sera bientôt disponible. Utilisez votre e-mail et votre mot de passe.',
+    invalidCred: 'Identifiants invalides. Vérifiez votre e-mail et votre mot de passe.',
+    rights: '© 2026 BALKRAN. Tous droits réservés.',
+  },
+};
 
 function LoginContent() {
+  const { language } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +106,8 @@ function LoginContent() {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const lang = language === 'en' ? 'en' : language === 'fr' ? 'fr' : 'es';
+  const l = (key: string) => L[lang][key] || L.es[key] || key;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,8 +125,8 @@ function LoginContent() {
 
     setLoading(false);
 
-    if (res?.error) {
-      setError('Credenciales inválidas. Verifica tu correo y contraseña.');
+if (res?.error) {
+      setError(l('invalidCred'));
       return;
     }
 
@@ -76,7 +164,7 @@ function LoginContent() {
             <div className="relative w-64 h-14">
               <Image
                 src="https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/LogoBlanco.webp"
-                alt="BALKRAN Tecnología e Innovación"
+                alt={l('logoAlt')}
                 fill
                 className="object-contain object-left"
                 priority
@@ -85,10 +173,10 @@ function LoginContent() {
 
             <div className="space-y-1 font-sans text-2xl xl:text-3xl font-normal leading-relaxed tracking-tight">
               <p>
-                <span className="text-[#ff5a00] font-semibold">Energía</span> que protege,
+                <span className="text-[#ff5a00] font-semibold">{l('sloganA')}</span> {l('sloganB')}
               </p>
               <p>
-                tecnología que <span className="text-[#22c55e] font-semibold">conecta</span>
+                {l('sloganC')} <span className="text-[#22c55e] font-semibold">{l('sloganD')}</span>
               </p>
             </div>
           </div>
@@ -101,8 +189,8 @@ function LoginContent() {
                 <Shield className="w-8 h-8 stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">SEGURIDAD</p>
-                <p className="text-[11px] text-gray-400 font-medium">Confiable</p>
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">{l('secTitle')}</p>
+                <p className="text-[11px] text-gray-400 font-medium">{l('secSub')}</p>
               </div>
             </div>
 
@@ -112,8 +200,8 @@ function LoginContent() {
                 <Cpu className="w-8 h-8 stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">TECNOLOGÍA</p>
-                <p className="text-[11px] text-gray-400 font-medium">Avanzada</p>
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">{l('tecnoTitle')}</p>
+                <p className="text-[11px] text-gray-400 font-medium">{l('tecnoSub')}</p>
               </div>
             </div>
 
@@ -123,8 +211,8 @@ function LoginContent() {
                 <Leaf className="w-8 h-8 stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">INNOVACIÓN</p>
-                <p className="text-[11px] text-gray-400 font-medium">Sostenible</p>
+                <p className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white">{l('innovTitle')}</p>
+                <p className="text-[11px] text-gray-400 font-medium">{l('innovSub')}</p>
               </div>
             </div>
           </div>
@@ -150,10 +238,10 @@ function LoginContent() {
             </div>
             <div>
               <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                Bienvenido de nuevo
+                {l('welcome')}
               </h1>
               <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                Inicia sesión para continuar
+                {l('subtitle')}
               </p>
             </div>
           </div>
@@ -175,7 +263,7 @@ function LoginContent() {
             {/* Email Field */}
             <div className="space-y-1.5">
               <label className="block text-xs font-medium text-gray-300">
-                Correo electrónico
+                {l('emailLabel')}
               </label>
               <div className="relative flex items-center">
                 <Mail className="absolute left-3.5 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -184,7 +272,7 @@ function LoginContent() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Ingresa tu correo electrónico"
+                  placeholder={l('emailPh')}
                   className="w-full bg-[#090b10]/90 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-4 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
                 />
               </div>
@@ -193,7 +281,7 @@ function LoginContent() {
             {/* Password Field */}
             <div className="space-y-1.5">
               <label className="block text-xs font-medium text-gray-300">
-                Contraseña
+                {l('passLabel')}
               </label>
               <div className="relative flex items-center">
                 <Lock className="absolute left-3.5 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -202,14 +290,14 @@ function LoginContent() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Ingresa tu contraseña"
+                  placeholder={l('passPh')}
                   className="w-full bg-[#090b10]/90 border border-white/15 focus:border-[#ff5a00] rounded-xl text-white text-xs sm:text-sm pl-10 pr-10 py-3 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#ff5a00] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3.5 text-gray-400 hover:text-white transition-colors focus:outline-none"
-                  aria-label="Toggle password visibility"
+                  aria-label={l('pwVisibility')}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -225,13 +313,13 @@ function LoginContent() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-600 bg-[#090b10] text-[#ff5a00] focus:ring-[#ff5a00] accent-[#ff5a00] cursor-pointer"
                 />
-                <span>Recordarme</span>
+                <span>{l('remember')}</span>
               </label>
               <Link
                 href="/recuperar"
                 className="text-xs font-semibold text-[#ff5a00] hover:underline"
               >
-                ¿Olvidaste tu clave?
+                {l('forgot')}
               </Link>
             </div>
 
@@ -242,7 +330,7 @@ function LoginContent() {
               disabled={loading}
               className="w-full mt-2 bg-[#ff5a00] hover:bg-[#e04f00] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-display text-xs sm:text-sm font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-[#ff5a00]/30 hover:shadow-[#ff5a00]/50 transition-all flex items-center justify-center gap-2"
             >
-              <span>{loading ? 'VERIFICANDO…' : 'INICIAR SESIÓN'}</span>
+              <span>{loading ? l('verifying') : l('login')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
@@ -251,7 +339,7 @@ function LoginContent() {
           <div className="flex items-center gap-3 my-6">
             <div className="border-t border-white/10 flex-1" />
             <span className="text-[11px] uppercase tracking-wider text-gray-400 whitespace-nowrap">
-              o continúa con
+              {l('orContinue')}
             </span>
             <div className="border-t border-white/10 flex-1" />
           </div>
@@ -261,7 +349,7 @@ function LoginContent() {
             {/* Google Button */}
             <button
               type="button"
-              onClick={() => alert('El acceso con Google se habilitará próximamente. Usa tu correo y contraseña.')}
+              onClick={() => alert(l('googleAlert'))}
               className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
@@ -276,7 +364,7 @@ function LoginContent() {
             {/* Microsoft Button */}
             <button
               type="button"
-              onClick={() => alert('El acceso con Microsoft se habilitará próximamente. Usa tu correo y contraseña.')}
+              onClick={() => alert(l('msAlert'))}
               className="bg-[#090b10]/90 hover:bg-white/10 border border-white/15 hover:border-white/30 text-white font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 23 23">
@@ -293,7 +381,7 @@ function LoginContent() {
 
       {/* Footer */}
       <footer className="relative z-10 w-full py-4 px-6 text-center text-xs text-gray-400/90">
-        <p>© 2026 BALKRAN. Todos los derechos reservados.</p>
+        <p>{l('rights')}</p>
       </footer>
     </div>
   );

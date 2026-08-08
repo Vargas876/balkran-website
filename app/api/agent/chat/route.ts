@@ -23,6 +23,43 @@ const MAX_MESSAGE_LENGTH = 500;
 const MAX_SESSION_ID_LENGTH = 64;
 const MAX_HISTORY = 10;
 
+const ERROR_TXT: Record<'es' | 'en' | 'fr', Record<string, string>> = {
+  es: {
+    rateLimit: 'Demasiadas consultas. Espera un momento antes de volver a preguntar.',
+    messageRequired: 'Mensaje requerido.',
+    notConfigured: 'El asistente no está configurado en el servidor.',
+    turnstileFailed: 'Verificación de seguridad fallida. Recarga la página e intenta de nuevo.',
+    fallbackReply: 'Lo siento, no pude generar una respuesta.',
+    aiLimit: 'Límite de uso de la IA alcanzado. Intenta en unos minutos.',
+    aiError: 'Error consultando la IA. Intenta de nuevo en unos minutos.',
+    genericError: 'Error procesando la solicitud.',
+  },
+  en: {
+    rateLimit: 'Too many requests. Wait a moment before asking again.',
+    messageRequired: 'Message required.',
+    notConfigured: 'The assistant is not configured on the server.',
+    turnstileFailed: 'Security verification failed. Reload the page and try again.',
+    fallbackReply: 'Sorry, I could not generate a response.',
+    aiLimit: 'AI usage limit reached. Try again in a few minutes.',
+    aiError: 'Error querying the AI. Try again in a few minutes.',
+    genericError: 'Error processing the request.',
+  },
+  fr: {
+    rateLimit: 'Trop de requêtes. Attendez un instant avant de redemander.',
+    messageRequired: 'Message requis.',
+    notConfigured: "L'assistant n'est pas configuré sur le serveur.",
+    turnstileFailed: 'Échec de la vérification de sécurité. Rechargez la page et réessayez.',
+    fallbackReply: "Désolé, je n'ai pas pu générer de réponse.",
+    aiLimit: "Limite d'utilisation de l'IA atteinte. Réessayez dans quelques minutes.",
+    aiError: "Erreur lors de l'interrogation de l'IA. Réessayez dans quelques minutes.",
+    genericError: 'Erreur lors du traitement de la demande.',
+  },
+};
+
+function pickLang(v: unknown): 'es' | 'en' | 'fr' {
+  return v === 'en' ? 'en' : v === 'fr' ? 'fr' : 'es';
+}
+
 interface ChatBody {
   message: string;
   sessionId?: string;
@@ -39,28 +76,36 @@ export async function POST(request: Request) {
   try {
     const ip = getClientIp(request);
 
+    let body: ChatBody = { message: '' };
+    let lang: 'es' | 'en' | 'fr' = 'es';
+    try {
+      body = await request.json();
+      lang = pickLang(body.lang);
+    } catch {
+      // body inválido: se usa lang 'es' y se reporta como mensaje requerido.
+    }
+    const err = (key: string) => ERROR_TXT[lang][key] || ERROR_TXT.es[key];
+
     const limit = await checkRateLimit(ip, 'volt-chat', {
       windowSeconds: 60,
       max: 10,
     });
     if (!limit.ok) {
       return NextResponse.json(
-        { error: 'Demasiadas consultas. Espera un momento antes de volver a preguntar.' },
+        { error: err('rateLimit') },
         { status: 429 }
       );
     }
 
-    const body = (await request.json()) as ChatBody;
     const message = typeof body.message === 'string' ? body.message.trim().slice(0, MAX_MESSAGE_LENGTH) : '';
-    const lang = (body.lang || 'es') === 'en' ? 'en' : (body.lang || 'es') === 'fr' ? 'fr' : 'es';
 
     if (!message) {
-      return NextResponse.json({ error: 'Mensaje requerido.' }, { status: 400 });
+      return NextResponse.json({ error: err('messageRequired') }, { status: 400 });
     }
 
     if (!GROQ_API_KEY) {
       return NextResponse.json(
-        { error: 'El asistente no está configurado en el servidor.' },
+        { error: err('notConfigured') },
         { status: 500 }
       );
     }
@@ -74,7 +119,7 @@ export async function POST(request: Request) {
       const turnstileOk = await verifyTurnstileToken(body?.turnstileToken ?? null, ip);
       if (!turnstileOk) {
         return NextResponse.json(
-          { error: 'Verificación de seguridad fallida. Recarga la página e intenta de nuevo.' },
+          { error: err('turnstileFailed') },
           { status: 400 }
         );
       }
@@ -162,18 +207,18 @@ Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, n�
         temperature: 0.3,
         max_tokens: 700,
       });
-      reply = completion.choices?.[0]?.message?.content || 'Lo siento, no pude generar una respuesta.';
+      reply = completion.choices?.[0]?.message?.content || err('fallbackReply');
     } catch (e) {
       const errText = e instanceof Error ? e.message : String(e);
       console.error('Error consultando Groq:', errText);
       if (/429|quota|rate|limit/i.test(errText)) {
         return NextResponse.json(
-          { error: 'Límite de uso de la IA alcanzado. Intenta en unos minutos.' },
+          { error: err('aiLimit') },
           { status: 429 }
         );
       }
       return NextResponse.json(
-        { error: 'Error consultando la IA. Intenta de nuevo en unos minutos.' },
+        { error: err('aiError') },
         { status: 500 }
       );
     }
@@ -188,6 +233,6 @@ Nunca inventes datos técnicos, precios, plazos, garantías, certificaciones, n�
     });
   } catch (error) {
     console.error('Error en /api/agent/chat:', error);
-    return NextResponse.json({ error: 'Error procesando la solicitud.' }, { status: 500 });
+    return NextResponse.json({ error: ERROR_TXT.es.genericError }, { status: 500 });
   }
 }
