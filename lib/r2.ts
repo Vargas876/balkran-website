@@ -10,11 +10,11 @@ function loadEnvValue(key: string): string | undefined {
   return process.env[key];
 }
 
-const accountId = loadEnvValue('R2_ACCOUNT_ID');
-const accessKeyId = loadEnvValue('R2_ACCESS_KEY_ID');
-const secretAccessKey = loadEnvValue('R2_SECRET_ACCESS_KEY');
-export const r2Bucket = loadEnvValue('R2_BUCKET') ?? 'balkran-images';
-export const r2PublicUrl = loadEnvValue('R2_PUBLIC_URL'); // ej: https://pub-xxxx.r2.dev
+const accountId = process.env.R2_ACCOUNT_ID || loadEnvValue('R2_ACCOUNT_ID') || 'c8d97427122096c5e20d23a8181a35dd';
+const accessKeyId = process.env.R2_ACCESS_KEY_ID || loadEnvValue('R2_ACCESS_KEY_ID') || '3c33ce731cfc618e7cbc61d4d63abf5f';
+const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || loadEnvValue('R2_SECRET_ACCESS_KEY') || '1004891a2988abf71480b106361dc5f98df14d6078e7bef3db768f50a40e4738';
+export const r2Bucket = process.env.R2_BUCKET || loadEnvValue('R2_BUCKET') || 'balkran';
+export const r2PublicUrl = process.env.R2_PUBLIC_URL || loadEnvValue('R2_PUBLIC_URL') || 'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev';
 
 export function isR2Configured(): boolean {
   return !!(accountId && accessKeyId && secretAccessKey);

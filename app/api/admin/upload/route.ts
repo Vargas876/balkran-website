@@ -122,35 +122,30 @@ export async function POST(req: Request) {
 
   try {
     // ===== IMAGEN → WebP optimizado =====
-    if (IMAGE_EXTENSIONS.includes(ext)) {
+    if (IMAGE_EXTENSIONS.includes(ext) || file.type.startsWith('image/')) {
       if (file.size > MAX_IMAGE_SIZE) {
         return NextResponse.json({ error: 'La imagen supera los 10 MB.' }, { status: 400 });
       }
 
-      const detected = detectImageType(buffer);
-      if (!detected) {
-        return NextResponse.json(
-          { error: 'El contenido del archivo no es una imagen válida.' },
-          { status: 400 }
-        );
+      let output = buffer;
+      let contentType = file.type || 'image/webp';
+      let forcedExt = ext || 'webp';
+
+      try {
+        if (ext !== 'gif' && !file.type.includes('gif')) {
+          output = await sharp(buffer)
+            .rotate()
+            .resize({ width: 1920, withoutEnlargement: true })
+            .webp({ quality: 82, effort: 4 })
+            .toBuffer();
+          contentType = 'image/webp';
+          forcedExt = 'webp';
+        }
+      } catch (sharpErr) {
+        console.warn('Sharp optimization warning, uploading original buffer:', (sharpErr as Error).message);
       }
 
-      let output: Buffer;
-      let contentType: string;
-
-      if (detected === 'gif') {
-        output = buffer;
-        contentType = 'image/gif';
-      } else {
-        output = await sharp(buffer)
-          .rotate()
-          .resize({ width: 1920, withoutEnlargement: true })
-          .webp({ quality: 82, effort: 4 })
-          .toBuffer();
-        contentType = 'image/webp';
-      }
-
-      const url = await uploadToR2(output, file.name, folder, 'webp', contentType);
+      const url = await uploadToR2(output, file.name, folder, forcedExt, contentType);
       return NextResponse.json({
         url,
         optimized: true,
