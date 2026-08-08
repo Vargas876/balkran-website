@@ -751,7 +751,8 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
             {form.video ? (
               <div className="mt-2 flex items-center gap-3">
                 <video
-                  src={form.video}
+                  src={`${form.video}#t=0.5`}
+                  preload="metadata"
                   controls
                   className="w-40 h-24 bg-black/40 rounded-lg object-contain border border-white/10"
                 />

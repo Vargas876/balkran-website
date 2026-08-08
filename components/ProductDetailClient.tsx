@@ -698,9 +698,21 @@ const whatsapp = get('whatsapp');
                   <button
                     type="button"
                     onClick={() => setIsVideoModalOpen(true)}
-                    className="relative w-20 h-16 rounded-lg bg-[#111111] text-white flex flex-col items-center justify-center gap-1 hover:bg-[#ff5a00] transition-colors shadow-sm"
+                    title="Ver video del producto"
+                    className="relative w-20 h-16 rounded-lg border-2 border-gray-200 hover:border-[#ff5a00] overflow-hidden bg-black transition-all shadow-sm group shrink-0"
                   >
-                    <Play className="w-5 h-5 fill-white text-white" />
+                    <video
+                      src={`${product.video}#t=0.5`}
+                      preload="metadata"
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-[#ff5a00]/30 transition-colors flex items-center justify-center">
+                      <div className="w-7 h-7 rounded-full bg-[#ff5a00] group-hover:bg-white text-white group-hover:text-[#ff5a00] flex items-center justify-center shadow-md transition-colors pl-0.5">
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                      </div>
+                    </div>
                   </button>
                 )}
               </div>
