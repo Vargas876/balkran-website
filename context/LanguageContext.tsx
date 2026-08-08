@@ -729,6 +729,46 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.privacy': 'Política de privacidad',
     'footer.terms': 'Términos y condiciones',
 
+    // Nav dropdowns & Pages
+    'nav.historias': 'HISTORIAS DE ÉXITO',
+    'nav.faq': 'PREGUNTAS FRECUENTES',
+    'nav.manuales': 'MANUALES',
+    'nav.garantias': 'GARANTÍAS Y DEVOLUCIONES',
+    'nav.pqrs': 'PQRS',
+    'nav.informeBic': 'INFORME SOCIEDADES BIC',
+
+    // Historias
+    'historias.badge': 'CASOS DE ÉXITO EN TERRENO',
+    'historias.title': 'Historias de Éxito',
+    'historias.subtitle': 'Descubre cómo nuestros energizadores y cercados eléctricos transforman la productividad y seguridad de fincas y proyectos en Latinoamérica.',
+    'historias.verCaso': 'Ver caso completo',
+    'historias.volver': 'Volver a Historias de Éxito',
+    'historias.anterior': 'Anterior Caso',
+    'historias.siguiente': 'Siguiente Caso',
+    'historias.ficha': 'Ficha Técnica',
+    'historias.equipo': 'Tecnología Instalada',
+    'historias.asesoria': '¿Tienes un proyecto similar?',
+    'historias.desafio': 'El Desafío en Terreno',
+    'historias.solucion': 'La Solución Balkran',
+    'historias.resultados': 'Resultados e Impacto Medible',
+
+    // Manuales
+    'manuales.badge': 'CENTRO DE DESCARGAS Y SOPORTE',
+    'manuales.title': 'Manuales de Usuario y Fichas Técnicas',
+    'manuales.subtitle': 'Descarga las guías oficiales de instalación, mantenimiento y especificaciones técnicas de tus equipos Balkran.',
+    'manuales.searchPlaceholder': 'Buscar manuales por modelo, tipo o palabra clave...',
+    'manuales.descargar': 'Descargar Manual (PDF)',
+    'manuales.filtroTodos': 'Todos los Manuales',
+
+    // Eventos
+    'eventos.badge': 'NOTICIAS E INFORMES CORPORATIVOS',
+    'eventos.title': 'Eventos e Informes BIC',
+    'eventos.subtitle': 'Revisa el historial de ferias internacionales, actividades de sostenibilidad e informes oficiales de gestión BIC bajo la norma ISO 26000.',
+    'eventos.relacionados': 'Otros Informes y Eventos Destacados',
+    'eventos.verTodos': 'Ver todos los informes',
+    'eventos.verInforme': 'Ver Informe',
+    'eventos.verDetalles': 'Ver Detalles',
+
     // Selector
     'lang.es': 'Español (Predeterminado)',
     'lang.en': 'English (Inglés)',
@@ -1477,6 +1517,46 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.privacy': 'Privacy policy',
     'footer.terms': 'Terms & conditions',
 
+    // Nav dropdowns & Pages
+    'nav.historias': 'SUCCESS STORIES',
+    'nav.faq': 'FREQUENTLY ASKED QUESTIONS',
+    'nav.manuales': 'MANUALS & SPECS',
+    'nav.garantias': 'WARRANTY & RETURNS',
+    'nav.pqrs': 'PQRS',
+    'nav.informeBic': 'BIC CORPORATE REPORT',
+
+    // Historias
+    'historias.badge': 'SUCCESS STORIES IN THE FIELD',
+    'historias.title': 'Success Stories',
+    'historias.subtitle': 'Discover how our energizers and electric fences transform productivity and security for farms and projects across Latin America.',
+    'historias.verCaso': 'View full case study',
+    'historias.volver': 'Back to Success Stories',
+    'historias.anterior': 'Previous Case',
+    'historias.siguiente': 'Next Case',
+    'historias.ficha': 'Technical Specs',
+    'historias.equipo': 'Installed Technology',
+    'historias.asesoria': 'Do you have a similar project?',
+    'historias.desafio': 'Field Challenge',
+    'historias.solucion': 'The Balkran Solution',
+    'historias.resultados': 'Measurable Impact & Results',
+
+    // Manuales
+    'manuales.badge': 'DOWNLOAD CENTER & SUPPORT',
+    'manuales.title': 'User Manuals & Technical Datasheets',
+    'manuales.subtitle': 'Download official installation, maintenance, and technical specification guides for your Balkran equipment.',
+    'manuales.searchPlaceholder': 'Search manuals by model, type or keyword...',
+    'manuales.descargar': 'Download Manual (PDF)',
+    'manuales.filtroTodos': 'All Manuals',
+
+    // Eventos
+    'eventos.badge': 'NEWS & CORPORATE REPORTS',
+    'eventos.title': 'Events & BIC Reports',
+    'eventos.subtitle': 'Explore our history of international fairs, sustainability activities, and official BIC management reports under ISO 26000.',
+    'eventos.relacionados': 'Other Featured Reports & Events',
+    'eventos.verTodos': 'View all reports',
+    'eventos.verInforme': 'View Report',
+    'eventos.verDetalles': 'View Details',
+
     // Selector
     'lang.es': 'Spanish (Default)',
     'lang.en': 'English',
@@ -2222,6 +2302,46 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.rights': '2000 - 2026 Balkran INC S.A.S. BIC | Tous droits réservés',
     'footer.privacy': 'Politique de confidentialité',
     'footer.terms': 'Conditions générales',
+
+    // Nav dropdowns & Pages
+    'nav.historias': 'HISTOIRES DE SUCCÈS',
+    'nav.faq': 'FOIRE AUX QUESTIONS',
+    'nav.manuales': 'MANUELS ET FICHES',
+    'nav.garantias': 'GARANTIES ET RETOURS',
+    'nav.pqrs': 'PQRS',
+    'nav.informeBic': 'RAPPORT DE SOCIÉTÉ BIC',
+
+    // Historias
+    'historias.badge': 'CAS DE SUCCÈS SUR LE TERRAIN',
+    'historias.title': 'Histoires de Succès',
+    'historias.subtitle': 'Découvrez comment nos électrificateurs et clôtures électriques transforment la productivité et la sécurité des fermes et projets en Amérique latine.',
+    'historias.verCaso': 'Voir le cas complet',
+    'historias.volver': 'Retour aux Histoires de Succès',
+    'historias.anterior': 'Cas Précédent',
+    'historias.siguiente': 'Cas Suivant',
+    'historias.ficha': 'Fiche Technique',
+    'historias.equipo': 'Technologie Installée',
+    'historias.asesoria': 'Avez-vous un projet similaire ?',
+    'historias.desafio': 'Le Défi sur le Terrain',
+    'historias.solucion': 'La Solution Balkran',
+    'historias.resultados': 'Résultats et Impact Mesurable',
+
+    // Manuales
+    'manuales.badge': 'CENTRE DE TÉLÉCHARGEMENT ET SUPPORT',
+    'manuales.title': 'Manuels d’Utilisation et Fiches Techniques',
+    'manuales.subtitle': 'Téléchargez les guides officiels d’installation, d’entretien et les spécifications techniques de vos équipements Balkran.',
+    'manuales.searchPlaceholder': 'Rechercher un manuel par modèle, type ou mot-clé...',
+    'manuales.descargar': 'Télécharger le Manuel (PDF)',
+    'manuales.filtroTodos': 'Tous les Manuels',
+
+    // Eventos
+    'eventos.badge': 'ACTUALITÉS ET RAPPORTS CORPORATIFS',
+    'eventos.title': 'Événements et Rapports BIC',
+    'eventos.subtitle': 'Consultez l’historique des foires internationales, activités de durabilité et rapports officiels de gestion BIC selon la norme ISO 26000.',
+    'eventos.relacionados': 'Autres Rapports et Événements en Vedette',
+    'eventos.verTodos': 'Voir tous les rapports',
+    'eventos.verInforme': 'Voir le Rapport',
+    'eventos.verDetalles': 'Voir les Détails',
 
     // Selector
     'lang.es': 'Espagnol (par défaut)',

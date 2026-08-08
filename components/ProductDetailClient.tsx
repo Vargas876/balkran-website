@@ -195,16 +195,8 @@ const whatsapp = get('whatsapp');
   if (product.peso) techRows.push({ label: t('detail.tableWeight'), value: product.peso });
   techRows.push({ label: t('detail.tableWarranty'), value: t('detail.warranty3') });
 
-  // Gallery image list (Main product image + optional gallery from DB, else fixed closeups)
-  const galleryImages = (product.imagenes && product.imagenes.length > 0
-    ? [product.imagen_local, ...product.imagenes]
-    : [
-        product.imagen_local,
-        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/09P0SGmGDpn291FCF2VooQ3BRLE.webp',
-        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/1qGLo1NIVhFclbgu6nVpbs9coG4.webp',
-        'https://pub-bb81d345e2ff4a42b53daa6037caad09.r2.dev/assets/images/raF4WaHkDInyAIl4Bq7JbtFY.webp',
-      ]
-  ).filter((src): src is string => !!src);
+  // Gallery image list (Original product image)
+  const galleryImages = [product.imagen_local].filter((src): src is string => !!src);
 
   const handleAddToCart = () => {
     setAddedToCart(true);
@@ -641,68 +633,73 @@ const whatsapp = get('whatsapp');
                   </div>
 
                   {/* Bottom Thumbnails */}
-                  <div className="flex items-center justify-center gap-3 z-10 pt-2" onClick={(e) => e.stopPropagation()}>
-                    {galleryImages.map((imgSrc, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setSelectedImageIndex(idx)}
-                        className={`relative w-16 h-12 rounded-lg border-2 overflow-hidden bg-black/40 transition-all p-1 flex items-center justify-center ${
-                          selectedImageIndex === idx
-                            ? 'border-[#ff5a00] scale-105'
-                            : 'border-white/30 opacity-70 hover:opacity-100'
-                        }`}
-                      >
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={imgSrc}
-                            alt={`Miniatura ampliada ${idx + 1}`}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+                  {galleryImages.length > 1 && (
+                    <div className="flex items-center justify-center gap-3 z-10 pt-2" onClick={(e) => e.stopPropagation()}>
+                      {galleryImages.map((imgSrc, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setSelectedImageIndex(idx)}
+                          className={`relative w-16 h-12 rounded-lg border-2 overflow-hidden bg-black/40 transition-all p-1 flex items-center justify-center ${
+                            selectedImageIndex === idx
+                              ? 'border-[#ff5a00] scale-105'
+                              : 'border-white/30 opacity-70 hover:opacity-100'
+                          }`}
+                        >
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={imgSrc}
+                              alt={`Miniatura ampliada ${idx + 1}`}
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
 
             {/* Thumbnails Strip & Video Button */}
-            <div className="flex items-center justify-center gap-3 pt-2">
-              {galleryImages.map((imgSrc, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setSelectedImageIndex(idx)}
-                  className={`relative w-20 h-16 rounded-lg border-2 overflow-hidden bg-white transition-all p-1 flex items-center justify-center ${
-                    selectedImageIndex === idx
-                      ? 'border-[#ff5a00] shadow-sm'
-                      : 'border-gray-200 hover:border-gray-300 opacity-80 hover:opacity-100'
-                  }`}
-                >
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={imgSrc}
-                      alt={`Miniatura ${idx + 1}`}
-                      fill
-                      className="object-contain object-center"
-                    />
-                  </div>
-                </button>
-              ))}
+            {(galleryImages.length > 1 || product.video) && (
+              <div className="flex items-center justify-center gap-3 pt-2">
+                {galleryImages.length > 1 &&
+                  galleryImages.map((imgSrc, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setSelectedImageIndex(idx)}
+                      className={`relative w-20 h-16 rounded-lg border-2 overflow-hidden bg-white transition-all p-1 flex items-center justify-center ${
+                        selectedImageIndex === idx
+                          ? 'border-[#ff5a00] shadow-sm'
+                          : 'border-gray-200 hover:border-gray-300 opacity-80 hover:opacity-100'
+                      }`}
+                    >
+                      <div className="relative w-full h-full">
+                        <Image
+                          src={imgSrc}
+                          alt={`Miniatura ${idx + 1}`}
+                          fill
+                          className="object-contain object-center"
+                        />
+                      </div>
+                    </button>
+                  ))}
 
-              {/* Video Thumbnail Button */}
-              {product.video && (
-                <button
-                  type="button"
-                  onClick={() => setIsVideoModalOpen(true)}
-                  className="relative w-20 h-16 rounded-lg bg-[#111111] text-white flex flex-col items-center justify-center gap-1 hover:bg-[#ff5a00] transition-colors shadow-sm"
-                >
-                  <Play className="w-5 h-5 fill-white text-white" />
-                </button>
-              )}
-            </div>
+                {/* Video Thumbnail Button */}
+                {product.video && (
+                  <button
+                    type="button"
+                    onClick={() => setIsVideoModalOpen(true)}
+                    className="relative w-20 h-16 rounded-lg bg-[#111111] text-white flex flex-col items-center justify-center gap-1 hover:bg-[#ff5a00] transition-colors shadow-sm"
+                  >
+                    <Play className="w-5 h-5 fill-white text-white" />
+                  </button>
+                )}
+              </div>
+            )}
 
           </div>
 

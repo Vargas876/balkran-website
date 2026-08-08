@@ -56,15 +56,15 @@ export default function Navbar() {
   const sobreBalkranLinks = [
     { name: t('footer.nosotros'), href: '/nosotros' },
     { name: t('footer.eventos'), href: '/eventos' },
-    { name: 'HISTORIAS DE ÉXITO', href: '/historias' },
+    { name: t('nav.historias'), href: '/historias' },
   ];
 
   const ayudaLinks = [
-    { name: 'PREGUNTAS FRECUENTES', href: '/preguntas-frecuentes' },
-    { name: 'MANUALES', href: '/manuales' },
-    { name: 'GARANTÍAS Y DEVOLUCIONES', href: '/garantias-y-devoluciones' },
-    { name: 'PQRS', href: '/pqrs' },
-    { name: 'INFORME SOCIEDADES BIC', href: '/eventos/informe-sociedades-bic-2025' },
+    { name: t('nav.faq'), href: '/preguntas-frecuentes' },
+    { name: t('nav.manuales'), href: '/manuales' },
+    { name: t('nav.garantias'), href: '/garantias-y-devoluciones' },
+    { name: t('nav.pqrs'), href: '/pqrs' },
+    { name: t('nav.informeBic'), href: '/eventos/informe-sociedades-bic-2025' },
   ];
 
   const isActive = (path: string) => {
