@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import type { ProductFormData } from '@/lib/productSchema';
 import { PRODUCT_PRESETS } from '@/lib/presets';
+import { compressImageClient } from '@/lib/clientImageCompressor';
 
 const PRESET_ICONS: Record<string, typeof Zap> = {
   Zap,
@@ -213,14 +214,27 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
   }
 
   async function uploadToR2(file: File, folder: string): Promise<string> {
+    let fileToUpload = file;
+    if (file.type.startsWith('image/')) {
+      fileToUpload = await compressImageClient(file);
+    }
+
+    if (fileToUpload.size > 4.2 * 1024 * 1024) {
+      throw new Error(
+        `El archivo "${file.name}" (${(fileToUpload.size / (1024 * 1024)).toFixed(
+          1
+        )} MB) supera el límite máximo de 4.5 MB del servidor. Selecciona un archivo más liviano.`
+      );
+    }
+
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', fileToUpload);
     formData.append('folder', folder);
     const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
     if (!res.ok) {
       let msg = 'Error subiendo el archivo.';
       if (res.status === 413) {
-        msg = `El archivo es demasiado grande para el servidor (límite ~4.5 MB). Comprímelo o reduce su tamaño antes de subirlo.`;
+        msg = `El archivo "${file.name}" es demasiado grande para el servidor (límite 4.5 MB). Por favor selecciona una imagen más liviana.`;
       } else {
         const data = await res.json().catch(() => ({}));
         msg = data.error ?? `Error subiendo el archivo (${res.status}).`;
@@ -535,6 +549,18 @@ const [uploadingVideo, setUploadingVideo] = useState(false);
 
       {tab === 'imagenes' && (
         <div className="space-y-5">
+          {error && (
+            <div className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 flex items-center justify-between text-red-300 text-xs">
+              <span>⚠️ {error}</span>
+              <button
+                type="button"
+                onClick={() => setError(null)}
+                className="text-red-300/60 hover:text-red-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
           <div>
             <label className={labelClass}>Imagen principal</label>
             <div className="flex items-start gap-3">

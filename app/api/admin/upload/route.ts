@@ -87,7 +87,16 @@ export async function POST(req: Request) {
     );
   }
 
-  const formData = await req.formData();
+  let formData: FormData;
+  try {
+    formData = await req.formData();
+  } catch (err) {
+    return NextResponse.json(
+      { error: 'El archivo excede el tamaño máximo permitido por el servidor (límite 4.5 MB).' },
+      { status: 413 }
+    );
+  }
+
   const file = formData.get('file');
   if (!(file instanceof File)) {
     return NextResponse.json({ error: 'Archivo no enviado' }, { status: 400 });

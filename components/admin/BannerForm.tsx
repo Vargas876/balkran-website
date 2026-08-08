@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, Loader2 } from 'lucide-react';
+import { compressImageClient } from '@/lib/clientImageCompressor';
 
 type BannerFormData = {
   imagen: string;
@@ -37,13 +38,32 @@ export default function BannerForm({
     setUploading(true);
     setError(null);
     try {
+      let fileToUpload = file;
+      if (file.type.startsWith('image/')) {
+        fileToUpload = await compressImageClient(file);
+      }
+
+      if (fileToUpload.size > 4.2 * 1024 * 1024) {
+        throw new Error(
+          `La imagen (${(fileToUpload.size / (1024 * 1024)).toFixed(
+            1
+          )} MB) supera el límite máximo permitido de 4.5 MB.`
+        );
+      }
+
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', fileToUpload);
       formData.append('folder', 'banners');
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? 'Error subiendo la imagen.');
+        let msg = 'Error subiendo la imagen.';
+        if (res.status === 413) {
+          msg = 'La imagen es demasiado grande para el servidor (límite 4.5 MB). Por favor selecciona una imagen más liviana.';
+        } else {
+          const data = await res.json().catch(() => ({}));
+          msg = data.error ?? `Error subiendo la imagen (${res.status}).`;
+        }
+        throw new Error(msg);
       }
       const data = await res.json();
       setForm((prev) => ({ ...prev, imagen: data.url }));
