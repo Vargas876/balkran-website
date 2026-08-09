@@ -80,7 +80,7 @@ function RenderSectorIcon({ sector }: { sector: string }) {
       return (
         <svg width="18" height="18" className="w-4 h-4 text-[#ff5a00] shrink-0" viewBox="0 -1 24 26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M 0 0 C 0 2.485 2.015 4.5 4.5 4.5 L 9 4.5 C 11.485 4.5 13.5 2.485 13.5 0" transform="translate(5.25 2.25)" />
-          <path d="M 3 6 C 1.343 6 0 4.657 0 3 L 0 3 C 0 1.343 1.343 0 3 0 L 12 0 C 13.657 0 15 1.343 13.657 6 12 6 Z" transform="translate(4.5 15)" />
+          <path d="M 3 6 C 1.343 6 0 4.657 0 3 L 0 3 C 0 1.343 1.343 0 3 0 L 12 0 C 13.657 0 15 1.343 15 3 L 15 3 C 15 4.657 13.657 6 12 6 Z" transform="translate(4.5 15)" />
           <path d="M 0 0 L 1.5 0" transform="translate(7.5 18)" />
           <path d="M 0 0 L 1.5 0" transform="translate(15 18)" />
           <circle cx="9.375" cy="11.625" r="1.125" fill="currentColor" />
