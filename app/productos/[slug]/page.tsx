@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   const url = `${getSiteUrl()}/productos/${product.slug}`;
-  const title = `${product.nombre} (${product.linea}) – Cercas Eléctricas | Balkran`;
+  const title = `${product.nombre} (${product.linea}) – Cercas Eléctricas`;
   const description = `Conoce las especificaciones técnicas y beneficios de ${product.nombre} (${product.linea}). Alcance: ${product.alcance || 'Hasta 40 km'}. Garantía oficial Balkran.`;
 
   return {
