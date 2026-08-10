@@ -922,7 +922,6 @@ export default function HomePage() {
             alt="Fondo Campo Balkran"
             fill
             className="object-cover object-center"
-            priority
           />
           {/* Soft natural golden gradient overlay for text legibility while keeping image vivid */}
           <div className="absolute inset-0 bg-gradient-to-r from-white/75 via-white/50 to-transparent" />
@@ -1115,7 +1114,6 @@ export default function HomePage() {
             src={applications[activeAppTab].image}
             alt={applications[activeAppTab].cardTitle}
             fill
-            priority
             className="object-cover transition-all duration-700 ease-in-out"
           />
           {/* Natural Left Dark Gradient Fade ONLY behind the left menu text to keep right image vivid */}
@@ -1958,7 +1956,6 @@ export default function HomePage() {
               alt="Balkran Asesoría y Cotización Banner"
               fill
               className="object-cover object-[60%_50%] brightness-[0.9]"
-              priority
             />
             {/* Subtle Gradient Overlay on Left for readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent pointer-events-none" />

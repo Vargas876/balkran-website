@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import { 
-  CalendarDays, FileText, ArrowLeft, Quote, ZoomIn, 
+  CalendarDays, ArrowLeft, Quote, ZoomIn, 
   Award, Sparkles, MapPin, ArrowRight, ChevronRight, Download, FileCheck, Share2
 } from 'lucide-react';
 import { eventos, getEventoBySlug } from '@/lib/eventos';
@@ -16,9 +16,6 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
   es: {
     'backToEvents': 'Volver a Eventos e Informes',
     'iso26000Badge': 'Sostenibilidad ISO 26000',
-    'officialDocs': 'Documentación Oficial',
-    'pdfAvailable': 'Informe PDF Disponible',
-    'downloadPdf': 'Descargar PDF',
     'eventSheet': 'Ficha de Evento',
     'recordInfo': 'Información del registro',
     'category': 'Categoría:',
@@ -45,9 +42,6 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
   en: {
     'backToEvents': 'Back to Events and Reports',
     'iso26000Badge': 'ISO 26000 Sustainability',
-    'officialDocs': 'Official Documentation',
-    'pdfAvailable': 'PDF Report Available',
-    'downloadPdf': 'Download PDF',
     'eventSheet': 'Event Record',
     'recordInfo': 'Registration information',
     'category': 'Category:',
@@ -74,9 +68,6 @@ const L: Record<'es' | 'en' | 'fr', Record<string, string>> = {
   fr: {
     'backToEvents': 'Retour aux événements et rapports',
     'iso26000Badge': 'Durabilité ISO 26000',
-    'officialDocs': 'Documentation officielle',
-    'pdfAvailable': 'Rapport PDF disponible',
-    'downloadPdf': 'Télécharger le PDF',
     'eventSheet': 'Fiche de l\'événement',
     'recordInfo': 'Informations du registre',
     'category': 'Catégorie :',
@@ -168,29 +159,6 @@ function EventoDetailPage() {
                 {pick(lang, evento.descripcionCorta)}
               </p>
             </div>
-
-            {evento.pdf && (
-              <div className="lg:col-span-4 bg-slate-900 text-white border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#ff5a00]/20 text-[#ff5a00] flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">{l('officialDocs')}</span>
-                    <h3 className="font-display font-extrabold text-base text-white">{l('pdfAvailable')}</h3>
-                  </div>
-                </div>
-                <a
-                  href={evento.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#ff5a00] hover:bg-orange-600 text-white font-display text-xs font-bold uppercase tracking-wider px-5 py-3.5 rounded-xl transition-all w-full flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{pick(lang, evento.pdfLabel) || l('downloadPdf')}</span>
-                </a>
-              </div>
-            )}
 
           </div>
         </div>
