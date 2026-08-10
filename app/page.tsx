@@ -67,7 +67,6 @@ function KitSolarParallaxImage() {
           width={1000}
           height={780}
           priority
-          fetchPriority="high"
           className="w-full h-auto object-contain pointer-events-none"
         />
       </motion.div>
