@@ -67,6 +67,7 @@ function KitSolarParallaxImage() {
           width={1000}
           height={780}
           priority
+          fetchPriority="high"
           className="w-full h-auto object-contain pointer-events-none"
         />
       </motion.div>
@@ -549,6 +550,7 @@ export default function HomePage() {
             sizes="100vw"
             className="object-cover object-[72%_center] lg:object-[68%_center] brightness-[1.22] contrast-[1.08] saturate-[1.2]"
             priority
+            fetchPriority="high"
           />
           {/* Contrast Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-black/10 z-1" />
