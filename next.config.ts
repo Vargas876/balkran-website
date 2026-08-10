@@ -43,6 +43,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   experimental: {
     cpus: 2,
+    inlineCss: true,
   },
   images: {
     unoptimized: false,
