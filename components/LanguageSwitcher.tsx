@@ -81,7 +81,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-[#14171f]/95 backdrop-blur-md hover:bg-[#1f2430] text-white rounded-full px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-2xl border border-white/20 flex items-center gap-2 transition-all transform hover:scale-105 active:scale-95 group"
-        aria-label="Cambiar idioma"
+        aria-label={`Cambiar idioma (actual: ${currentLangObj.nativeName} - ${currentLangObj.code.toUpperCase()})`}
       >
         <span className="text-base leading-none">{currentLangObj.flag}</span>
         <span className="font-display font-extrabold text-[11px] sm:text-xs tracking-wider uppercase text-white">

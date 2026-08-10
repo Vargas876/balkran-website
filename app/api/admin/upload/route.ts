@@ -127,13 +127,13 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'La imagen supera los 10 MB.' }, { status: 400 });
       }
 
-      let output = buffer;
+      let output: Buffer = buffer;
       let contentType = file.type || 'image/webp';
       let forcedExt = ext || 'webp';
 
       try {
         if (ext !== 'gif' && !file.type.includes('gif')) {
-          output = await sharp(buffer)
+          output = await sharp(buffer as Uint8Array)
             .rotate()
             .resize({ width: 1920, withoutEnlargement: true })
             .webp({ quality: 82, effort: 4 })

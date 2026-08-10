@@ -967,12 +967,13 @@ export default function HomePage() {
                   <div className="w-8 h-8 rounded-full bg-[#ff5a00]/10 text-[#ff5a00] flex items-center justify-center mb-1">
                     <Shield className="w-5 h-5 text-[#ff5a00]" />
                   </div>
-                  <h4 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
+                  <h3 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
                     {t('home.advQ1')}
-                  </h4>
+                  </h3>
                   <select
                     value={advisorProtect}
                     onChange={(e) => setAdvisorProtect(e.target.value)}
+                    aria-label={t('home.advQ1')}
                     className="w-full text-[13px] font-semibold text-[#ff5a00] bg-transparent text-center focus:outline-none cursor-pointer p-1"
                   >
                     <option value="Ganadería">Ganadería</option>
@@ -989,12 +990,13 @@ export default function HomePage() {
                   <div className="w-8 h-8 rounded-full bg-[#ff5a00]/10 text-[#ff5a00] flex items-center justify-center mb-1">
                     <MapPin className="w-5 h-5 text-[#ff5a00]" />
                   </div>
-                  <h4 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
+                  <h3 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
                     {t('home.advQ2')}
-                  </h4>
+                  </h3>
                   <select
                     value={advisorDistance}
                     onChange={(e) => setAdvisorDistance(e.target.value)}
+                    aria-label={t('home.advQ2')}
                     className="w-full text-[13px] font-semibold text-[#ff5a00] bg-transparent text-center focus:outline-none cursor-pointer p-1"
                   >
                     <option value="Hasta 30 km">Hasta 30 km</option>
@@ -1010,12 +1012,13 @@ export default function HomePage() {
                   <div className="w-8 h-8 rounded-full bg-[#ff5a00]/10 text-[#ff5a00] flex items-center justify-center mb-1">
                     <Zap className="w-5 h-5 text-[#ff5a00]" />
                   </div>
-                  <h4 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
+                  <h3 className="font-display font-semibold text-[13px] text-[#111111] leading-tight mb-2">
                     {t('home.advQ3')}
-                  </h4>
+                  </h3>
                   <select
                     value={advisorPower}
                     onChange={(e) => setAdvisorPower(e.target.value)}
+                    aria-label={t('home.advQ3')}
                     className="w-full text-[13px] font-semibold text-[#ff5a00] bg-transparent text-center focus:outline-none cursor-pointer p-1"
                   >
                     <option value="110V">Línea 110V</option>
