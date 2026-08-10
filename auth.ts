@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { authConfig } from '@/auth.config';
 import { prisma } from '@/lib/prisma';
 import { verifyTurnstileToken } from '@/lib/turnstile';
+import { verifyOtpSessionToken } from '@/lib/otp';
 
 class PendingApprovalError extends CredentialsSignin {
   code = 'PENDING_APPROVAL';
@@ -52,8 +53,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: 'Email', type: 'email' },
         password: { label: 'Contraseña', type: 'password' },
         turnstileToken: { label: 'Turnstile', type: 'text' },
+        otpToken: { label: 'Código OTP', type: 'text' },
       },
       authorize: async (credentials, request) => {
+        // Ruta 2FA: el token OTP firmado sustituye la contraseña.
+        // La contraseña ya se validó en /api/auth/otp/request.
+        if (typeof credentials?.otpToken === 'string' && credentials.otpToken) {
+          const email = await verifyOtpSessionToken(credentials.otpToken);
+          if (!email) return null;
+
+          const user = await prisma.user.findUnique({
+            where: { email },
+          });
+          if (!user || !user.isActive) return null;
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          };
+        }
+
         const ip = clientIp(request.headers);
 
         // Bloquea si Turnstile no está resuelto (falla cerrado por seguridad).
@@ -61,7 +82,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           typeof credentials?.turnstileToken === 'string'
             ? credentials.turnstileToken
             : null,
-          ip
+          ip,
+          request.headers.get('host')
         );
         if (!turnstileOk) return null;
 

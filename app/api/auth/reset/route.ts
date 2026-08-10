@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip);
+  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip, request.headers.get('host'));
   if (!turnstileOk) {
     return NextResponse.json(
       { error: 'Verificación de seguridad fallida. Recarga e intenta de nuevo.' },

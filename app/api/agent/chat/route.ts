@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     // en conversaciones largas, pero bloquea bots que comienzan a chatear).
     const firstMessage = (await prisma.chatMessage.count({ where: { sessionId } })) === 0;
     if (firstMessage) {
-      const turnstileOk = await verifyTurnstileToken(body?.turnstileToken ?? null, ip);
+      const turnstileOk = await verifyTurnstileToken(body?.turnstileToken ?? null, ip, request.headers.get('host'));
       if (!turnstileOk) {
         return NextResponse.json(
           { error: err('turnstileFailed') },

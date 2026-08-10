@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Correo inválido.' }, { status: 400 });
   }
 
-  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip);
+  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip, request.headers.get('host'));
   if (!turnstileOk) {
     return NextResponse.json(
       { error: 'Verificación de seguridad fallida. Recarga e intenta de nuevo.' },

@@ -74,6 +74,19 @@ model PasswordResetToken {
   @@index([userId])
 }
 
+// Códigos OTP para verificación por correo al iniciar sesión (2FA)
+model OtpChallenge {
+  id        String   @id @default(cuid())
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
 model Product {
   id               String   @id @default(cuid())
   slug             String   @unique

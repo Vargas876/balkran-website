@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 import { verifyTurnstileToken } from '@/lib/turnstile';
+import { sendInquiryNotification } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Algunos campos son inválidos.' }, { status: 400 });
   }
 
-  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip);
+  const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip, request.headers.get('host'));
   if (!turnstileOk) {
     return NextResponse.json(
       { error: 'Verificación de seguridad fallida. Recarga e intenta de nuevo.' },
@@ -54,6 +55,18 @@ export async function POST(request: Request) {
       message,
       tipo,
     },
+  });
+
+  // Notifica por correo a Balkran (no bloquea la respuesta si el envío falla).
+  sendInquiryNotification({
+    id: inquiry.id,
+    name: inquiry.name,
+    email: inquiry.email,
+    phone: inquiry.phone,
+    tipo: inquiry.tipo,
+    message: inquiry.message,
+  }).catch((err) => {
+    console.error('Error en notificación PQR (no bloqueante):', err);
   });
 
   return NextResponse.json({ ok: true, id: inquiry.id }, { status: 201 });
