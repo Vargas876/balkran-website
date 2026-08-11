@@ -19,6 +19,12 @@ body {
   overflow-x: hidden;
 }
 
+input::placeholder,
+textarea::placeholder {
+  font-family: var(--font-redhat-text), var(--font-redhat-display), sans-serif;
+  font-variant-numeric: normal;
+}
+
 /* Compact & Refined Radar Map Pulse Animations */
 @keyframes mapPulseRing {
   0% {
